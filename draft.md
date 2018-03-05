@@ -18,23 +18,41 @@ In the present study, we examined the extent to which connectivity among lakes v
 
 ## Methods
 
+### Vollenweider
+
+Lake P retention is typically modelled as a non-linear function of water residence time using a set of equations known as the Vollenweider equations (citation). Although there are several variants of these equations, we use a 2-parameter model that has been shown to be the best fitting in a variety of cross-sectional studies:
+
+\begin{equation}
+R_{p} = 1 - \frac{1}{1 + k\tau^{x}}
+\end{equation}
+
+where $k$ and $x$ are adjustable (fitted) parameter coefficients and $\tau$ is water residence time. First, we used this model to examine the overall relationship between P retention and water residence time for all lakes in the study dataset. Next, we explored hierarchical versions of Eq. 1:
+
+\begin{equation}
+R_{p} = 1 - \frac{1}{1 + k_{j}\tau^{x}}
+\end{equation}
+
+\begin{equation}
+k_{j} = partition
+\end{equation}
+
+where different values of $k_{j}$ are estimated for sub-populations of the overall lakes dataset. 
+
+We assigned lakes to each sub-population based on These sub-populations where a lake is assigned to either a high connectivity or low connectivity sub-population. 
+
+individual membership in connectivity metric paritions of the basis of binary conditional inference trees:
+
 ### Connectivity metrics
 
 We calculated several stream connectivity metrics including average link length, stream order ratio, and the closest distance to an upstream lake. Both average link length and stream order ratio are approximations of stream network complexity (citation, fractal stream book). Low connectivity lakes likely have highly complex stream networks with a short average link length and a high stream order ratio. The first step in calculating average link length is to dissolve stream network nodes that do not occur at a "fork". Next, the total stream length in the upstream watershed is divided by the total number of stream reaches. Stream order ratio is calculated by dividing the number of first-order streams in the upstream watershed of a given lake by the total number of higher order (Strahler) streams (citation). Finally, we calculated closest distance to an upstream lake on a path-distance basis (as the fish swims) rather than on a straight-line basis (as the crow flies).
 
 In addition to stream connectivity metrics, we calculated several lake connectivity metrics including total upstream lake area, number of upstream lakes, and presence/abscence of an upstream lake. For the purposes of calculating lake connectivity metrics, we defined a lake as any waterbody with an area greater than 4 ha (convert to km2). Low connectivity lakes likely have low total upstream area and few upstream lakes. 
 
-We calculated both lake and stream connectivity metrics at multiple scales (Figure 1). First, we calculated connectivity metrics at the scale of individual lake watersheds (iws scale). Next, we calculated connecitivity metrics at the scale of entire upstream lake networks (nws scale). 
+We calculated both lake and stream connectivity metrics at multiple scales (Figure 1). First, we calculated connectivity metrics at the scale of individual lake watersheds (iws scale). Individual lake watersheds are defined as the area draining to a particular lake exclusive of any upstream areas that drain into a lake greater or equal to 10 ha (Figure 1). We also calculated connectivity metrics at the scale of entire upstream lake networks (nws scale). Network watersheds are defined as the area draining into any part the upstream network regardless of the presence or abscence of upstream lakes.
 
-![iws nws diagram](figures/iws_nws.png)
+![Diagram of the individual lake watershed and network watershed scales. In this example, the lake-watershed for lake 3 includes the lake-watershed of lake 2 because lake 2 is smaller than 10 ha.](figures/iws_nws.png)
 
-We examined the influence of many of our connectivity metrics on P cycling both at the scale of an invidual lake watershed and at the scale of the watershed of the entire upstream lake network. 
-
-### Vollenweider
-
-First, we used the Vollenweider model to establish the overall relationship between P retention and water residence time among lakes included in our dataset. 
-
-### Software
+We calculated stream connectivity metrics using the `streamnet` and `nhdR` packages (citations). The algorithms in the `streamnet` package use the  `v.net` and `v.stream.order` modules (citations) included in GRASS GIS (citation). We calculated lake connectivity metrics using LAGOSNE (citation). Both sets of connectivity metrics were calculated using the (**include the NHD scale here**) National Hydrography Dataset (NHD) as input.
 
 ## Results
 
