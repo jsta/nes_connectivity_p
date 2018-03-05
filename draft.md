@@ -6,7 +6,13 @@ Lake water residence time and depth are known to be strong predictors of phospho
 
 ## Introduction
 
-A comprehensive understanding of P cycling at broad scales is necessary to manage the risks of eutrophication from excess nutrient loading (citation). One of the critical steps in the P cycle occurs when P inputs to lakes are subject to processing as a result of uptake, burial, and resuspension (citation). The extent of such processing varying amoung lakes and is known as _P retention_. The individual components of in-lake P processing have been the subject of intense study at the individual lake level. **For example, citation A discovered this while citation B showed that.** However, process-based study of these details is not feasible for hundreds of lakes at the regional scale. 
+### Importance of P retention
+
+A comprehensive understanding of P cycling at broad scales is necessary to manage the risks of eutrophication from excess nutrient loading (citation). One of the critical steps in the P cycle occurs when P inputs to lakes are subject to processing as a result of uptake, burial, and resuspension (citation). The extent of such processing varying amoung lakes and is known as _P retention_. 
+
+The individual components of in-lake P processing have been the subject of intense study at the individual lake level. **For example, citation A discovered this while citation B showed that.** However, process-based study of these details is not feasible for hundreds of lakes at the regional scale. 
+
+### 
 
 In the present study, we examined the extent to which connectivity among lakes versus connectivity between lakes and streams contributes to differences in P retention among lakes.
 
@@ -14,9 +20,13 @@ In the present study, we examined the extent to which connectivity among lakes v
 
 ### Connectivity metrics
 
-We calculated several stream connectivity metrics including average link length, stream order ratio, and the closest distance to an upstream lake. Both average link length and stream order ration are approximations of stream network complexity (citation, fractal stream book). It is calculated by dissolving stream network nodes that do not occur at a "fork" and dividing the total stream length in the upstream watershed by the total number of stream reaches. Stream order ratio is calculated by dividing the number of first-order streams in the upstream watershed of a given lake by the total number of higher order streams. For this analysis we used Strahler stream order (citation). A high stream order ratio indicates a high complexity of streams in the watershed. P inputs to a lake with a high stream order ratio have likely undergone less in-stream processing as high order streams are known to have long/short "spiral distances"(citation). Closest distance to an upstream lake may covary with the type of P inputs. It is calculated on a path-distance basis (as the fish swims) rather than on a straight-line basis (as the crow flies). 
+We calculated several stream connectivity metrics including average link length, stream order ratio, and the closest distance to an upstream lake. Both average link length and stream order ratio are approximations of stream network complexity (citation, fractal stream book). Low connectivity lakes likely have highly complex stream networks with a short average link length and a high stream order ratio. The first step in calculating average link length is to dissolve stream network nodes that do not occur at a "fork". Next, the total stream length in the upstream watershed is divided by the total number of stream reaches. Stream order ratio is calculated by dividing the number of first-order streams in the upstream watershed of a given lake by the total number of higher order (Strahler) streams (citation). Finally, we calculated closest distance to an upstream lake on a path-distance basis (as the fish swims) rather than on a straight-line basis (as the crow flies).
 
-In addition to stream connectivity metrics we calculated several lake connectivity metrics including total upstream lake area, number of upstream lakes, and the presence of an upstream lake. 
+In addition to stream connectivity metrics, we calculated several lake connectivity metrics including total upstream lake area, number of upstream lakes, and presence/abscence of an upstream lake. For the purposes of calculating lake connectivity metrics, we defined a lake as any waterbody with an area greater than 4 ha (convert to km2). Low connectivity lakes likely have low total upstream area and few upstream lakes. 
+
+We calculated both lake and stream connectivity metrics at multiple scales (Figure 1). First, we calculated connectivity metrics at the scale of individual lake watersheds (iws scale). Next, we calculated connecitivity metrics at the scale of entire upstream lake networks (nws scale). 
+
+![iws nws diagram](figures/iws_nws.png)
 
 We examined the influence of many of our connectivity metrics on P cycling both at the scale of an invidual lake watershed and at the scale of the watershed of the entire upstream lake network. 
 
@@ -45,3 +55,5 @@ Lakes with both high lake connectivity and high stream connecitvity were most of
 ## Discussion
 
 Stream connectivity is really stream _complexity_. 
+
+A high stream order ratio indicates a high complexity of streams in the watershed. P inputs to a lake with a high stream order ratio have likely undergone less in-stream processing as high order streams are known to have long/short "spiral distances"(citation).

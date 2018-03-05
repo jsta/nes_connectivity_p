@@ -1,0 +1,8 @@
+figures/beamer-lake-fig
+.log
+*.log
+*.out
+*.nav
+*.snm
+*.toc
+*.aux
