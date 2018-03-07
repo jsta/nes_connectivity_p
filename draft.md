@@ -9,17 +9,17 @@ Lake water residence time and depth are known to be strong predictors of phospho
 
 ## Introduction
 
-### Importance of nut predictions
+### Importance of nutrient predictions
 
 A comprehensive understanding of P cycling at broad scales is necessary to predict nutrient concentrations among many different lake types and to better manage the risks of eutrophication from excess nutrient loading (Smith 2003). These predictions can ultimately be used to implement management actions aimed at avoiding phenomena such as algal blooms and fish kills which can negatively affect human health and degrade ecosystem services. 
 
 ### Importance of P retention
 
-Although both nitrogen (N) and phosphorus loading contribute to eutrophication risk, studies on lake nutrient retention commonly focus solely on phosphorus (P). This focus on P retention is a result of strong evidence that P rather than N is the primary limiting nutrient in lakes (Schindler 1977). Although later studies found that N and N:P ratios strongly control primary production in some lakes, P concentration is strongly correlated with phytoplankton primary production in most lakes (Downing et al. 2001, Elser et al. 2007).  Modelling P retention rather than P concentration is attractive for assessing eutrophication risk because it is a unitless (\%) measure that can easily be compared among different lakes irrespective of their baseline nutrient concentrations or total nutrient inputs (Brett and Benjamin 2007).
+Although both nitrogen (N) and phosphorus loading contribute to eutrophication risk, studies on lake eutrophication risk commonly focus solely on phosphorus (P). This focus on P is a result of strong evidence that P rather than N is the primary limiting nutrient in lakes (Schindler 1977). Although later studies found that N and N:P ratios strongly control primary production in some lakes, P concentration is strongly correlated with phytoplankton primary production in most lakes (Downing et al. 2001, Elser et al. 2007).  In the present study, we focus on P retention rather than P concentration because it is a unitless (\%) measure that can easily be compared among different lakes irrespective of their baseline nutrient concentrations or total nutrient inputs (Brett and Benjamin 2007). P retention is typically bounded at 0 in the case where all P inputs exit the lake via outflow or sedimentation and bounded at 1 in the case where all nutrient inputs are retained in the water column (citation).
 
 ### P Retention Knowledge Gap
 
-One of the primary challenges of predicting nutrient concentrations is that lake nutrient concentrations are not simply a function of total inputs to the lake, but rather a function of complex interactions between lake characteristics and biogeochemical cycles. For example, lake phosphorus concentration is a function of biological response to phosphorus loading yet this response is not only a function of load but also depends on lake characteristics such as depth and biogeochemical cycling with iron (Sondergaard 2003, Wagner et al. 2011). Such interactions may obscure direct relationships between nutrient concentration and total nutrient inputs.
+One of the primary challenges of predicting P retention is that lake nutrient concentrations are not simply a function of total inputs to the lake, but rather a function of complex interactions between lake characteristics and biogeochemical cycles. For example, lake phosphorus concentration is a function of biological response to phosphorus loading yet this response is not only a function of load but also depends on lake characteristics such as depth and biogeochemical cycling with iron (Sondergaard 2003, Wagner et al. 2011). Such interactions may obscure direct relationships between nutrient concentration and total nutrient inputs.
 
 One of the critical steps in the P cycle occurs when P inputs to lakes are subject to processing as a result of uptake, burial, and resuspension (citation). The extent of such processing varies among lakes and is known as _P retention_. 
 
