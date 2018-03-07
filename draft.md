@@ -84,11 +84,24 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 * Lakes with both high lake connectivity and high stream connectivity were most often found in the northern portions of the study area.
 
 
+|Metric        | Split Value|Scale |
+|:-------------|-----------:|:-----|
+|baseflow      |       63.76|iws   |
+|cd            |       -1.51|iws   |
+|cd            |       -1.47|nws   |
+|linklength    |     2177.08|iws   |
+|linklength    |     2237.34|nws   |
+|maxdepth      |       19.81|misc  |
+|sr            |        0.67|iws   |
+|sr            |        0.47|nws   |
+|streamdensity |        4.43|iws   |
+|uplakearea    |      153.50|iws   |
+|wetland-cover |       11.67|iws   |
 
+Table: Table of partition splits generated with conditional inference trees. Refer to Figure 1 for scale definitions. 
 
 ![Population-level fit the Vollenweider P retention model where the dark circles are empirically measured values of P retention and residence time, while the light circles and vertical bars are posterior means and 95% credible intervals respectively.](/home/jose/Documents/Science/Dissertation/Analysis/public/dissertation-analysis_files/figure-html/global_vollenweider-1.png)
 
-**Table of conditional inference tree splits**
 
 ![Partitioned (hierarchical) fits of the Vollenweider P retention model where the lines and shaded polygons represent the posterior mean and 95% credible interval respectively. Darker lines and polygons represent the left side of the parition which is usually smaller in magnitude.](/home/jose/Documents/Science/Dissertation/Analysis/public/dissertation-analysis_files/figure-html/model_on_partitions-2.png)
 
