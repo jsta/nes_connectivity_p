@@ -3,3 +3,4 @@ draft.pdf: draft.md
 
 figures:
 	cd figures && make
+

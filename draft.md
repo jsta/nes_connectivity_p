@@ -1,5 +1,4 @@
-<!-- markdown - embed externally stored table
-What am I calling Vollenweider's k? -->
+<!-- What am I calling Vollenweider's k? -->
 
 # Does Lake and Stream Connectivity Control Phosphorus Retention in Lakes?
 
@@ -11,27 +10,21 @@ Lake water residence time and depth are known to be strong predictors of phospho
 
 ### Importance of nutrient predictions
 
-A comprehensive understanding of P cycling at broad scales is necessary to predict nutrient concentrations among many different lake types and to better manage the risks of eutrophication from excess nutrient loading (Smith 2003). These predictions can ultimately be used to implement management actions aimed at avoiding phenomena such as algal blooms and fish kills which can negatively affect human health and degrade ecosystem services. 
+A comprehensive understanding of P cycling at broad scales is necessary to predict nutrient concentrations among many different lake types and to better manage the risks of eutrophication from excess nutrient loading (citation). Such predictions can ultimately be used to implement management actions aimed at avoiding phenomena such as algal blooms and fish kills which can negatively affect human health and degrade ecosystem services (Smith 2003).
 
 ### Importance of P retention
 
-Although both nitrogen (N) and phosphorus loading contribute to eutrophication risk, studies on lake eutrophication risk commonly focus solely on phosphorus (P). This focus on P is a result of strong evidence that P rather than N is the primary limiting nutrient in lakes (Schindler 1977). Although later studies found that N and N:P ratios strongly control primary production in some lakes, P concentration is strongly correlated with phytoplankton primary production in most lakes (Downing et al. 2001, Elser et al. 2007).  In the present study, we focus on P retention rather than P concentration because it is a unitless (\%) measure that can easily be compared among different lakes irrespective of their baseline nutrient concentrations or total nutrient inputs (Brett and Benjamin 2007). P retention is typically bounded at 0 in the case where all P inputs exit the lake via outflow or sedimentation and bounded at 1 in the case where all nutrient inputs are retained in the water column (citation).
+Although both nitrogen (N) and phosphorus loading contribute to eutrophication risk, studies on lake eutrophication commonly focus solely on phosphorus (P). This focus on P is a result of strong evidence that P rather than N is the primary limiting nutrient in lakes (Schindler 1977). Although later studies found that N and N:P ratios strongly control primary production in some lakes, P concentration is strongly correlated with phytoplankton primary production in most lakes (Downing et al. 2001, Elser et al. 2007).  In the present study, we focus on P retention rather than P concentration because it is a unitless (\%) measure that can be compared among different lakes irrespective of their baseline nutrient concentrations or total nutrient inputs (Brett and Benjamin 2007). P retention is typically bounded at 0 in the case where all P inputs exit the lake via outflow or sedimentation and bounded at 1 in the case where all nutrient inputs are retained in the water column (citation).
 
 ### Knowledge Gap
 
-One of the primary challenges of predicting P retention is that lake nutrient concentrations are not simply a function of total inputs to the lake, but rather a function of complex interactions between lake characteristics and biogeochemical cycles. For example, lake phosphorus concentration is a function of biological response to phosphorus loading yet this response is not only a function of load but also depends on lake characteristics such as depth and biogeochemical cycling with iron (Sondergaard 2003, Wagner et al. 2011). Such interactions may obscure direct relationships between nutrient concentration and total nutrient inputs and hinder the ability to generate accurate predictions to nutrient concentrations.
+One of the primary challenges of predicting P retention is that lake nutrient concentrations are not simply a function of total inputs to the lake, but rather a function of complex interactions between lake characteristics and biogeochemical cycles. For example, lake phosphorus concentration is a function of biological response to phosphorus loading yet this response is not only a function of load but also depends on lake characteristics such as depth and biogeochemical cycling with iron (Sondergaard 2003, Wagner et al. 2011). Such interactions may obscure direct relationships between nutrient concentrations and total nutrient inputs and ultimately prevent accurate prediction of lake nutrient concentrations.
 
-One way to account for complex interactions in nutrient prediction models is to undertake detailed processs-based study of each of the indvidual components that influence lake P processing. Indeed, several studies takeing such an approach have been successful in generate accurate P predictions (citation). However, this sort of highly detailed process-based study may not feasible for hundreds of lakes at the regional scale. On the other extreme are simple empirical models that leverage relationships between P loading, P concentrations, and water residence time (Vollenweider 1975). 
-
-Talk about P trapping and types of delivered P
-
-### Connectivity
+One way to account for these complex interactions between lake characteristics and biogeochemical cycles is to undertake detailed processs-based study of each indvidual component that influences lake P processing (citations). Specific components may include things like species specific-phytoplankton settling rates, POM speciation, or detailed representation of elemental cycling at the sediment-water interface (citations). Clearly, such detailed process-based study may not be feasible for hundreds of lakes at the regional scale and may be difficult to use for general understanding of variation in P retention among many different lake types. 
 
 ### Expectations/Hypothesis
 
-In the present study, we 
-
-examined the extent to which connectivity among lakes versus connectivity between lakes and streams contributes to differences in P retention among lakes. Specifically, we tested the hypothesis that lake associated processes play a larger role in determining P retention than stream associated processes.
+An alternative approach for predicting lake nutrient concentrations is static mass-balance modelling using techniques such as the Vollenweider equations which typically predict P concentrations as a function of P loading and water residence time (Vollenweider 1975). Although such an approach cannot represent the complexity of potential interactions among lake characteristics and biogeochemical cycles, it offers the ability to evaluate relationships between P retention and lake characteristics among make lakes at the regional scale. In the present study, we extend the Vollenweider approach to explore the possibility that connectivity may explain some of the variation in P retention among lakes with the same depth and residence time. We expect that connectivity among lakes as well as connectivity between lakes and nearby streams may indicate differences in either watershed P trapping or the type of stream delivered P. Specifically, we tested the hypothesis that lake associated processes play a larger role in determining P retention than stream associated processes.
 
 ## Methods
 
@@ -67,36 +60,24 @@ We calculated several connectivity metrics in order to fit the hierarchical vers
 
 In addition to stream connectivity metrics, we calculated several lake connectivity metrics including total upstream lake area, number of upstream lakes, and presence/abscence of an upstream lake. For the purposes of calculating lake connectivity metrics, we defined a lake as any waterbody with an area greater than 4 ha (0.04 km2). In term of lake connectivity, we consider a low connectivity lake to be one with low total upstream lake area and few upstream lakes.
 
-> **What about non-connectivity metrics like max depth, baseflow, and wetland cover?**
+Finally, we fit hierarchical models on the basis of partitions of non-connectivity lake characteristics including maximum depth, baseflow, and wetland cover. In the case of maximum depth, this was intended as a check on the magnitude of connectivity effects relative to lake characteristics known to influence P retention.
 
 We calculated both lake and stream connectivity metrics at multiple scales (Figure 1). First, we calculated connectivity metrics at the scale of individual lake watersheds (iws scale). We defined an individual lake watershed as the area draining to a particular lake exclusive of any upstream areas that drain into a lake greater than or equal to 10 ha (0.1 km2). We also calculated connectivity metrics at the scale of entire upstream lake networks (nws scale). Network watersheds are defined as the area draining into any part the upstream network regardless of the presence or abscence of upstream lakes (Figure 1).
 
 ![Diagram of the individual lake watershed and network watershed scales. In this example, the lake-watershed for lake 3 includes the lake-watershed of lake 2 because lake 2 is smaller than 10 ha.](figures/iws_nws.png){ width=65% }
 
-We calculated all stream connectivity metrics using the `streamnet` and `nhdR` packages (citations). The algorithms in the `streamnet` package use the `sf` R package as well as the `v.net` and `v.stream.order` modules (Jasiewicz and Metz 2011) included in GRASS GIS (GRASS Development Team 2017). We calculated lake connectivity metrics using data from the LAGOSNE dataset (citation). Both lake and stream connectivity metrics were calculated using the National Hydrography Dataset (NHD) as a primary input. All processed data and code are available at [DOI].
+We calculated all stream connectivity metrics using the `streamnet` and `nhdR` packages (citations). The algorithms in the `streamnet` package use the `sf` R package as well as the `v.net` and `v.stream.order` modules (Jasiewicz and Metz 2011) included in GRASS GIS (GRASS Development Team 2017). We calculated lake connectivity metrics and non-connectivity lake characteristics using data from the LAGOSNE dataset (citation). Both lake and stream connectivity metrics were calculated using the National Hydrography Dataset (NHD) as a primary input. All processed data and code are available at [DOI].
 
 ## Results
 
 * The relationship between P retention and water residence time was well described by the Vollenweider equations. 
 
-* Connectivity
+* Overall, connectivity played a larger role in determining P retention at the NWS scale than at the IWS scale.
+
+* Lake associated processes played a larger role in determining P retention than stream associated processes at the IWS scale.
 
 * Lakes with both high lake connectivity and high stream connectivity were most often found in the northern portions of the study area.
 
-
-|Metric        | Split Value|Scale |
-|:-------------|-----------:|:-----|
-|baseflow      |       63.76|iws   |
-|cd            |       -1.51|iws   |
-|cd            |       -1.47|nws   |
-|linklength    |     2177.08|iws   |
-|linklength    |     2237.34|nws   |
-|maxdepth      |       19.81|misc  |
-|sr            |        0.67|iws   |
-|sr            |        0.47|nws   |
-|streamdensity |        4.43|iws   |
-|uplakearea    |      153.50|iws   |
-|wetland-cover |       11.67|iws   |
 
 Table: Table of partition splits generated with conditional inference trees. Refer to Figure 1 for scale definitions. 
 
