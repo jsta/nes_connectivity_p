@@ -1,0 +1,47 @@
+---
+title: "Figures"
+output:
+  pdf_document:
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5.5, fig.height = 4.2)
+```
+
+```{r read_chunks, cache=FALSE, echo=FALSE}
+knitr::read_chunk("01_prepdata.R")
+knitr::read_chunk("03_viz.R")
+knitr::read_chunk("04_tables.R")
+knitr::read_chunk("99_utils.R")
+```
+
+```{r source_utils, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+
+```
+
+```{r prep_nes_lagos, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+
+```
+
+```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data."}
+
+```
+
+```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Dark lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 1)", fig.height=8.4}
+
+```
+
+```{r k_viz, echo=FALSE, message=FALSE}
+
+```
+
+```{r table_1, echo=FALSE, fig.cap="Table 1"}
+
+```
+
+```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
+
+```
+
+
