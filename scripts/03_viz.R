@@ -1,5 +1,5 @@
-source("01_Chapter/scripts/99_utils.R")
-source("01_Chapter/scripts/01_prepdata.R")
+# source("scripts/99_utils.R")
+# source("scripts/01_prepdata.R")
 
 # ---- global_vollenweider_viz ----
 
@@ -45,17 +45,21 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 
 plot_grid(
   part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
-                 9, "Max Depth", xl = FALSE), ggplot() + geom_blank(),
+                 9, "Max Depth", xl = FALSE),
+  part_pred_plot(nes_iws, readRDS("../data/nws/cd_vollenweider.rds"),
+                 9, "Distance to Closest Lake", xl = FALSE, yl = FALSE), 
   part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                 8, "Lake Connection", xl = FALSE), ggplot() + geom_blank(),
-  part_pred_plot(nes_iws, readRDS("../data/iws/cd_vollenweider.rds"),
-                 7, "Closest Lake Distance", xl = FALSE), 
-  part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
-                 7, "Closest Lake Distance", xl = FALSE, yl = FALSE),
-  part_pred_plot(nes_iws, readRDS("../data/iws/sr_vollenweider.rds"),
-                 6, "Stream Order Ratio"), 
-  part_pred_plot(nes_nws, readRDS("../data/nws/sr_vollenweider.rds"),
-                 6, "Stream Order Ratio", yl = FALSE),
+                 8, "Lake Connection", xl = FALSE),
+  part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
+                 8, "Link Length", xl = FALSE, yl = FALSE),
+  part_pred_plot(nes_iws, readRDS("../data/iws/sd_vollenweider.rds"),
+                 7, "Stream Density", xl = FALSE), 
+  part_pred_plot(nes_nws, readRDS("../data/nws/la_vollenweider.rds"),
+                 7, "Upstream Lake Area", xl = FALSE, yl = FALSE), 
+  part_pred_plot(nes_nws, readRDS("../data/iws/ll_vollenweider.rds"),
+                 6, "Link Length"),
+  part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
+                 6, "Lake Connection", yl = FALSE),
   nrow = 4, ncol = 2)
 
 # ---- k_viz ----
@@ -80,12 +84,12 @@ fit_df_iws <- rbind(
   #               extract_coefs2(fit_sd, c("k1_sd", "k2_sd")),
   #               extract_coefs2(fit_wc, c("k1_wc", "k2_wc")), 
 
-
+# controls ordering of ridge plot
 fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k", 
                                             "k1_cd", "k2_cd",
                                             "k1_sr", "k2_sr",
-                                            "k1_ll", "k2_ll",
                                             "k1_bf", "k2_bf",
+                                            "k1_ll", "k2_ll",
                                             "k1_sd", "k2_sd",
                                             "k1_lc", "k2_lc",
                                             "k1_md", "k2_md"))

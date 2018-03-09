@@ -188,15 +188,8 @@ fit_wc <- readRDS("01_Chapter/wc_vollenweider.rds")
 gg_wc <- part_pred_plot(nes, fit_wc)
 
 # Stream density
-nes$part <- factor(as.numeric(cut(
-  nes$iws_streamdensity_streams_density_mperha, 
-  c(0, 4.4, Inf), include.highest = TRUE)))
-# fit <- part_model(nes)
-# saveRDS(fit, "01_Chapter/sd_vollenweider.rds")
-
-fit_sd <- readRDS("01_Chapter/sd_vollenweider.rds")
-
-gg_sd <- part_pred_plot(nes, fit_sd)
+# fit <- part_model(nes_iws, "iws_streamdensity_streams_density_mperha", 0, 4.4, Inf)
+# saveRDS(fit, "../data/iws/sd_vollenweider.rds")
 
 fit_df <- rbind(extract_coefs(m, "k"), 
                 extract_coefs2(fit_md, c("k1_md", "k2_md")), 

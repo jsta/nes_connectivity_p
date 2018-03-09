@@ -143,10 +143,10 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   res <- ggplot() +
     stat_lineribbon(data = test[1][[1]], 
                        aes(x = retention_time_yr, 
-                           y = estimate), .prob = 0.95) + 
+                           y = estimate), .prob = 0.95, size = 0.5) + 
     stat_lineribbon(data = test[2][[1]], 
                     aes(x = retention_time_yr, 
-                        y = estimate), .prob = 0.95, alpha = 0.3) + 
+                        y = estimate), .prob = 0.95, alpha = 0.3, size  = 0.5) + 
     geom_point(data = nes, aes(x = retention_time_yr, 
                                y = p_percent_retention)) + 
     scale_x_log10() + ylim(0, 1) + 
