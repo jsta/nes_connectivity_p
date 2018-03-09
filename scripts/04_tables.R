@@ -1,4 +1,5 @@
-source("99_utils.R")
+source("scripts/99_utils.R")
+source("scripts/01_prepdata.R")
 
 # ---- table_1 ----
 table_splits <- function(dir, pat = "forest.rds"){
@@ -9,11 +10,11 @@ table_splits <- function(dir, pat = "forest.rds"){
   cbind(pnames, splits)
 }
 
-misc_parts <- data.frame(table_splits("../data/"), 
+misc_parts <- data.frame(table_splits("data/"), 
                          stringsAsFactors = FALSE)
-iws_parts  <- data.frame(table_splits("../data/iws/"), 
+iws_parts  <- data.frame(table_splits("data/iws/"), 
                          stringsAsFactors = FALSE)
-nws_parts  <- data.frame(table_splits("../data/nws/"), 
+nws_parts  <- data.frame(table_splits("data/nws/"), 
                          stringsAsFactors = FALSE)
 
 misc_parts$scale <- "misc"
@@ -43,11 +44,12 @@ res <- merge(name_key, res)
 
 res[res$pnames == "cd", "splits"] <- c(inv_inv_closest(-1.51, nes_rf_iws),
                                        inv_inv_closest(-1.49, nes_rf_nws))
+res <- res[order(res$pnames, res$scale), 2:ncol(res)]
                                        
 # tidyr::spread(res, scale, splits)                                       
 
-write.csv(res, "../figures/table_1.csv", row.names = FALSE)
+write.csv(res, "figures/table_1.csv", row.names = FALSE)
 
-knitr::kable(res[order(res$pnames, res$scale), 2:ncol(res)], 
+knitr::kable(res, 
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Split Value", "Scale"))

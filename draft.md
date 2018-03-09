@@ -78,18 +78,30 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 
 * Lakes with both high lake connectivity and high stream connectivity were most often found in the northern portions of the study area.
 
-
+|Metric                | Split Value|Scale |
+|:---------------------|-----------:|:-----|
+|Baseflow              |       63.76|iws   |
+|Closest lake distance |     3773.61|iws   |
+|Closest lake distance |     2767.04|nws   |
+|Average Link Length   |     2177.08|iws   |
+|Average Link Length   |     2237.34|nws   |
+|Max Depth             |       19.81|misc  |
+|Stream order ratio    |        0.67|iws   |
+|Stream order ratio    |        0.47|nws   |
+|Stream density        |        4.43|iws   |
+|Upstream lake area    |      153.50|nws   |
+|Wetland Cover         |       11.67|iws   |
 
 Table: Table of partition splits generated with conditional inference trees. Refer to Figure 1 for scale definitions. 
 
-![Population-level fit the Vollenweider P retention model where the dark circles are empirically measured values of P retention and residence time, while the light circles and vertical bars are posterior means and 95% credible intervals respectively.](figures/global_vollenweider_viz-1.pdf){ width=65% }
+![Population-level fit the Vollenweider P retention model where the dark circles are empirically measured values of P retention and residence time, while the light circles and vertical bars are posterior means and 95% credible intervals respectively.](figures/global_vollenweider_viz-1.pdf){ width=55% }
 
 
-![Partitioned (hierarchical) fits of the Vollenweider P retention model where the lines and shaded polygons represent the posterior mean and 95% credible interval respectively. Darker lines and polygons represent the left side of the parition which is usually smaller in magnitude.](figures/partition_vollenweider_viz-1.pdf){ width=65% } 
+![Partitioned (hierarchical) fits of the Vollenweider P retention model where the lines and shaded polygons represent the posterior mean and 95% credible interval respectively. Darker lines and polygons represent the left side of the parition which is usually smaller in magnitude.](figures/partition_vollenweider_viz-1.pdf){ width=75% } 
 
 ![Comparisons of the posterior distribution of Vollenweider's k among lake sub-populations partioned according to Table 1 where the subscript 1 denotes a subpopulation on the left side of the partition which is usually smaller in magnitude.](figures/k_viz-1.pdf){ width=65% }
 
-**Conceptual model**
+![Conceptual diagram](figures/conceptual_diagram.png){ width=85% }
 
 **Lake examples?**
 

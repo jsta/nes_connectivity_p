@@ -6,3 +6,4 @@ figures/beamer-lake-fig
 *.snm
 *.toc
 *.aux
+.Rproj.user
