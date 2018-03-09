@@ -95,6 +95,6 @@ Table: Table of partition splits generated with conditional inference trees. Ref
 
 ## Discussion
 
-Stream connectivity is really stream _complexity_. 
+<!-- Stream connectivity is really stream _complexity_. 
 
-A high stream order ratio indicates a high complexity of streams in the watershed. P inputs to a lake with a high stream order ratio have likely undergone less in-stream processing as high order streams are known to have long/short "spiral distances"(citation).
+A high stream order ratio indicates a high complexity of streams in the watershed. P inputs to a lake with a high stream order ratio have likely undergone less in-stream processing as high order streams are known to have long/short "spiral distances"(citation). -->
