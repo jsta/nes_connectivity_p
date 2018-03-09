@@ -66,7 +66,7 @@ We calculated both lake and stream connectivity metrics at multiple scales (Figu
 
 ![Diagram of the individual lake watershed and network watershed scales. In this example, the lake-watershed for lake 3 includes the lake-watershed of lake 2 because lake 2 is smaller than 10 ha.](figures/iws_nws.png){ width=65% }
 
-We calculated all stream connectivity metrics using the `streamnet` and `nhdR` packages (citations). The algorithms in the `streamnet` package use the `sf` R package as well as the `v.net` and `v.stream.order` modules (Jasiewicz and Metz 2011) included in GRASS GIS (GRASS Development Team 2017). We calculated lake connectivity metrics and non-connectivity lake characteristics using data from the LAGOSNE dataset (Soranno et al. 2017). Both lake and stream connectivity metrics were calculated using the National Hydrography Dataset (NHD) as a primary input. All processed data and code are available at [DOI].
+We calculated all stream connectivity metrics using the `streamnet` and `nhdR` packages (Stachelek 2018a, Stachelek 2018b). The algorithms in the `streamnet` package use the `sf` R package (Pebesma 2018) as well as the `v.net` and `v.stream.order` modules (Jasiewicz and Metz 2011) included in GRASS GIS (GRASS Development Team 2017). We calculated lake connectivity metrics and non-connectivity lake characteristics using data from the LAGOSNE dataset (Soranno et al. 2017). Both lake and stream connectivity metrics were calculated using the National Hydrography Dataset (NHD) as a primary input. All processed data and code are available at [DOI].
 
 ## Results
 
@@ -96,8 +96,7 @@ Table: Table of partition splits generated with conditional inference trees. Ref
 
 ![Population-level fit the Vollenweider P retention model where the dark circles are empirically measured values of P retention and residence time, while the light circles and vertical bars are posterior means and 95% credible intervals respectively.](figures/global_vollenweider_viz-1.pdf){ width=55% }
 
-
-![Partitioned (hierarchical) fits of the Vollenweider P retention model where the lines and shaded polygons represent the posterior mean and 95% credible interval respectively. Darker lines and polygons represent the left side of the parition which is usually smaller in magnitude.](figures/partition_vollenweider_viz-1.pdf){ width=75% } 
+![Partitioned (hierarchical) fits of the Vollenweider P retention model where the lines and shaded polygons represent the posterior mean and 95% credible interval respectively. Darker lines and polygons represent the left side of the parition which is usually smaller in magnitude.](figures/partition_vollenweider_viz-1.pdf){ width=75% }
 
 ![Comparisons of the posterior distribution of Vollenweider's k among lake sub-populations partioned according to Table 1 where the subscript 1 denotes a subpopulation on the left side of the partition which is usually smaller in magnitude.](figures/k_viz-1.pdf){ width=65% }
 
