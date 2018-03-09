@@ -4,6 +4,6 @@ Code and data for:
 
 Journal Target: Limnology and Oceanography
 
-Figures: [See: scripts/analysis.pdf](scripts/analysis.pdf)
+Figures: [scripts/analysis.pdf](scripts/analysis.pdf)
 
-Manuscript: [See: draft.pdf](draft.pdf)
+Manuscript: [draft.pdf](draft.pdf)
