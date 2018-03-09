@@ -1,4 +1,4 @@
-draft.pdf: draft.md
+draft.pdf: draft.md scripts/analysis.pdf
 	pandoc draft.md -o draft.pdf
 
 analysis: scripts/analysis.Rmd

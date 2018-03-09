@@ -12,6 +12,11 @@ Manuscript: [draft.pdf](draft.pdf)
 
 ## Reproducibility
 
+### Data requirements
+
+  * LAGOS-NE-GIS
+  * nesRdata
+
 ### System requirements
 
 * GRASS GIS
@@ -32,3 +37,5 @@ Manuscript: [draft.pdf](draft.pdf)
   * modelr
   * tidyr
   * ggridges
+  * nhdR
+  * streamnet
