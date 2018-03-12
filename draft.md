@@ -87,7 +87,7 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 |md  |misc  |Max Depth             |       19.81|    0.15|
 |ll  |iws   |Average Link Length   |     2177.08|    0.14|
 |sd  |nws   |Stream density        |       10.40|    0.13|
-|bf  |iws   |Baseflow              |       63.76|    0.11|
+|bf  |iws   |Baseflow              |       63.76|    0.12|
 |sr  |iws   |Stream order ratio    |        0.67|    0.10|
 |cd  |iws   |Closest lake distance |     3773.61|    0.05|
 |sr  |nws   |Stream order ratio    |        0.47|    0.05|

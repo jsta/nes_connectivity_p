@@ -180,10 +180,8 @@ m <- readRDS("../data/global_vollenweider.rds")
 # saveRDS(fit, "../data/nws/la_vollenweider.rds")
 
 # Baseflow
-nes$part <- factor(as.numeric(cut(nes$hu12_baseflowindex_mean, 
-                                  c(0, 63.8, Inf), include.highest = TRUE)))
-# fit <- part_model(nes)
-# saveRDS(fit, "01_Chapter/bf_vollenweider.rds")
+# fit <- part_model(nes_iws, "hu12_baseflowindex_mean", 0, 63.8, Inf)
+# saveRDS(fit, "../data/iws/bf_vollenweider.rds")
 #
 # fit <- part_model(nes_nws, "baseflow", 0, 52.94, Inf)
 # saveRDS(fit, "../data/nws/bf_vollenweider.rds")

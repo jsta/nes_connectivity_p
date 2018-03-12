@@ -44,23 +44,23 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 # ---- partition_vollenweider_viz ----
 
 plot_grid(
-  part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
-                 9, "Max Depth", xl = FALSE),
+  part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
+                 9, "Lake Connection", xl = FALSE),
   part_pred_plot(nes_iws, readRDS("../data/nws/cd_vollenweider.rds"),
                  9, "Distance to Closest Lake", xl = FALSE, yl = FALSE), 
-  part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                 8, "Lake Connection", xl = FALSE),
+  part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
+                 8, "Max Depth", xl = FALSE),
   part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
                  8, "Link Length", xl = FALSE, yl = FALSE),
-  part_pred_plot(nes_iws, readRDS("../data/iws/sd_vollenweider.rds"),
-                 7, "Stream Density", xl = FALSE), 
-  part_pred_plot(nes_nws, readRDS("../data/nws/la_vollenweider.rds"),
-                 7, "Upstream Lake Area", xl = FALSE, yl = FALSE), 
-  part_pred_plot(nes_nws, readRDS("../data/iws/ll_vollenweider.rds"),
-                 6, "Link Length"),
+  part_pred_plot(nes_iws, readRDS("../data/iws/ll_vollenweider.rds"),
+                 7, "Link Length", xl = FALSE), 
   part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                 6, "Lake Connection", yl = FALSE),
-  nrow = 4, ncol = 2)
+                 7, "Lake Connection", yl = FALSE, xl = FALSE),
+  part_pred_plot(nes_iws, readRDS("../data/iws/bf_vollenweider.rds"),
+                 6, "Baseflow"),
+  part_pred_plot(nes_nws, readRDS("../data/nws/la_vollenweider.rds"),
+                 6, "Upstream Lake Area", yl = FALSE), 
+  nrow = 4, ncol = 2, rel_widths = c(1, 0.8))
 
 # ---- k_viz ----
 
@@ -158,93 +158,69 @@ plot_grid(
 
 # ---- graphical_exploratory_analysis ----
 
-ggplot(nes) + geom_point(aes(x = retention_time_yr,
-                             y = p_percent_retention,
-                             color = maxdepth)) + 
-  geom_vline(aes(xintercept = 0.482)) + 
-  geom_vline(aes(xintercept = 3.6)) 
+partition_splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 
-ggplot(nes) + geom_point(aes(x = retention_time_yr,
-                             y = p_percent_retention,
-                             color = link_length))
+md_v_la <- ggplot(data = nes_iws) + 
+  geom_point(aes(x = maxdepth, 
+                 y = upstream_lakes_4ha_area_ha, color = lakeconnection)) +
+  ylab("Upstream Lake Area (ha)") + xlab("Max Depth (m)") + 
+  geom_vline(data = partition_splits, aes(
+    xintercept = partition_splits$splits[
+      partition_splits$pnames2 == "md" & partition_splits$scale == "misc"])) + 
+  geom_hline(data = partition_splits, aes(
+    yintercept = partition_splits$splits[
+      partition_splits$pnames2 == "la" & partition_splits$scale == "nws"])) + 
+  scale_y_log10()
 
-ggplot(nes) + geom_point(aes(x = retention_time_yr,
-                             y = p_percent_retention,
-                             color = iws_wl_allwetlandsdissolved_overlapping_area_pct)) + 
-  theme(legend.position = "NA")
+md_v_ll_iws <- ggplot(data = nes_iws) + 
+  geom_point(aes(x = maxdepth, 
+                 y = link_length, color = lakeconnection)) +
+  ylab("Link Length") + xlab("Max Depth (m)") + 
+  geom_vline(data = partition_splits, aes(
+    xintercept = partition_splits$splits[
+      partition_splits$pnames2 == "md"])) + 
+  geom_hline(data = partition_splits, aes(
+    yintercept = partition_splits$splits[
+      partition_splits$pnames2 == "ll" & partition_splits$scale == "iws"]))
 
-ggplot(dplyr::filter(nes, iws_lakes_overlapping_area_pct < 1.9)) + 
-  geom_point(aes(x = retention_time_yr,
-                 y = p_percent_retention,
-                 color = log(iws_lakes_overlapping_area_pct + 
-                               iws_wl_allwetlandsdissolved_overlapping_area_pct))) + 
-  theme(legend.position = "NA")
+md_v_ll_nws <- ggplot(data = nes_nws) + 
+  geom_point(aes(x = maxdepth, 
+                 y = link_length, color = lakeconnection)) +
+  ylab("Link Length") + xlab("Max Depth (m)") + 
+  geom_vline(data = partition_splits, aes(
+    xintercept = partition_splits$splits[
+      partition_splits$pnames2 == "md"])) + 
+  geom_hline(data = partition_splits, aes(
+    yintercept = partition_splits$splits[
+      partition_splits$pnames2 == "ll" & partition_splits$scale == "nws"]))
 
-ggplot(nes) + geom_point(aes(x = retention_time_yr,
-                             y = p_percent_retention,
-                             color = upstream_lakes_4ha_area_ha))
+md_v_cd_nws <- ggplot(data = nes_nws) + 
+  geom_point(aes(x = maxdepth, 
+                 y = closest_lake_distance, color = lakeconnection)) +
+  ylab("Closest Lake Distance") + xlab("Max Depth (m)") + 
+  geom_vline(data = partition_splits, aes(
+    xintercept = partition_splits$splits[
+      partition_splits$pnames2 == "md"])) + 
+  geom_hline(data = partition_splits, aes(
+    yintercept = partition_splits$splits[
+      partition_splits$pnames2 == "cd" & partition_splits$scale == "nws"]))
 
-ggplot(nes) + geom_point(aes(x = closest_lake_distance,
-                             y = p_percent_retention,
-                             color = stream_order_ratio))
+ll_v_cd_nws <- ggplot(data = nes_nws) + 
+  geom_point(aes(x = link_length, 
+                 y = closest_lake_distance, color = lakeconnection)) +
+  ylab("Closest Lake Distance") + xlab("Link Length") + 
+  geom_vline(data = partition_splits, aes(
+    xintercept = partition_splits$splits[
+      partition_splits$pnames2 == "ll" & partition_splits$scale == "nws"])) + 
+  geom_hline(data = partition_splits, aes(
+    yintercept = partition_splits$splits[
+      partition_splits$pnames2 == "cd" & partition_splits$scale == "nws"])) + 
+  scale_x_log10() + scale_y_log10() + xlab("log(Link Length)") + ylab("log(cd)")
 
-nes[is.na(nes$link_length),"link_length"] <- max(nes$link_length, na.rm = TRUE)
-ggplot(nes) + geom_point(aes(x = retention_time_yr,
-                             y = p_percent_retention,
-                             color = 1/link_length))
+legend <- get_legend(md_v_la)
 
-plot(nes$retention_time_yr, nes$stream_order_ratio)
-plot(nes$iws_streamdensity_streams_density_mperha, nes$link_length)
-
-library(randomForest)
-library(randomForestExplainer)
-
-RF1 = randomForest(nes_rf$p_perce ~ ., data = nes_rf
-                   , importance = TRUE
-                   , na.action = na.omit 
-                   , ntree = 1000)
-
-varImpPlot(RF1, scale = FALSE)
-# partialPlot(x = RF1, pred.data = test, x.var = maxdept, n.pt = 50)
-
-plot_predict_interaction(RF1, test, "retenti", "link_le")
-# explain_forest(RF1, interactions = TRUE, data = test)
-
-library(heatR)
-cormat <- cor(dplyr::select(test, -lakecon), use = 'pair')
-corrheat(cormat, psychOptions = list(fm = 'ml', rotate = 'promax'))
-
-plot(nes_rf$retenti, nes_rf$p_perce)
-points(nes_rf$retenti, predict(ctree(nes_rf$p_perce ~ ., data = nes_rf, 
-                                     controls = ctree_control( 
-                                       minsplit = 5, 
-                                       mincriterion = 0.7, 
-                                       mtry = 0))), col = "red", pch = 21)
-
-test <- data.frame(link_le = nes_rf$link_le, 
-                   retention_resid = unlist(predict(
-                     ctree(nes_rf$p_perce ~ retenti, 
-                           data = nes_rf, 
-                           controls = ctree_control( 
-                             minsplit = 5, 
-                             mincriterion = 0.7, 
-                             mtry = 0)))) - nes_rf$p_perce)
-fit <- lm(test$nes_rf.p_perce ~ test$link_le)
-plot(test)
-abline(fit)
-
-# 
-# + 
-#   geom_point(data = nes[c(3,  11,  22,  29,  46,  62,  85, 136, 147, 160, 181, 184, 204, 207, 233),], 
-#              aes(x = closest_lake_distance, 
-#                  y = p_percent_retention), 
-#              color = "red")
-# plot(nes$closest_lake_distance, nes$p_percent_retention)
-# identify(nes$closest_lake_distance, nes$p_percent_retention)
-# c(3,  11,  22,  29,  46,  62,  85, 136, 147, 160, 181, 184, 204, 207, 233)
-# 
-# test <- nes[c(3,  11,  22,  29,  46,  62,  85, 136, 147, 160, 181, 184, 204, 207, 233),]
-# library(sf)
-# 
-# nes_sf <- st_as_sf(nes, coords = c("lg_long", "lg_lat"), crs = 4326)
-# test_sf <- st_as_sf(test, coords = c("lg_long", "lg_lat"), crs = 4326)
+plot_grid(md_v_la + theme(legend.position = "none"), 
+          md_v_ll_iws + theme(legend.position = "none"), 
+          md_v_ll_nws + theme(legend.position = "none"),
+          ll_v_cd_nws + theme(legend.position = "none"),
+          legend, ncol = 2, rel_heights = c(1, 1))

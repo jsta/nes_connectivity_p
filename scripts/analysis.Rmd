@@ -44,4 +44,24 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
+```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE}
 
+```
+
+## Summary
+
+```{r conceptual_summary, echo=FALSE}
+dt <- data.frame(
+  rbind(
+        c("lakeconnection", "DR_Stream", "higher", "lower", "higher", "lake"), 
+        c("upstream lake area", "lower", "higher", "lower", "higher", "lake"), 
+        c("link_length", "lower", "higher", "lower", "higher", "stream"), 
+        c("baseflow", "higher", "higher", "lower", "higher", "stream"), 
+        c("stream order ratio", "higher", "higher", "lower", "higher", "stream"),
+  c("upstream lake distance", "lower", "higher", "lower", "higher", "lake-stream"), 
+        c("stream density", "higher", "higher", "lower", "higher", "stream")))
+
+names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis")
+
+knitr::kable(dt, caption = c("Connectivity metric effects on lake processing."))
+```
