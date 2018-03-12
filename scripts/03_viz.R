@@ -1,5 +1,6 @@
+# setwd("scripts")
 # source("scripts/99_utils.R")
-# source("scripts/01_prepdata.R")
+# source("01_prepdata.R")
 
 # ---- global_vollenweider_viz ----
 
@@ -225,33 +226,29 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           ll_v_cd_nws + theme(legend.position = "none"),
           legend, ncol = 2, rel_heights = c(1, 1))
 
-plot(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)
-abline(0, 1)
-abline(h = 52.94, col = "red")
-abline(v = 63.76, col = "red")
 
+ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)) + 
+  geom_hline(aes(yintercept = 52.94)) +
+  geom_vline(aes(xintercept = 63.76))
 
-plot(nes_iws$iws_streamdensity_streams_density_mperha, nes_nws$stream_density)
-abline(0, 1)
-abline(h = 10.4, col = "red")
-abline(v = 4.43, col = "red")
+ggplot() + geom_point(aes(nes_iws$iws_streamdensity_streams_density_mperha, 
+                          nes_nws$stream_density)) + 
+  geom_hline(aes(yintercept = 10.4), color = "red") +
+  geom_vline(aes(xintercept = 4.43), color = "red") +
+  geom_abline(aes(slope = 1, intercept = 0))
 
-plot(nes_iws$closest_lake_distance, nes_nws$closest_lake_distance)
-abline(0, 1)
-abline(h = 2776.81, col = "red")
-abline(v = 3773.61, col = "red")
-
-plot(log(nes_iws$upstream_lakes_4ha_area_ha), log(nes_nws$lake_area), 
-     xlim = c(0, 14), 
-     ylim = c(0, 14)) 
-abline(0, 1)
-abline(v = log(153.5), col = "red")
+ggplot() + geom_point(aes(nes_iws$closest_lake_distance, nes_nws$closest_lake_distance)) + 
+  geom_hline(aes(yintercept = 2776.81), color = "red") +
+  geom_vline(aes(xintercept = 3773.61), color = "red") +
+  geom_abline(aes(slope = 1, intercept = 0)) +
+  scale_x_log10() + 
+  scale_y_log10()
 
 # ---- maps ----
 
 test <- coordinatize(dplyr::filter(nes_nws, closest_lake_distance <= 2776.81), 
                      "lat", "long")
-test[order(test$p_percent_retention, decreasing = TRUE),]
+data.frame(test[order(test$p_percent_retention, decreasing = TRUE), c("state", "name")])
 test2 <- coordinatize(nes_nws, "lat", "long")
 
 us_states <- st_intersects(us_states(), test2)
