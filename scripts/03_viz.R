@@ -60,7 +60,7 @@ plot_grid(
                  6, "Baseflow"),
   part_pred_plot(nes_nws, readRDS("../data/nws/la_vollenweider.rds"),
                  6, "Upstream Lake Area", yl = FALSE), 
-  nrow = 4, ncol = 2, rel_widths = c(1, 0.8))
+  nrow = 4, ncol = 2, rel_widths = c(1, 0.9))
 
 # ---- k_viz ----
 
@@ -224,3 +224,38 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           md_v_ll_nws + theme(legend.position = "none"),
           ll_v_cd_nws + theme(legend.position = "none"),
           legend, ncol = 2, rel_heights = c(1, 1))
+
+plot(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)
+abline(0, 1)
+abline(h = 52.94, col = "red")
+abline(v = 63.76, col = "red")
+
+
+plot(nes_iws$iws_streamdensity_streams_density_mperha, nes_nws$stream_density)
+abline(0, 1)
+abline(h = 10.4, col = "red")
+abline(v = 4.43, col = "red")
+
+plot(nes_iws$closest_lake_distance, nes_nws$closest_lake_distance)
+abline(0, 1)
+abline(h = 2776.81, col = "red")
+abline(v = 3773.61, col = "red")
+
+plot(log(nes_iws$upstream_lakes_4ha_area_ha), log(nes_nws$lake_area), 
+     xlim = c(0, 14), 
+     ylim = c(0, 14)) 
+abline(0, 1)
+abline(v = log(153.5), col = "red")
+
+# ---- maps ----
+
+test <- coordinatize(dplyr::filter(nes_nws, closest_lake_distance <= 2776.81), 
+                     "lat", "long")
+test[order(test$p_percent_retention, decreasing = TRUE),]
+test2 <- coordinatize(nes_nws, "lat", "long")
+
+us_states <- st_intersects(us_states(), test2)
+us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
+plot(us_states$geometry)
+plot(test2$geometry, add = TRUE)
+plot(test$geometry, add = TRUE, col = "red", fill = "red", pch = 19)

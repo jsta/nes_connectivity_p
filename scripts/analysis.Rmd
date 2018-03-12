@@ -48,7 +48,14 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-## Summary
+```{r maps, echo=FALSE}
+
+
+```
+
+<!-- * Olin Lake has a completely undeveloped shoreline -->
+<!-- * Madison Lake is impaired according to MPCA -->
+
 
 ```{r conceptual_summary, echo=FALSE}
 dt <- data.frame(
