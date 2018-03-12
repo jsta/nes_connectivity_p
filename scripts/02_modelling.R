@@ -96,7 +96,14 @@ library(akima)
 #                  data = dplyr::select(nes_rf,
 #                                       hu12_ba),
 #                  control = ctree_control(mincriterion = 0.2))
-# saveRDS(tree3, "01_Chapter/baseflow_forest.rds")
+# saveRDS(tree3, "../data/iws/baseflow_forest.rds")
+# 
+# tree3 <- cforest(nes_rf_nws$p_perce ~ .,
+#                  data = dplyr::select(nes_rf_nws,
+#                                       baseflo),
+#                  control = ctree_control(mincriterion = 0.3))
+# plot(gettree(tree3))
+# saveRDS(tree3, "../data/nws/baseflow_forest.rds")
 
 # wetland cover
 # tree3 <- cforest(nes_rf$p_perce ~ .,
@@ -111,6 +118,13 @@ library(akima)
 #                                       iws_str),
 #                  control = ctree_control(mincriterion = 0.4))
 # saveRDS(tree3, "01_Chapter/streamdensity_forest.rds")
+#
+# tree3 <- cforest(nes_rf_nws$p_perce ~ .,
+#                  data = dplyr::select(nes_rf_nws,
+#                                       stream_.1),
+#                  control = ctree_control(mincriterion = 0.458))
+# plot(gettree(tree3))
+# saveRDS(tree3, "../data/nws/streamdensity_forest.rds")
 
 # ---- model_on_partitions ----
 
@@ -170,10 +184,9 @@ nes$part <- factor(as.numeric(cut(nes$hu12_baseflowindex_mean,
                                   c(0, 63.8, Inf), include.highest = TRUE)))
 # fit <- part_model(nes)
 # saveRDS(fit, "01_Chapter/bf_vollenweider.rds")
-
-fit_bf <- readRDS("01_Chapter/bf_vollenweider.rds")
-
-gg_bf <- part_pred_plot(nes, fit_bf)
+#
+# fit <- part_model(nes_nws, "baseflow", 0, 52.94, Inf)
+# saveRDS(fit, "../data/nws/bf_vollenweider.rds")
 
 # Wetland cover
 
@@ -183,13 +196,12 @@ nes$part <- factor(as.numeric(cut(
 # fit <- part_model(nes)
 # saveRDS(fit, "01_Chapter/wc_vollenweider.rds")
 
-fit_wc <- readRDS("01_Chapter/wc_vollenweider.rds")
-
-gg_wc <- part_pred_plot(nes, fit_wc)
-
 # Stream density
 # fit <- part_model(nes_iws, "iws_streamdensity_streams_density_mperha", 0, 4.4, Inf)
 # saveRDS(fit, "../data/iws/sd_vollenweider.rds")
+#
+# fit <- part_model(nes_nws, "stream_density", 0, 10.4, Inf)
+# saveRDS(fit, "../data/nws/sd_vollenweider.rds")
 
 fit_df <- rbind(extract_coefs(m, "k"), 
                 extract_coefs2(fit_md, c("k1_md", "k2_md")), 

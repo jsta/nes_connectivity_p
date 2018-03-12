@@ -94,7 +94,6 @@ fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
                                             "k1_lc", "k2_lc",
                                             "k1_md", "k2_md"))
 #                                             "k1_wc", "k2_wc",
-#                                             "k1_bf", "k2_bf",
 
 k_viz_iws <- ggplot(
   fit_df_iws, 
@@ -123,17 +122,22 @@ fit_df_nws <- rbind(
                  c("k1_la", "k2_la")),
   extract_coefs2(readRDS("../data/md_vollenweider.rds"), 
                  c("k1_md", "k2_md")),
+  extract_coefs2(readRDS("../data/nws/bf_vollenweider.rds"), 
+                 c("k1_bf", "k2_bf")),
+  extract_coefs2(readRDS("../data/nws/sd_vollenweider.rds"), 
+                 c("k1_sd", "k2_sd")),
   extract_coefs2(readRDS("../data/nws/sr_vollenweider.rds"), 
                  c("k1_sr", "k2_sr")))
 
 fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
+                                                    "k1_bf", "k2_bf",
                                                     "k1_sr", "k2_sr",
                                                     "k1_md", "k2_md",
+                                                    "k1_sd", "k2_sd",
                                                     "k1_lc", "k2_lc",
                                                     "k1_la", "k2_la",
                                                     "k1_ll", "k2_ll",
                                                     "k1_cd", "k2_cd"))
-#                                             "k1_sd", "k2_sd",
 
 k_viz_nws <- ggplot(
   fit_df_nws, 
