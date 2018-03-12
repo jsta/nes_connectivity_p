@@ -76,23 +76,21 @@ fit_df_iws <- rbind(
                  c("k1_ll", "k2_ll")),
   extract_coefs2(readRDS("../data/iws/bf_vollenweider.rds"),
                  c("k1_bf", "k2_bf")),
-  extract_coefs2(readRDS("../data/iws/ll_vollenweider.rds"),
+  extract_coefs2(readRDS("../data/iws/sd_vollenweider.rds"),
                  c("k1_sd", "k2_sd")),
   extract_coefs2(readRDS("../data/iws/sr_vollenweider.rds"), 
                  c("k1_sr", "k2_sr")))
- 
-  #               extract_coefs2(fit_sd, c("k1_sd", "k2_sd")),
   #               extract_coefs2(fit_wc, c("k1_wc", "k2_wc")), 
 
 # controls ordering of ridge plot
 fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k", 
+                                            "k1_sd", "k2_sd",
                                             "k1_cd", "k2_cd",
                                             "k1_sr", "k2_sr",
                                             "k1_bf", "k2_bf",
                                             "k1_ll", "k2_ll",
-                                            "k1_sd", "k2_sd",
-                                            "k1_lc", "k2_lc",
-                                            "k1_md", "k2_md"))
+                                            "k1_md", "k2_md",
+                                            "k1_lc", "k2_lc"))
 #                                             "k1_wc", "k2_wc",
 
 k_viz_iws <- ggplot(
@@ -116,7 +114,7 @@ fit_df_nws <- rbind(
                  c("k1_lc", "k2_lc")),
   extract_coefs2(readRDS("../data/nws/cd_vollenweider.rds"), 
                  c("k1_cd", "k2_cd")),
-  extract_coefs2(readRDS("../data/nws/cd_vollenweider.rds"), 
+  extract_coefs2(readRDS("../data/nws/ll_vollenweider.rds"), 
                  c("k1_ll", "k2_ll")),
   extract_coefs2(readRDS("../data/nws/la_vollenweider.rds"), 
                  c("k1_la", "k2_la")),
@@ -132,10 +130,10 @@ fit_df_nws <- rbind(
 fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
                                                     "k1_bf", "k2_bf",
                                                     "k1_sr", "k2_sr",
-                                                    "k1_md", "k2_md",
                                                     "k1_sd", "k2_sd",
-                                                    "k1_lc", "k2_lc",
+                                                    "k1_md", "k2_md",
                                                     "k1_la", "k2_la",
+                                                    "k1_lc", "k2_lc",
                                                     "k1_ll", "k2_ll",
                                                     "k1_cd", "k2_cd"))
 

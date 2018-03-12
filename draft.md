@@ -20,7 +20,7 @@ Although both nitrogen (N) and phosphorus loading contribute to eutrophication r
 
 One of the primary challenges of predicting P retention is that lake nutrient concentrations are not simply a function of total inputs to the lake, but rather a function of complex interactions between lake characteristics and biogeochemical cycles. For example, lake phosphorus concentration is a function of biological response to phosphorus loading yet this response is not only a function of load but also depends on lake characteristics such as depth and biogeochemical cycling with iron (Sondergaard 2003, Wagner et al. 2011). Such interactions may obscure direct relationships between nutrient concentrations and total nutrient inputs and ultimately prevent accurate prediction of lake nutrient concentrations.
 
-One way to account for the complex interactions between lake characteristics and biogeochemical cycles is to undertake detailed processs-based study of each indvidual component that influences lake P processing (citations). Specific components may include things like species specific-phytoplankton settling rates (Hamilton and Schadlow 1997), POM speciation, or detailed representation of elemental cycling at the sediment-water interface (Amirbahman et al. 2013). Clearly, such detailed process-based study may not be feasible for hundreds of lakes at the regional scale and may be difficult to use for general understanding of variation in P retention among many different lake types. 
+One way to account for the complex interactions between lake characteristics and biogeochemical cycles is to undertake detailed processs-based study of each indvidual component that influences lake P processing. Specific components may include things like species specific-phytoplankton settling rates (Hamilton and Schadlow 1997), POM speciation, or detailed representation of elemental cycling at the sediment-water interface (Amirbahman et al. 2013). Clearly, such detailed process-based study may not be feasible for hundreds of lakes at the regional scale and may be difficult to use for general understanding of variation in P retention among many different lake types. 
 
 ### _Expectations/Hypothesis_
 
@@ -40,7 +40,7 @@ We modelled lake P retention using the Vollenweider equations (Vollenweider 1975
 R_{i} = 1 - \frac{1}{1 + k\tau_{i}^{x}}
 \end{equation}
 
-where $R_{i}$ is the P retention in lake $i$, $k$ and $x$ are adjustable (fitted) parameter coefficients, and $\tau$ is water residence time in lake $i$. The value of $k$ has been variously interpreted as either a bulk loss rate or as an approximation of sedimentation rate (citation). We first used Eq. 1 to model the overall (non-hierarchical) relationship between P retention and water residence time for all lakes in the study dataset. Next, we explored hierarchical versions of Eq. 1 where is k modelled seperately $k_{j}$ as a function of a sub-population indicator $g_{i}$ denoting membership in one of two groups (described below):
+where $R_{i}$ is the P retention in lake $i$, $k$ and $x$ are adjustable (fitted) parameter coefficients, and $\tau$ is water residence time in lake $i$. The value of $k$ has been variously interpreted as either a bulk loss (decay) rate or as an approximation of sedimentation rate (Chapra 1997). We first used Eq. 1 to model the overall (non-hierarchical) relationship between P retention and water residence time for all lakes in the study dataset. Next, we explored hierarchical versions of Eq. 1 where is k modelled seperately $k_{j}$ as a function of a sub-population indicator $g_{i}$ denoting membership in one of two groups (described below):
 
 \begin{equation}
 R_{i} = 1 - \frac{1}{1 + k_{j}\tau_{i}^{x}}
@@ -50,13 +50,13 @@ R_{i} = 1 - \frac{1}{1 + k_{j}\tau_{i}^{x}}
 k_{j} = g_{i}
 \end{equation}
 
-We assigned lake membership in each sub-population group based on several lake characteristics and connectivity metrics where the splitting criteria was determined from the results of conditional inference trees (citation). The conditional inference tree (ctree) technique creates binary splits of the independent variables, which are recursively repeated, to find the split that maximizes association with the depedendent variable (citation). In the present study, our dependent variable was P retention while our independent variable was a single lake characteristics or connectivity metric (Table 1). The advantage of the ctree technique over the more widely used classification-regression tree (CART) technique is that tree growth stopping rules are pre-specified. As a result, this avoids some of the subjectivity associated with post-hoc tree pruning.
+We assigned lake membership in each sub-population group based on several lake characteristics and connectivity metrics where the splitting criteria was determined from the results of conditional inference trees (Hothorn et al. 2006). The conditional inference tree (ctree) technique creates binary splits of the independent variables, which are recursively repeated, to find the split that maximizes association with the depedendent variable (Hothorn et al. 2006). In the present study, our dependent variable was P retention while our independent variable was a single lake characteristics or connectivity metric (Table 1). The advantage of the ctree technique over the more widely used classification-regression tree (CART) technique is that tree growth stopping rules are pre-specified. As a result, this avoids some of the subjectivity associated with post-hoc tree pruning.
 
 We fit both non-hierarchical and hierarchical models in a Bayesian framework using the non-linear extension to the `brms` package to interface with the Stan statistical program (Burkner 2017, Stan Development Team 2017). In both models, we set an informative prior on $k$ and $x$ of N(1.3, 0.1) and N(0.45, 0.1) respectively. These priors were based on the confidence intervals presented in Brett and Benjamin (2007) and qualitatively matched those used by Cheng et al. (2010). We used the default settings of `brms` and `rstan` to generate posterior estimates using four chains of 4,000 iterations each with no thinning and random intial parameter values between -2 and 2.
 
 ### Connectivity metrics
 
-We calculated several connectivity metrics in order to fit our hierarchical versions of the Vollenweider equations (Eq. 2) and to ultimately determine the importance of stream and lake connectivity as they relate to P retention. Our stream connectivity metrics included average link length, stream order ratio, and the closest distance to an upstream lake. We focused on average link length and stream order ratio because they are approximations of stream network complexity (citation, fractal stream book). For example, we consider low connectivity lakes to be those with highly complex stream networks characterized by a short average link length and a high stream order ratio. Our first step in calculating average link length was to dissolve stream network nodes that do not occur at a stream junction. Next, we divided the total stream length in the upstream watershed by the total number of stream reaches. We calculated (Strahler) stream order ratio by dividing the number of first-order streams in the upstream watershed of a given lake by the total number of higher order (> 1) streams (citation). Finally, we calculated closest distance to an upstream lake on a path-distance basis (as the fish swims) rather than on a straight-line basis (as the crow flies).
+We calculated several connectivity metrics in order to fit our hierarchical versions of the Vollenweider equations (Eq. 2) and to ultimately determine the importance of stream and lake connectivity as they relate to P retention. Our stream connectivity metrics included average link length, stream order ratio, and the closest distance to an upstream lake. We focused on average link length and stream order ratio because they are approximations of stream network complexity (Rodriguez-Iturbe and Rinaldo 2001). For example, we consider low connectivity lakes to be those with highly complex stream networks characterized by a short average link length and a high stream order ratio. Our first step in calculating average link length was to dissolve stream network nodes that do not occur at a stream junction. Next, we divided the total stream length in the upstream watershed by the total number of stream reaches. We calculated (Strahler) stream order ratio by dividing the number of first-order streams in the upstream watershed of a given lake by the total number of higher order (> 1) streams (citation). Finally, we calculated closest distance to an upstream lake on a path-distance basis (as the fish swims) rather than on a straight-line basis (as the crow flies).
 
 In addition to stream connectivity metrics, we calculated several lake connectivity metrics including total upstream lake area, number of upstream lakes, and presence/abscence of an upstream lake. For the purposes of calculating lake connectivity metrics, we defined a lake as any waterbody with an area greater than 4 ha (0.04 km2). In terms of lake connectivity, we consider a low connectivity lake to be one with low total upstream lake area and few upstream lakes.
 
@@ -78,19 +78,21 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 
 * Lakes with both high lake connectivity and high stream connectivity were most often found in the northern portions of the study area.
 
-|Metric                | Split Value|Scale |
-|:---------------------|-----------:|:-----|
-|Baseflow              |       63.76|iws   |
-|Closest lake distance |     3773.61|iws   |
-|Closest lake distance |     2767.04|nws   |
-|Average Link Length   |     2177.08|iws   |
-|Average Link Length   |     2237.34|nws   |
-|Max Depth             |       19.81|misc  |
-|Stream order ratio    |        0.67|iws   |
-|Stream order ratio    |        0.47|nws   |
-|Stream density        |        4.43|iws   |
-|Upstream lake area    |      153.50|nws   |
-|Wetland Cover         |       11.67|iws   |
+|Abb |Scale |Metric                | Split Value| Delta k|
+|:---|:-----|:---------------------|-----------:|-------:|
+|cd  |nws   |Closest lake distance |     2776.81|    0.27|
+|ll  |nws   |Average Link Length   |     2237.34|    0.19|
+|lc  |misc  |Lake Connection       |          NA|    0.17|
+|la  |nws   |Upstream lake area    |      153.50|    0.16|
+|md  |misc  |Max Depth             |       19.81|    0.15|
+|ll  |iws   |Average Link Length   |     2177.08|    0.14|
+|sd  |nws   |Stream density        |       10.40|    0.13|
+|bf  |iws   |Baseflow              |       63.76|    0.11|
+|sr  |iws   |Stream order ratio    |        0.67|    0.10|
+|cd  |iws   |Closest lake distance |     3773.61|    0.05|
+|sr  |nws   |Stream order ratio    |        0.47|    0.05|
+|sd  |iws   |Stream density        |        4.43|    0.03|
+|bf  |nws   |Baseflow              |       52.94|    0.00|
 
 Table: Table of partition splits generated with conditional inference trees. Refer to Figure 1 for scale definitions. 
 

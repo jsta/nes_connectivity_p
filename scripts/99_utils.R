@@ -248,3 +248,11 @@ extract_coefs2 <- function(fit = NA, col_names){
     data.frame(key = col_names, coef = rep(NA, length(col_names)))
   }
 }
+
+delta_k <- function(rds_path){
+  dt <- readRDS(rds_path)
+  dt <- extract_coefs2(dt, c("k1", "k2"))
+  data.frame(pnames2 = substring(basename(rds_path), 0, 2), d_k = 
+  abs(median(dplyr::filter(dt, key == "k2")$coef) - 
+    median(dplyr::filter(dt, key == "k1")$coef)))
+}
