@@ -1,5 +1,5 @@
 # setwd("scripts")
-# source("scripts/99_utils.R")
+# source("99_utils.R")
 # source("01_prepdata.R")
 
 # ---- global_vollenweider_viz ----
@@ -226,19 +226,22 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           ll_v_cd_nws + theme(legend.position = "none"),
           ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)) + 
             geom_hline(aes(yintercept = 52.94)) +
-            geom_vline(aes(xintercept = 63.76)),
+            geom_vline(aes(xintercept = 63.76)) + 
+            ylab("NWS Baseflow") + xlab("IWS Baseflow"),
           ggplot() + geom_point(aes(nes_iws$iws_streamdensity_streams_density_mperha, 
                           nes_nws$stream_density)) + 
             geom_hline(aes(yintercept = 10.4), color = "red") +
             geom_vline(aes(xintercept = 4.43), color = "red") +
-            geom_abline(aes(slope = 1, intercept = 0)),
+            geom_abline(aes(slope = 1, intercept = 0)) + 
+            ylab("NWS Stream Density") + xlab("IWS Stream Density"),
           ggplot() + geom_point(aes(nes_iws$closest_lake_distance, 
                                     nes_nws$closest_lake_distance)) + 
             geom_hline(aes(yintercept = 2776.81), color = "red") +
             geom_vline(aes(xintercept = 3773.61), color = "red") +
             geom_abline(aes(slope = 1, intercept = 0)) +
             scale_x_log10() + 
-            scale_y_log10(), 
+            scale_y_log10() + 
+            ylab("NWS Lake Distance") + xlab("IWS Lake Distance"), 
           legend, ncol = 2)
 
 # ---- maps ----

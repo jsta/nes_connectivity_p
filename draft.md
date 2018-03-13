@@ -72,7 +72,11 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 
 * The relationship between P retention and water residence time was well described by the Vollenweider equations. 
 
-* Overall, connectivity played a larger role in determining P retention at the NWS scale than at the IWS scale.
+* Connectivity played a larger role in determining P retention at the NWS scale than at the IWS scale.
+
+* Longitudinal connectivity metrics were more important than lateral connectivity metrics at the NWS scale.  
+
+* Focal lake characteristics played a larger role in determining P retention at the IWS scale than connectivity metrics. 
 
 * Lake associated processes played a larger role in determining P retention than stream associated processes at the IWS scale.
 
@@ -82,9 +86,9 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 |:---|:-----|:---------------------|-----------:|-------:|
 |cd  |nws   |Closest lake distance |     2776.81|    0.27|
 |ll  |nws   |Average Link Length   |     2237.34|    0.19|
-|lc  |misc  |Lake Connection       |          NA|    0.17|
+|lc  |focal |Lake Connection       |          NA|    0.17|
 |la  |nws   |Upstream lake area    |      153.50|    0.16|
-|md  |misc  |Max Depth             |       19.81|    0.15|
+|md  |focal |Max Depth             |       19.81|    0.15|
 |ll  |iws   |Average Link Length   |     2177.08|    0.14|
 |sd  |nws   |Stream density        |       10.40|    0.13|
 |bf  |iws   |Baseflow              |       63.76|    0.12|
