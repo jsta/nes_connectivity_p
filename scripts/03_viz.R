@@ -245,7 +245,7 @@ plot_grid(md_v_la + theme(legend.position = "none"),
 
 test <- coordinatize(dplyr::filter(nes_nws, closest_lake_distance <= 2776.81), 
                      "lat", "long")
-data.frame(test[order(test$p_percent_retention, decreasing = TRUE), c("state", "name")])
+# data.frame(test[order(test$p_percent_retention, decreasing = TRUE), c("state", "name")])
 test2 <- coordinatize(nes_nws, "lat", "long")
 
 us_states <- st_intersects(us_states(), test2)

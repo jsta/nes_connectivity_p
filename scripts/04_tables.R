@@ -1,3 +1,4 @@
+# setwd("scripts")
 source("99_utils.R")
 source("01_prepdata.R")
 
@@ -17,7 +18,7 @@ iws_parts  <- data.frame(table_splits("../data/iws/"),
 nws_parts  <- data.frame(table_splits("../data/nws/"), 
                          stringsAsFactors = FALSE)
 
-misc_parts$scale <- "misc"
+misc_parts$scale <- "focal"
 iws_parts$scale  <- "iws"
 nws_parts$scale  <- "nws"
 
@@ -26,7 +27,7 @@ rownames(misc_parts) <- rownames(iws_parts) <- rownames(nws_parts) <- NULL
 res <- rbind(misc_parts, iws_parts, nws_parts)
 res$splits <- as.numeric(res$splits)
 # res <- res[,1:ncol(res)]
-res <- rbind(res, data.frame(pnames = "lakeconnection", splits = NA, scale = "misc"))
+res <- rbind(res, data.frame(pnames = "lakeconnection", splits = NA, scale = "focal"))
 
 
 name_key <- data.frame(
@@ -64,7 +65,7 @@ d_k <- lapply(list("../data/lc_vollenweider.rds",
             "../data/nws/sr_vollenweider.rds"), delta_k)
 
 d_k <- do.call("rbind", d_k)
-d_k$scale <- c("misc", "misc", rep("iws", 5), rep("nws", 6))
+d_k$scale <- c("focal", "focal", rep("iws", 5), rep("nws", 6))
 
 res <- merge(res, d_k)
 res <- res[order(res$d_k, decreasing = TRUE),]

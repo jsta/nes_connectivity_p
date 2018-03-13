@@ -48,7 +48,7 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r maps, echo=FALSE, fig.cap="Map of lakes with low distance to nearest upstream lake at the NWS scale."}
+```{r maps, echo=FALSE, fig.cap="Map of lakes with low distance to nearest upstream lake at the NWS scale.", warning=FALSE, message=FALSE}
 
 ```
 
@@ -59,15 +59,15 @@ knitr::read_chunk("99_utils.R")
 ```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing."}
 dt <- data.frame(
   rbind(
-        c("lakeconnection", "DR_Stream", "higher", "lower", "higher", "lake"), 
-        c("upstream lake area", "lower", "higher", "lower", "higher", "lake"), 
-        c("link_length", "lower", "higher", "lower", "higher", "stream"), 
-        c("baseflow", "higher", "higher", "lower", "higher", "stream"), 
-        c("stream order ratio", "higher", "higher", "lower", "higher", "stream"),
-  c("upstream lake distance", "lower", "higher", "lower", "higher", "lake-stream"), 
-        c("stream density", "higher", "higher", "lower", "higher", "stream")))
+    c("closest lake distance", "lower", "higher", "lower", "higher", "lake-stream", "long"), 
+    c("average link length", "lower", "higher", "lower", "higher", "stream", "long"), 
+    c("lakeconnection", "DR_Stream", "higher", "lower", "higher", "lake", "long"), 
+    c("upstream lake area", "lower", "higher", "lower", "higher", "lake", "lat"), 
+    c("stream density", "higher", "higher", "lower", "higher", "stream", "lat"),
+    c("baseflow", "higher", "higher", "lower", "higher", "stream", "lat"), 
+    c("stream order ratio", "higher", "higher", "lower", "higher", "stream", "long")))
 
-names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis")
+names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis", "connectivity type")
 
 knitr::kable(dt)
 ```
