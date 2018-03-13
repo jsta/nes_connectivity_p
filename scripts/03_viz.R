@@ -224,25 +224,22 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           md_v_ll_iws + theme(legend.position = "none"), 
           md_v_ll_nws + theme(legend.position = "none"),
           ll_v_cd_nws + theme(legend.position = "none"),
-          legend, ncol = 2, rel_heights = c(1, 1))
-
-
-ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)) + 
-  geom_hline(aes(yintercept = 52.94)) +
-  geom_vline(aes(xintercept = 63.76))
-
-ggplot() + geom_point(aes(nes_iws$iws_streamdensity_streams_density_mperha, 
+          ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)) + 
+            geom_hline(aes(yintercept = 52.94)) +
+            geom_vline(aes(xintercept = 63.76)),
+          ggplot() + geom_point(aes(nes_iws$iws_streamdensity_streams_density_mperha, 
                           nes_nws$stream_density)) + 
-  geom_hline(aes(yintercept = 10.4), color = "red") +
-  geom_vline(aes(xintercept = 4.43), color = "red") +
-  geom_abline(aes(slope = 1, intercept = 0))
-
-ggplot() + geom_point(aes(nes_iws$closest_lake_distance, nes_nws$closest_lake_distance)) + 
-  geom_hline(aes(yintercept = 2776.81), color = "red") +
-  geom_vline(aes(xintercept = 3773.61), color = "red") +
-  geom_abline(aes(slope = 1, intercept = 0)) +
-  scale_x_log10() + 
-  scale_y_log10()
+            geom_hline(aes(yintercept = 10.4), color = "red") +
+            geom_vline(aes(xintercept = 4.43), color = "red") +
+            geom_abline(aes(slope = 1, intercept = 0)),
+          ggplot() + geom_point(aes(nes_iws$closest_lake_distance, 
+                                    nes_nws$closest_lake_distance)) + 
+            geom_hline(aes(yintercept = 2776.81), color = "red") +
+            geom_vline(aes(xintercept = 3773.61), color = "red") +
+            geom_abline(aes(slope = 1, intercept = 0)) +
+            scale_x_log10() + 
+            scale_y_log10(), 
+          legend, ncol = 2)
 
 # ---- maps ----
 

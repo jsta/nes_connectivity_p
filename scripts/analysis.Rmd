@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5.5, fig.height = 4.2)
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5.5, fig.height = 4.2, fig.pos = 'H')
 ```
 
 ```{r read_chunks, cache=FALSE, echo=FALSE}
@@ -32,7 +32,7 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r k_viz, echo=FALSE, message=FALSE}
+```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales."}
 
 ```
 
@@ -44,12 +44,11 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE}
+```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8.4, fig.cap="Exploratory plots"}
 
 ```
 
-```{r maps, echo=FALSE}
-
+```{r maps, echo=FALSE, fig.cap="Map of lakes with low distance to nearest upstream lake at the NWS scale."}
 
 ```
 
@@ -57,7 +56,7 @@ knitr::read_chunk("99_utils.R")
 <!-- * Madison Lake is impaired according to MPCA -->
 
 
-```{r conceptual_summary, echo=FALSE}
+```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing."}
 dt <- data.frame(
   rbind(
         c("lakeconnection", "DR_Stream", "higher", "lower", "higher", "lake"), 
@@ -70,5 +69,5 @@ dt <- data.frame(
 
 names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis")
 
-knitr::kable(dt, caption = c("Connectivity metric effects on lake processing."))
+knitr::kable(dt)
 ```
