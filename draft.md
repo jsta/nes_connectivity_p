@@ -70,13 +70,13 @@ We calculated all stream connectivity metrics using the `streamnet` and `nhdR` p
 
 ## Results
 
-* The relationship between P retention and water residence time was well described by the Vollenweider equations. 
+* The relationship between P retention and water residence time was well described by the Vollenweider equations.
 
 * Connectivity played a larger role in determining P retention at the NWS scale than at the IWS scale.
 
-* Longitudinal connectivity metrics were more important than lateral connectivity metrics at the NWS scale.  
+* Longitudinal connectivity metrics were more important than lateral connectivity metrics at the NWS scale.
 
-* Focal lake characteristics played a larger role in determining P retention at the IWS scale than connectivity metrics. 
+* Focal lake characteristics played a larger role in determining P retention at the IWS scale than connectivity metrics.
 
 * Lake associated processes played a larger role in determining P retention than stream associated processes at the IWS scale.
 
@@ -117,3 +117,5 @@ Table: Table of partition splits generated with conditional inference trees. Ref
 <!-- Stream connectivity is really stream _complexity_. 
 
 A high stream order ratio indicates a high complexity of streams in the watershed. P inputs to a lake with a high stream order ratio have likely undergone less in-stream processing as high order streams are known to have long/short "spiral distances"(citation). -->
+
+<!-- Covino 2017 - longitudinal vs lateral vs vertical connectivity -->

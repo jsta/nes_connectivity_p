@@ -41,7 +41,8 @@ name_key <- data.frame(
                 "uplakearea", "baseflow", 
                 "wetland-cover", 
                 "streamdensity", "lakeconnection"), 
-  pnames2 = c("md", "cd", "sr", "ll", "la", "bf", "wc", "sd", "lc")
+  pnames2 = c("md", "cd", "sr", "ll", "la", "bf", "wc", "sd", "lc"), 
+  conny_type = c(NA, "long", "long", "long", "lat", "lat", "lat", "lat", "long")
 )
 
 res <- merge(name_key, res)
@@ -76,4 +77,4 @@ res <- res[order(res$d_k, decreasing = TRUE),]
 
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
-             col.names = c("Abb", "Scale", "Metric", "Split Value", "Delta k"))
+             col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"))
