@@ -3,6 +3,7 @@ source("99_utils.R")
 source("01_prepdata.R")
 
 # ---- table_1 ----
+# table showing model results
 table_splits <- function(dir, pat = "forest.rds"){
   parts  <- list.files(dir, pattern = pat, 
                            full.names = TRUE, include.dirs = TRUE)
@@ -78,3 +79,13 @@ res <- res[order(res$d_k, decreasing = TRUE),]
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
              col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"))
+
+# ---- table_2 ----
+# table describing basic properties of lake population
+qs <- function(x) quantile(nes_iws[,x], c(0.25, 0.5, 0.75), na.rm = TRUE)
+summary_names <- c("maxdepth", "retention_time_yr", "tp", 
+                   "p_percent_retention", 
+                   "p_surface_area_loading", "surface_area")
+res <- lapply(summary_names, qs)
+res <- data.frame(do.call("rbind", res))
+res$property <- summary_names

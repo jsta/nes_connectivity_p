@@ -224,24 +224,31 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           md_v_ll_iws + theme(legend.position = "none"), 
           md_v_ll_nws + theme(legend.position = "none"),
           ll_v_cd_nws + theme(legend.position = "none"),
-          ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow)) + 
+          ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow, color = nes_iws$lakeconnection)) + 
             geom_hline(aes(yintercept = 52.94)) +
             geom_vline(aes(xintercept = 63.76)) + 
-            ylab("NWS Baseflow") + xlab("IWS Baseflow"),
-          ggplot() + geom_point(aes(nes_iws$iws_streamdensity_streams_density_mperha, 
-                          nes_nws$stream_density)) + 
+            ylab("NWS Baseflow") + xlab("IWS Baseflow") + 
+            theme(legend.position = "none"),
+          ggplot() + geom_point(aes(
+            nes_iws$iws_streamdensity_streams_density_mperha, 
+            nes_nws$stream_density, color = nes_iws$lakeconnection)) + 
             geom_hline(aes(yintercept = 10.4), color = "red") +
             geom_vline(aes(xintercept = 4.43), color = "red") +
             geom_abline(aes(slope = 1, intercept = 0)) + 
-            ylab("NWS Stream Density") + xlab("IWS Stream Density"),
+            ylab("NWS Stream Density") + xlab("IWS Stream Density") + 
+            theme(legend.position = "none"),
+          
           ggplot() + geom_point(aes(nes_iws$closest_lake_distance, 
-                                    nes_nws$closest_lake_distance)) + 
+                                    nes_nws$closest_lake_distance, 
+                                    color = nes_iws$lakeconnection)) + 
             geom_hline(aes(yintercept = 2776.81), color = "red") +
             geom_vline(aes(xintercept = 3773.61), color = "red") +
             geom_abline(aes(slope = 1, intercept = 0)) +
             scale_x_log10() + 
             scale_y_log10() + 
-            ylab("NWS Lake Distance") + xlab("IWS Lake Distance"), 
+            ylab("NWS Lake Distance") + xlab("IWS Lake Distance") + 
+            theme(legend.position = "none"),
+          
           legend, ncol = 2)
 
 # ---- maps ----
