@@ -253,8 +253,11 @@ plot_grid(md_v_la + theme(legend.position = "none"),
 
 # ---- maps ----
 
-partition_splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
-partition_splits <- dplyr::filter(partition_splits, !is.na(splits))
+partition_splits <- read.csv("../figures/table_1.csv")
+partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
+                                  scale %in% c("nws", "iws"))
+partition_splits <- droplevels(partition_splits)
+levels(partition_splits$pnames2) <- c("cd", "ll", "la", "sd", "bf", "sr")
 
 nes_sf    <- coordinatize(nes_nws, "lat", "long")
 us_states <- st_intersects(us_states(), nes_sf)
@@ -262,7 +265,7 @@ us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
 get_sub <- function(dt, col_name, split_value){
   coordinatize(
-    dplyr::filter(dt, UQ(rlang::sym(col_name)) <= split_value), 
+    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
     "lat", "long")
 }
 
@@ -294,6 +297,16 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                              ggtitle(partition_splits[x, "pnames2"])
                          })
 
+lower_iws_maps <- lower_iws_maps[
+  match(levels(partition_splits$pnames2), 
+        partition_splits$pnames2[which(partition_splits$scale == "iws")])
+  ]
 
-plot_grid(plotlist = lower_iws_maps)
-plot_grid(plotlist = lower_nws_maps)
+lower_nws_maps <- lower_nws_maps[
+  match(levels(partition_splits$pnames2), 
+        partition_splits$pnames2[which(partition_splits$scale == "nws")])
+  ]
+
+plot_grid(
+  plot_grid(plotlist = lower_iws_maps),
+  plot_grid(plotlist = lower_nws_maps), ncol = 1)
