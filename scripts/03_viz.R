@@ -167,7 +167,7 @@ md_v_la <- ggplot(data = nes_iws) +
   ylab("Upstream Lake Area (ha)") + xlab("Max Depth (m)") + 
   geom_vline(data = partition_splits, aes(
     xintercept = partition_splits$splits[
-      partition_splits$pnames2 == "md" & partition_splits$scale == "misc"])) + 
+      partition_splits$pnames2 == "md" & partition_splits$scale == "focal"])) + 
   geom_hline(data = partition_splits, aes(
     yintercept = partition_splits$splits[
       partition_splits$pnames2 == "la" & partition_splits$scale == "nws"])) + 
@@ -254,19 +254,46 @@ plot_grid(md_v_la + theme(legend.position = "none"),
 # ---- maps ----
 
 partition_splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
+partition_splits <- dplyr::filter(partition_splits, !is.na(splits))
 
 nes_sf    <- coordinatize(nes_nws, "lat", "long")
 us_states <- st_intersects(us_states(), nes_sf)
 us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
-get_sub <- function(col_name, split_value){
+get_sub <- function(dt, col_name, split_value){
   coordinatize(
-    dplyr::filter(nes_nws, UQ(rlang::sym(col_name)) <= split_value), 
+    dplyr::filter(dt, UQ(rlang::sym(col_name)) <= split_value), 
     "lat", "long")
 }
 
-nes_sub <- get_sub("closest_lake_distance", 2776.81)
+lower_iws_maps <- lapply(which(partition_splits$scale == "iws"), 
+                         function(x) {
+                           nes_sub <- get_sub(nes_iws, 
+                                            partition_splits[x, "iws_names"],
+                                            partition_splits[x, "splits"])
+                           
+                           ggplot() + 
+                             geom_sf(data = us_states) +
+                             geom_sf(data = nes_sf) + 
+                             geom_sf(data = nes_sub, color = "red") + 
+                             coord_sf(datum = NA) + 
+                             ggtitle(partition_splits[x, "pnames2"])
+                         })
 
-plot(us_states$geometry)
-plot(nes_sf$geometry, add = TRUE)
-plot(nes_sub$geometry, add = TRUE, col = "red", fill = "red", pch = 19)
+lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
+                         function(x) {
+                           nes_sub <- get_sub(nes_nws, 
+                                              partition_splits[x, "nws_names"],
+                                              partition_splits[x, "splits"])
+                           
+                           ggplot() + 
+                             geom_sf(data = us_states) +
+                             geom_sf(data = nes_sf) + 
+                             geom_sf(data = nes_sub, color = "red") + 
+                             coord_sf(datum = NA) + 
+                             ggtitle(partition_splits[x, "pnames2"])
+                         })
+
+
+plot_grid(plotlist = lower_iws_maps)
+plot_grid(plotlist = lower_nws_maps)

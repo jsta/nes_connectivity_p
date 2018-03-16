@@ -43,6 +43,12 @@ name_key <- data.frame(
                 "wetland-cover", 
                 "streamdensity", "lakeconnection"), 
   pnames2 = c("md", "cd", "sr", "ll", "la", "bf", "wc", "sd", "lc"), 
+  nws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
+                "link_length", "upstream_lakes_4ha_area_ha", "baseflow", NA, 
+                "stream_density", "lakeconnection"),
+  iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
+                "link_length", NA, "hu12_baseflowindex_mean", NA, 
+                "iws_streamdensity_streams_density_mperha", "lakeconnection"),
   conny_type = c(NA, "long", "long", "long", "lat", "lat", "lat", "lat", "long")
 )
 
@@ -50,7 +56,7 @@ res <- merge(name_key, res)
 
 res[res$pnames == "cd", "splits"] <- c(inv_inv_closest(-1.51, nes_rf_iws),
                                        inv_inv_closest(-1.49, nes_rf_nws))
-res <- res[order(res$pnames, res$scale), 2:ncol(res)]
+res <- res[order(res$pnames, res$scale), ]
                                        
 d_k <- lapply(list("../data/lc_vollenweider.rds",
             "../data/md_vollenweider.rds",
@@ -72,10 +78,9 @@ d_k$scale <- c("focal", "focal", rep("iws", 5), rep("nws", 6))
 res <- merge(res, d_k)
 res <- res[order(res$d_k, decreasing = TRUE),]
 
-# tidyr::spread(res, scale, splits)                                       
+# write.csv(res[, c(1,2,4,5,6,7,8,9)], "../figures/table_1.csv", row.names = FALSE)
 
-# write.csv(res, "../figures/table_1.csv", row.names = FALSE)
-
+res <- res[, c(1,2,4,7,8,9)]
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
              col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"))
