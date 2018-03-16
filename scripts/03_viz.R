@@ -257,7 +257,8 @@ partition_splits <- read.csv("../figures/table_1.csv")
 partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
                                   scale %in% c("nws", "iws"))
 partition_splits <- droplevels(partition_splits)
-levels(partition_splits$pnames2) <- c("cd", "ll", "la", "sd", "bf", "sr")
+partition_splits$pnames2 <- factor(partition_splits$pnames2, 
+                              levels = c("cd", "ll", "la", "sd", "bf", "sr"))
 
 nes_sf    <- coordinatize(nes_nws, "lat", "long")
 us_states <- st_intersects(us_states(), nes_sf)
@@ -277,10 +278,11 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
                            
                            ggplot() + 
                              geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf) + 
-                             geom_sf(data = nes_sub, color = "red") + 
+                             geom_sf(data = nes_sf, size = 0.6) + 
+                             geom_sf(data = nes_sub, color = "red", size = 0.6) + 
                              coord_sf(datum = NA) + 
-                             ggtitle(partition_splits[x, "pnames2"])
+                             ggtitle(partition_splits[x, "pnames2"]) + 
+                             theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
                          })
 
 lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
@@ -291,10 +293,11 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                            
                            ggplot() + 
                              geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf) + 
-                             geom_sf(data = nes_sub, color = "red") + 
+                             geom_sf(data = nes_sf, size = 0.6) + 
+                             geom_sf(data = nes_sub, color = "red", size = 0.6) + 
                              coord_sf(datum = NA) + 
-                             ggtitle(partition_splits[x, "pnames2"])
+                             ggtitle(partition_splits[x, "pnames2"]) + 
+                             theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
                          })
 
 lower_iws_maps <- lower_iws_maps[
@@ -302,11 +305,17 @@ lower_iws_maps <- lower_iws_maps[
         partition_splits$pnames2[which(partition_splits$scale == "iws")])
   ]
 
+# lower_iws_maps[1][[1]] <- lower_iws_maps[1][[1]] + 
+#   theme(plot.margin = unit(c(1,0,0,0), "lines"))
+
 lower_nws_maps <- lower_nws_maps[
   match(levels(partition_splits$pnames2), 
         partition_splits$pnames2[which(partition_splits$scale == "nws")])
   ]
 
 plot_grid(
-  plot_grid(plotlist = lower_iws_maps),
-  plot_grid(plotlist = lower_nws_maps), ncol = 1)
+  NULL,  plot_grid(plotlist = lower_iws_maps),
+  NULL,  plot_grid(plotlist = lower_nws_maps), 
+  ncol = 1, labels = c(NA, "iws", NA, "nws"), 
+  rel_heights = c(0.2, 1, 0.2, 1), vjust = -0.6, label_colour = "gray")
+
