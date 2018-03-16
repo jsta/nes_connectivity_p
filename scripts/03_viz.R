@@ -253,13 +253,20 @@ plot_grid(md_v_la + theme(legend.position = "none"),
 
 # ---- maps ----
 
-test <- coordinatize(dplyr::filter(nes_nws, closest_lake_distance <= 2776.81), 
-                     "lat", "long")
-# data.frame(test[order(test$p_percent_retention, decreasing = TRUE), c("state", "name")])
-test2 <- coordinatize(nes_nws, "lat", "long")
+partition_splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 
-us_states <- st_intersects(us_states(), test2)
+nes_sf    <- coordinatize(nes_nws, "lat", "long")
+us_states <- st_intersects(us_states(), nes_sf)
 us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
+
+get_sub <- function(col_name, split_value){
+  coordinatize(
+    dplyr::filter(nes_nws, UQ(rlang::sym(col_name)) <= split_value), 
+    "lat", "long")
+}
+
+nes_sub <- get_sub("closest_lake_distance", 2776.81)
+
 plot(us_states$geometry)
-plot(test2$geometry, add = TRUE)
-plot(test$geometry, add = TRUE, col = "red", fill = "red", pch = 19)
+plot(nes_sf$geometry, add = TRUE)
+plot(nes_sub$geometry, add = TRUE, col = "red", fill = "red", pch = 19)
