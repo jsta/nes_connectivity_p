@@ -137,5 +137,5 @@ nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
 
 library(corrr)
 
-res <- correlate(nes_sub)
-rplot(res)
+res <- shave(rearrange(correlate(nes_sub)))
+knitr::kable(res, digits = 2)

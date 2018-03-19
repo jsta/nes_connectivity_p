@@ -44,6 +44,10 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
+```{r table_3, echo=FALSE, fig.cap="Table 3"}
+
+```
+
 ```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
 
 ```
@@ -74,4 +78,8 @@ dt <- data.frame(
 names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis", "connectivity type")
 
 knitr::kable(dt)
+```
+
+```{r fig.cap="Connectivity metric box"}
+knitr::include_graphics("../figures/conny_metric_key.pdf")
 ```
