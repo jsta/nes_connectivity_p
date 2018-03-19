@@ -40,6 +40,10 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
+```{r table_2, echo=FALSE, fig.cap="Table 2"}
+
+```
+
 ```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
 
 ```

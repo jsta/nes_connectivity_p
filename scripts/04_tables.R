@@ -30,7 +30,6 @@ res$splits <- as.numeric(res$splits)
 # res <- res[,1:ncol(res)]
 res <- rbind(res, data.frame(pnames = "lakeconnection", splits = NA, scale = "focal"))
 
-
 name_key <- data.frame(
   parameter  = c("Max Depth", "Closest lake distance", 
                  "Stream order ratio", "Average Link Length", 
@@ -87,10 +86,35 @@ knitr::kable(res,
 
 # ---- table_2 ----
 # table describing basic properties of lake population
-qs <- function(x) quantile(nes_iws[,x], c(0.25, 0.5, 0.75), na.rm = TRUE)
-summary_names <- c("maxdepth", "retention_time_yr", "tp", 
-                   "p_percent_retention", 
-                   "p_surface_area_loading", "surface_area")
+nes_iws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
+  
+name_key <- data.frame(property = c("maxdepth", "percent_ag", "percent_urban", 
+                                    "tp", "p_percent_retention", 
+                                    "chl", "secchi", "retention_time_yr"),
+                       Characteristic = c("Max Depth (m)", "Ag Landuse (%)", 
+                                          "% Urban", 
+                                       "TP (mg/L)", "P Retention (%)", 
+                                       "Chl (ug/L)", "Secchi (m)", 
+                                       "Residence Time (yr)"))
+
+qs <- function(x) quantile(nes_iws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
+summary_names <- c("maxdepth", "percent_ag", 
+                   "tp", "p_percent_retention", 
+                   "secchi", "retention_time_yr")
 res <- lapply(summary_names, qs)
-res <- data.frame(do.call("rbind", res))
+res <- round(data.frame(do.call("rbind", res)), 2)
 res$property <- summary_names
+res <- merge(res, name_key, sort = FALSE)
+res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
+names(res)[2:ncol(res)] <-c("Mean", "LQ", "UQ")
+knitr::kable(res)
+
+# ---- table_3 ----
+# correlation matrix
+
+# splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
+# unique(splits$pnames2)
+# dt <- dplyr::bind_rows(nes_iws[,
+#                                ])
+
+
