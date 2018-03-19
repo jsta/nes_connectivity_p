@@ -80,6 +80,6 @@ names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing",
 knitr::kable(dt)
 ```
 
-```{r fig.cap="Connectivity metric box"}
-knitr::include_graphics("../figures/conny_metric_key.pdf")
+```{r fig.cap="Connectivity metric box", echo=FALSE}
+knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 ```

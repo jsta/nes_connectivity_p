@@ -138,4 +138,7 @@ nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
 library(corrr)
 
 res <- shave(rearrange(correlate(nes_sub)))
+res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
+res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
+names(res)[1] <- ""
 knitr::kable(res, digits = 2)
