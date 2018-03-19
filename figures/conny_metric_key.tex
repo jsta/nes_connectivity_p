@@ -1,5 +1,5 @@
 \documentclass[bigger]{beamer}
-\usepackage[orientation=portrait, size=a0, scale=1.4]{beamerposter}
+\usepackage[orientation=portrait, size=a10, scale=1]{beamerposter}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{pgfplots}
@@ -17,11 +17,28 @@
 \section{Connectivity Metric Key}
 \begin{frame}
   \begin{center}
+
+    \begin{columns} [c]     
+      \begin{column}{0.4\textwidth}        
+      \end{column}
+  
+    \begin{column}{0.25\textwidth}
+      \huge{Lower Connectivity}
+    \end{column}
+    
+    \begin{column}{0.25\textwidth}
+      \huge{Higher Connectivity}
+    \end{column}
+    \end{columns}
   
   % cd %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns} [c]     
-  \begin{column}{0.3\textwidth}
-    \begin{tikzpicture}[scale = 0.6]
+    \begin{column}{0.4\textwidth}
+      \huge{\textbf{Closest Lake Distance:} Network distance to the closest upstream lake.}
+    \end{column}
+
+  \begin{column}{0.25\textwidth}
+    \begin{tikzpicture}[scale = 2]
         \draw [-,ultra thick, cyan] (2.2,2.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
         \draw [-,ultra thick, cyan] (2.2,2.8) to [out=90,in=0] (1.1,3.1) to [out=270,in=90] (0,3.4);
 
@@ -31,8 +48,8 @@
       \end{tikzpicture}
   \end{column}
   
-  \begin{column}{0.3\textwidth}
-    \begin{tikzpicture}[scale = 0.6]
+  \begin{column}{0.25\textwidth}
+    \begin{tikzpicture}[scale = 2]
         \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
         \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 5cm, xshift = 2cm] plot (\x:0.6+rnd*0.2);
         \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan] plot (\x:1+rnd*0.5);
@@ -42,8 +59,69 @@
 
   % ll %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns}[c]  
-    \begin{column}{0.3\textwidth}
-      \begin{tikzpicture}[scale = 0.6]
+    \begin{column}{0.4\textwidth}
+      \huge{\textbf{Average Link Length:} Length of stream reaches where each stream reach starts and ends at a junction divided by the total number of reaches.}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+        %\draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
+        \draw [-,ultra thick, cyan] (2,3) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);        
+        \draw [-,ultra thick, cyan] (0.5,2.9) to [out=0,in=90] (1.1,1.9) to [out=270,in=90] (0,0);
+        
+        \draw [-,ultra thick, cyan] (-1.2,3.7) to [out=200,in=0] (-2,3) to [out=290,in=45] (-1.1,1.9) to [out=270,in=90] (0,0);        
+        \draw [-,ultra thick, cyan] (-0.5,2.9) to [out=250,in=250] (-1.1,1.9) to [out=270,in=90] (0,0);
+
+        \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan] plot (\x:1+rnd*0.5);
+      \end{tikzpicture}
+    \end{column}
+    
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+           %\draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
+          \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
+          \draw [-,ultra thick, cyan] (0.9,4) to [out=290,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
+
+          \draw [-,ultra thick, cyan] (-2.2,4.8) to [out=90,in=180] (-1.1,1.9) to [out=270,in=90] (0,0);
+          \draw [-,ultra thick, cyan] (-0.9,4) to [out=260,in=180] (-1.1,1.9) to [out=270,in=90] (0,0);
+
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan] plot (\x:1+rnd*0.5);
+        \end{tikzpicture}
+    \end{column}
+    \end{columns}
+  
+
+  % la %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{columns}[c]  
+    \begin{column}{0.4\textwidth}
+      \huge{\textbf{Upstream Lake Area:} Total area of upstream lakes limited to lakes that are greater than or equal to 4ha.}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+          \draw [-,ultra thick, cyan] (2.2,3.7) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 3.5cm, xshift = 2cm] plot (\x:0.5+rnd*0.2);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan] plot (\x:1+rnd*0.5);
+        \end{tikzpicture}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+          \draw [-,ultra thick, cyan] (2.2,4.3) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 3.5cm, xshift = 2cm] plot (\x:0.9+rnd*0.2);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan] plot (\x:1+rnd*0.5);
+        \end{tikzpicture}
+    \end{column}
+    \end{columns}
+
+    % sd %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{columns}[c]  
+    \begin{column}{0.4\textwidth}
+      \huge{\textbf{Stream Density:} }
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
         % \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
         \draw [-,ultra thick, cyan] (2,3) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);        
         \draw [-,ultra thick, cyan] (0.5,2.9) to [out=0,in=90] (1.1,1.9) to [out=270,in=90] (0,0);
@@ -55,8 +133,8 @@
       \end{tikzpicture}
     \end{column}
     
-    \begin{column}{0.3\textwidth}
-      \begin{tikzpicture}[scale = 0.6]
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
         %   \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
           \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
           \draw [-,ultra thick, cyan] (0.9,4) to [out=290,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
@@ -65,25 +143,31 @@
         \end{tikzpicture}
     \end{column}
     \end{columns}
-  
 
-    % la %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % sr %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns}[c]  
-    \begin{column}{0.3\textwidth}
-      \begin{tikzpicture}[scale = 0.6]
-        % \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
+    \begin{column}{0.4\textwidth}
+      \huge{\textbf{Stream Order Ratio:} The total number of first order stream reaches divided by the total number of higher order stream reaches. In this example the lower connectivity lake has a stream order ratio of 3 whereas the higher connectivity lake has a stream order ratio of 2.}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+        \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
         \draw [-,ultra thick, cyan] (2,3) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);        
         \draw [-,ultra thick, cyan] (0.5,2.9) to [out=0,in=90] (1.1,1.9) to [out=270,in=90] (0,0);
+
+         
         
         \draw [-,ultra thick, cyan] (-1,4) to [out=200,in=0] (-2,3) to [out=290,in=45] (-1.1,1.9) to [out=270,in=90] (0,0);        
         \draw [-,ultra thick, cyan] (-0.5,2.9) to [out=250,in=250] (-1.1,1.9) to [out=270,in=90] (0,0);
+        \draw [-,ultra thick, cyan] (-1.8, 2.1) to [out=250,in=180] (-1,1.5)
 
         \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan] plot (\x:1+rnd*0.5);
       \end{tikzpicture}
     \end{column}
     
-    \begin{column}{0.3\textwidth}
-      \begin{tikzpicture}[scale = 0.6]
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
         %   \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
           \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
           \draw [-,ultra thick, cyan] (0.9,4) to [out=290,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
