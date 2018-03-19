@@ -112,9 +112,30 @@ knitr::kable(res)
 # ---- table_3 ----
 # correlation matrix
 
-# splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
-# unique(splits$pnames2)
-# dt <- dplyr::bind_rows(nes_iws[,
-#                                ])
+splits      <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
+nes_iws_sub <- dplyr::select(nes_iws, -lakeconnection)
+conny_cols  <- unique(splits$iws_names)[!is.na(unique(splits$iws_names))]
+conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 
+nes_iws_sub <- nes_iws_sub[,conny_cols]
+iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)), 
+      splits[,c("iws_names", "pnames2")], sort = FALSE)
+iws_key <- iws_key[!duplicated(iws_key),]
+names(nes_iws_sub) <- iws_key$pnames2
 
+nes_nws_sub <- dplyr::select(nes_nws, -lakeconnection)
+conny_cols  <- unique(splits$nws_names)[!is.na(unique(splits$nws_names))]
+conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
+
+nes_nws_sub <- nes_nws_sub[,conny_cols]
+nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
+                 splits[,c("nws_names", "pnames2")], sort = FALSE)
+nws_key <- nws_key[!duplicated(nws_key),]
+names(nes_nws_sub) <- nws_key$pnames2
+
+nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
+
+library(corrr)
+
+res <- correlate(nes_sub)
+rplot(res)
