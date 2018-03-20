@@ -100,7 +100,7 @@ name_key <- data.frame(property = c("maxdepth", "percent_ag", "percent_urban",
 qs <- function(x) quantile(nes_iws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
 summary_names <- c("maxdepth", "percent_ag", 
                    "tp", "p_percent_retention", 
-                   "secchi", "retention_time_yr")
+                   "secchi", "chl", "retention_time_yr")
 res <- lapply(summary_names, qs)
 res <- round(data.frame(do.call("rbind", res)), 2)
 res$property <- summary_names

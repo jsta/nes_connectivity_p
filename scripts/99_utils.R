@@ -50,6 +50,10 @@ prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALS
     nes <- dplyr::filter(nes, 
                          lagoslakeid != 6208) # strange outlier
     
+    nes <- dplyr::filter(nes, 
+                         !(nesid %in% c("1909", "1907", "1839", 
+                                        "2314", "2314", "4224")))
+    
   }else{ # lagos-us
     nes <- dplyr::left_join(nes, nes_x_lagos)
   }
