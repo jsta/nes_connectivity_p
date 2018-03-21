@@ -1,14 +1,13 @@
 .PHONY: all
 
-all: iws_nws.png conny_metric_key.png
+all: iws_nws.pdf conny_metric_key.pdf
 	echo done
 
-iws_nws.png: iws_nws.tex
+iws_nws.pdf: iws_nws.tex
 	pdflatex iws_nws.tex
-	convert -density 400 iws_nws.pdf -trim iws_nws.png
-	-rm iws_nws.pdf
-
-conny_metric_key.png: conny_metric_key.tex
+	pdfcrop iws_nws.pdf iws_nws.pdf
+	
+conny_metric_key.pdf: conny_metric_key.tex
 	pdflatex conny_metric_key.tex
 	pdfcrop conny_metric_key.pdf conny_metric_key_crop.pdf
 	# convert -density 400 -trim conny_metric_key.pdf conny_metric_key.pdf

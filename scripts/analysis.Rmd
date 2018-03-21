@@ -24,6 +24,22 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
+```{r table_2, echo=FALSE, fig.cap="Table 2"}
+
+```
+
+```{r fig.cap="Watershed diagram", echo=FALSE}
+knitr::include_graphics("../figures/iws_nws.pdf")
+```
+
+```{r fig.cap="Connectivity metric box", echo=FALSE}
+knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
+```
+
+```{r table_3, echo=FALSE, fig.cap="Table 3"}
+
+```
+
 ```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data."}
 
 ```
@@ -40,13 +56,12 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r table_2, echo=FALSE, fig.cap="Table 2"}
+```{r maps, echo=FALSE, fig.cap="Map of lake connectivity partitions.", warning=FALSE, message=FALSE}
 
 ```
 
-```{r table_3, echo=FALSE, fig.cap="Table 3"}
-
-```
+<!-- * Olin Lake has a completely undeveloped shoreline -->
+<!-- * Madison Lake is impaired according to MPCA -->
 
 ```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
 
@@ -55,14 +70,6 @@ knitr::read_chunk("99_utils.R")
 ```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8.4, fig.cap="Exploratory plots"}
 
 ```
-
-```{r maps, echo=FALSE, fig.cap="Map of lake connectivity partitions.", warning=FALSE, message=FALSE}
-
-```
-
-<!-- * Olin Lake has a completely undeveloped shoreline -->
-<!-- * Madison Lake is impaired according to MPCA -->
-
 
 ```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing."}
 dt <- data.frame(
@@ -78,8 +85,4 @@ dt <- data.frame(
 names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis", "connectivity type")
 
 knitr::kable(dt)
-```
-
-```{r fig.cap="Connectivity metric box", echo=FALSE}
-knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 ```
