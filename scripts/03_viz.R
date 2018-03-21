@@ -319,3 +319,4 @@ plot_grid(
   ncol = 1, labels = c(NA, "iws", NA, "nws"), 
   rel_heights = c(0.2, 1, 0.2, 1), vjust = -0.6, label_colour = "gray")
 
+# ggplot() + geom_point(data = nes_nws, aes(x = lg_long, y = lg_lat, color = baseflow))

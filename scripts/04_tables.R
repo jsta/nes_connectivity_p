@@ -82,7 +82,7 @@ res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[, c(1,2,4,7,8,9)]
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
-             col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"))
+             col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"), caption = "Partition cutoff table")
 
 # ---- table_2 ----
 # table describing basic properties of lake population
@@ -107,7 +107,8 @@ res$property <- summary_names
 res <- merge(res, name_key, sort = FALSE)
 res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
 names(res)[2:ncol(res)] <-c("Mean", "LQ", "UQ")
-knitr::kable(res)
+knitr::kable(res, format = 'pandoc', 
+             caption = "Summary of study lake characteristics")
 
 # ---- table_3 ----
 # correlation matrix
@@ -141,4 +142,4 @@ res <- shave(rearrange(correlate(nes_sub)))
 res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
 res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
 names(res)[1] <- ""
-knitr::kable(res, digits = 2)
+knitr::kable(res, digits = 2, format = 'pandoc', caption = "Pearson correlation matrix among connectivity metrics")

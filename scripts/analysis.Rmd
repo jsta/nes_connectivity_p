@@ -24,7 +24,7 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r table_2, echo=FALSE, fig.cap="Table 2"}
+```{r table_2, echo=FALSE, results='asis'}
 
 ```
 
@@ -36,7 +36,7 @@ knitr::include_graphics("../figures/iws_nws.pdf")
 knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 ```
 
-```{r table_3, echo=FALSE, fig.cap="Table 3"}
+```{r table_3, echo=FALSE, results='asis'}
 
 ```
 
