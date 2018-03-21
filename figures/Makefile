@@ -3,7 +3,7 @@
 all: iws_nws.pdf conny_metric_key.pdf
 	echo done
 
-iws_nws.pdf: iws_nws.tex
+iws_nws.pdf: iws_nws.tex beamer-lake-fig/beamer-lake-fig.tex
 	pdflatex iws_nws.tex
 	pdfcrop iws_nws.pdf iws_nws.pdf
 	
