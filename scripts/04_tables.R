@@ -84,7 +84,7 @@ knitr::kable(res,
              digits = 2, row.names = FALSE, 
              col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"), caption = "Partition cutoff table")
 
-# ---- table_2 ----
+# ---- lake_characteristics_table ----
 # table describing basic properties of lake population
 nes_iws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
   
@@ -93,7 +93,7 @@ name_key <- data.frame(property = c("maxdepth", "percent_ag", "percent_urban",
                                     "chl", "secchi", "retention_time_yr"),
                        Characteristic = c("Max Depth (m)", "Ag Landuse (%)", 
                                           "% Urban", 
-                                       "TP (mg/L)", "P Retention (%)", 
+                                       "TP (ug/L)", "P Retention (%)", 
                                        "Chl (ug/L)", "Secchi (m)", 
                                        "Residence Time (yr)"))
 
@@ -104,14 +104,21 @@ summary_names <- c("maxdepth", "percent_ag",
 res <- lapply(summary_names, qs)
 res <- round(data.frame(do.call("rbind", res)), 2)
 res$property <- summary_names
+
+# unit conversions
+res[res$property == "tp", 1:3] <- 1000 * res[res$property == "tp", 1:3] # mg to ug
+
 res <- merge(res, name_key, sort = FALSE)
 res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
 names(res)[2:ncol(res)] <-c("Mean", "LQ", "UQ")
+
 knitr::kable(res, format = 'pandoc', 
              caption = "Summary of study lake characteristics")
 
-# ---- table_3 ----
+# ---- cor_mat_table ----
 # correlation matrix
+
+library(corrr)
 
 splits      <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 nes_iws_sub <- dplyr::select(nes_iws, -lakeconnection)
@@ -135,8 +142,6 @@ nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$pnames2
 
 nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
-
-library(corrr)
 
 res <- shave(rearrange(correlate(nes_sub)))
 res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
