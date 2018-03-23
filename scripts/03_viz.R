@@ -251,6 +251,14 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           
           legend, ncol = 2)
 
+# nes_iws$p_pnt_source <-  rowSums(cbind(nes_iws$p_pnt_source_muni,
+#                                        nes_iws$p_pnt_source_septic,
+#                                        nes_iws$p_pnt_source_industrial), 
+#                                  na.rm = TRUE)
+# 
+# plot(nes_iws$p_pnt_source / 
+#        nes_iws$p_nonpnt_source, nes_iws$p_percent_retention)
+
 # ---- maps ----
 
 partition_splits <- read.csv("../figures/table_1.csv")
