@@ -146,8 +146,6 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   test     <- split(test, f = test$part)
   test     <- lapply(test, function(x) group_by(x, retention_time_yr))
   
-  browser()
-  
   gg_format <- function(gg){
     gg <- gg + geom_point(data = nes, aes(x = retention_time_yr, 
                                y = p_percent_retention)) +
@@ -162,6 +160,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
     if(!yl){
       gg <- gg + theme(axis.title.y = element_blank())
     }
+    gg
   }
   
   # https://stackoverflow.com/a/37623958/3362993
@@ -192,12 +191,16 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
     
   gg_1 <- gg_format(gg_1)
   gg_2 <- gg_format(gg_2)
+  
   g1 <- ggplotGrob(gg_1)
   g2 <- ggplotGrob(gg_2)
+  # gtable::gtable_show_layout(g1)
+  # print(g2)
   g2 <- gtable::gtable_filter(g2, "panel")
   
   gg <- gtable::gtable_add_grob(g1, g2, t = 6, l = 4)
   
+  grid::grid.newpage()
   grid::grid.draw(gg)
 }
 
