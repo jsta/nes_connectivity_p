@@ -146,29 +146,59 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   test     <- split(test, f = test$part)
   test     <- lapply(test, function(x) group_by(x, retention_time_yr))
   
-  res <- ggplot() +
-    stat_lineribbon(data = test[1][[1]], 
-                       aes(x = retention_time_yr, 
-                           y = estimate), .prob = 0.95, size = 0.5) + 
-    stat_lineribbon(data = test[2][[1]], 
-                    aes(x = retention_time_yr, 
-                        y = estimate), .prob = 0.95, alpha = 0.3, size  = 0.5) + 
-    geom_point(data = nes, aes(x = retention_time_yr, 
-                               y = p_percent_retention)) + 
-    scale_x_log10() + ylim(0, 1) + 
-    scale_fill_viridis_d(begin = (1 / 9) * ind) + 
-    theme_pred() + ggtitle(title) +
-    ylab("P Retention (%)") +  xlab("Residence Time (yr)")
+  browser()
   
-  if(!xl){
-    res <- res + theme(axis.title.x = element_blank())
+  gg_format <- function(gg){
+    gg <- gg + geom_point(data = nes, aes(x = retention_time_yr, 
+                               y = p_percent_retention)) +
+      theme(legend.position = "none") + 
+      ylim(0, 1) + scale_x_log10() + ggtitle(title) +
+      ylab("P Retention (%)") + xlab("Residence Time (yr)")
+    
+    if(!xl){
+      gg <- gg + theme(axis.title.x = element_blank())
+    }
+    
+    if(!yl){
+      gg <- gg + theme(axis.title.y = element_blank())
+    }
   }
   
-  if(!yl){
-    res <- res + theme(axis.title.y = element_blank())
-  }
+  # https://stackoverflow.com/a/37623958/3362993
+  gg_1 <- ggplot() + 
+    stat_summary(data = test[1][[1]], geom = "ribbon", 
+                 aes(x = retention_time_yr, y = estimate, 
+                     fill = forcats::fct_rev(ordered(...prob..))), 
+                 fun.data = median_qi, fun.args = list(.prob = 0.95), alpha = 0.3) +
+    stat_summary(data = test[1][[1]], aes(x = retention_time_yr, y = estimate), 
+                 fun.y = median, geom = "line", color = viridis::viridis(1, begin = 1), 
+                 size = 0.5) +
+    scale_fill_viridis_d(begin = 1)
   
-  res
+  gg_2 <- ggplot() +
+    stat_summary(data = test[2][[1]], geom = "ribbon", 
+                 aes(x = retention_time_yr, y = estimate, 
+                     fill = forcats::fct_rev(ordered(...prob..))), 
+                 fun.data = median_qi, fun.args = list(.prob = c(0.95)), alpha = 0.3) + 
+    stat_summary(data = test[2][[1]], aes(x = retention_time_yr, y = estimate), 
+                 fun.y = median, geom = "line", color = viridis::viridis(1, begin = 0.5), 
+                 size = 0.5) +
+    scale_fill_viridis_d(begin = 0.5) + 
+    theme(panel.background = element_rect(fill = "transparent"), 
+          plot.background = element_rect(
+            color = "transparent", 
+            fill = "transparent"),
+          panel.border = element_blank())
+    
+  gg_1 <- gg_format(gg_1)
+  gg_2 <- gg_format(gg_2)
+  g1 <- ggplotGrob(gg_1)
+  g2 <- ggplotGrob(gg_2)
+  g2 <- gtable::gtable_filter(g2, "panel")
+  
+  gg <- gtable::gtable_add_grob(g1, g2, t = 6, l = 4)
+  
+  grid::grid.draw(gg)
 }
 
 pprint_equalities <- function(node, digits = 1){
