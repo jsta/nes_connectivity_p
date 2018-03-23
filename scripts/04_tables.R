@@ -2,8 +2,35 @@
 source("99_utils.R")
 source("01_prepdata.R")
 
-# ---- table_1 ----
+# ---- model_results_table ----
 # table showing model results
+
+name_key <- function(){
+  data.frame(
+    parameter  = c("Max Depth", "Closest lake distance", 
+                   "Stream order ratio", "Average Link Length", 
+                   "Upstream lake area", "Baseflow", 
+                   "Wetland Cover",
+                   "Stream density", "Lake Connection"),
+    abb        = c("Max depth", "Closest  \n lake dist.", "S. order \n ratio", 
+                   "Avg. link \n len.", "Up. lake \n area", "Baseflow", 
+                   "W. Cover", "Stream \n density", "Lake Con."), 
+    pnames     = c("maxdepth", "cd", 
+                   "sr", "linklength", 
+                   "uplakearea", "baseflow", 
+                   "wetland-cover", 
+                   "streamdensity", "lakeconnection"), 
+    pnames2 = c("md", "cd", "sr", "ll", "la", "bf", "wc", "sd", "lc"), 
+    nws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
+                  "link_length", "upstream_lakes_4ha_area_ha", "baseflow", NA, 
+                  "stream_density", "lakeconnection"),
+    iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
+                  "link_length", NA, "hu12_baseflowindex_mean", NA, 
+                  "iws_streamdensity_streams_density_mperha", "lakeconnection"),
+    conny_type = c(NA, "long", "long", "long", "lat", "lat", "lat", "lat", "long")
+  )
+}
+
 table_splits <- function(dir, pat = "forest.rds"){
   parts  <- list.files(dir, pattern = pat, 
                            full.names = TRUE, include.dirs = TRUE)
@@ -30,28 +57,7 @@ res$splits <- as.numeric(res$splits)
 # res <- res[,1:ncol(res)]
 res <- rbind(res, data.frame(pnames = "lakeconnection", splits = NA, scale = "focal"))
 
-name_key <- data.frame(
-  parameter  = c("Max Depth", "Closest lake distance", 
-                 "Stream order ratio", "Average Link Length", 
-                 "Upstream lake area", "Baseflow", 
-                 "Wetland Cover",
-                 "Stream density", "Lake Connection"), 
-  pnames = c("maxdepth", "cd", 
-                "sr", "linklength", 
-                "uplakearea", "baseflow", 
-                "wetland-cover", 
-                "streamdensity", "lakeconnection"), 
-  pnames2 = c("md", "cd", "sr", "ll", "la", "bf", "wc", "sd", "lc"), 
-  nws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
-                "link_length", "upstream_lakes_4ha_area_ha", "baseflow", NA, 
-                "stream_density", "lakeconnection"),
-  iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
-                "link_length", NA, "hu12_baseflowindex_mean", NA, 
-                "iws_streamdensity_streams_density_mperha", "lakeconnection"),
-  conny_type = c(NA, "long", "long", "long", "lat", "lat", "lat", "lat", "long")
-)
-
-res <- merge(name_key, res)
+res <- merge(name_key(), res)
 
 res[res$pnames == "cd", "splits"] <- c(inv_inv_closest(-1.51, nes_rf_iws),
                                        inv_inv_closest(-1.49, nes_rf_nws))
@@ -77,12 +83,18 @@ d_k$scale <- c("focal", "focal", rep("iws", 5), rep("nws", 6))
 res <- merge(res, d_k)
 res <- res[order(res$d_k, decreasing = TRUE),]
 
-# write.csv(res[, c(1,2,4,5,6,7,8,9)], "../figures/table_1.csv", row.names = FALSE)
+# write.csv(res[, c(1,2,4,5,6,7,8,9,10)], "../figures/table_1.csv", row.names = FALSE)
 
-res <- res[, c(1,2,4,7,8,9)]
+# pander::panderOptions('keep.line.breaks', TRUE)
+# pander::pander(res)
+
+res <- res[, c(1,2,4,8,9,10)]
+
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
-             col.names = c("Abb", "Scale", "Metric", "Connectivity Type", "Split Value", "Delta k"), caption = "Partition cutoff table")
+             col.names = c("Abb", "Scale", "Metric", 
+                           "Connectivity Type", "Split Value", "Delta k"), 
+             caption = "Partition cutoff table")
 
 # ---- lake_characteristics_table ----
 # table describing basic properties of lake population
@@ -126,10 +138,11 @@ conny_cols  <- unique(splits$iws_names)[!is.na(unique(splits$iws_names))]
 conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 
 nes_iws_sub <- nes_iws_sub[,conny_cols]
+
 iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)), 
-      splits[,c("iws_names", "pnames2")], sort = FALSE)
+      splits[,c("iws_names", "abb")], sort = FALSE)
 iws_key <- iws_key[!duplicated(iws_key),]
-names(nes_iws_sub) <- iws_key$pnames2
+names(nes_iws_sub) <- iws_key$abb
 
 nes_nws_sub <- dplyr::select(nes_nws, -lakeconnection)
 conny_cols  <- unique(splits$nws_names)[!is.na(unique(splits$nws_names))]
@@ -137,9 +150,9 @@ conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 
 nes_nws_sub <- nes_nws_sub[,conny_cols]
 nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
-                 splits[,c("nws_names", "pnames2")], sort = FALSE)
+                 splits[,c("nws_names", "abb")], sort = FALSE)
 nws_key <- nws_key[!duplicated(nws_key),]
-names(nes_nws_sub) <- nws_key$pnames2
+names(nes_nws_sub) <- nws_key$abb
 
 nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
 
@@ -147,4 +160,16 @@ res <- shave(rearrange(correlate(nes_sub)))
 res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
 res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
 names(res)[1] <- ""
-knitr::kable(res, digits = 2, format = 'pandoc', caption = "Pearson correlation matrix among connectivity metrics")
+
+# pander::panderOptions('keep.line.breaks', TRUE)
+pander::panderOptions("round", 2)
+pander::panderOptions("missing", '')
+# pander::pander(res, 
+#       caption = "Pearson correlation matrix among connectivity metrics", 
+#       split.cells = c(11, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
+
+pander::pandoc.table(res, style = "grid", keep.line.breaks = TRUE)
+
+# options(knitr.kable.NA = '')
+# knitr::kable(res, digits = 2, format = 'pandoc', 
+#              caption = "Pearson correlation matrix among connectivity metrics")

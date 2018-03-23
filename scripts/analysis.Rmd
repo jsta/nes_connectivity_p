@@ -52,7 +52,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r table_1, echo=FALSE, fig.cap="Table 1"}
+```{r model_results_table, echo=FALSE, results='asis'}
 
 ```
 
