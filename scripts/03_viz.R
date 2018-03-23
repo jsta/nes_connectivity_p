@@ -61,7 +61,8 @@ plot_grid(
                  6, "Baseflow"),
   part_pred_plot(nes_nws, readRDS("../data/nws/la_vollenweider.rds"),
                  6, "Upstream Lake Area", yl = FALSE), 
-  nrow = 4, ncol = 2, rel_widths = c(1, 0.9))
+  nrow = 4, ncol = 2, rel_widths = c(1, 0.9), 
+  rel_heights = c(0.75, 0.75, 0.75, 1))
 
 # ---- k_viz ----
 

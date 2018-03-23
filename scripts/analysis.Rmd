@@ -40,11 +40,11 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data."}
+```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data.", warning=FALSE}
 
 ```
 
-```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Dark lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 1)", fig.height=8.4}
+```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Dark lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 1)", fig.height=8.4, warning=FALSE}
 
 ```
 
