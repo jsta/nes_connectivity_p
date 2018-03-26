@@ -47,20 +47,24 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 plot_grid(
   part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
                  9, "Lake Connection", xl = FALSE),
-  part_pred_plot(nes_iws, readRDS("../data/nws/cd_vollenweider.rds"),
-                 9, "Distance to Closest Lake", xl = FALSE, yl = FALSE), 
-  part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
-                 8, "Max Depth", xl = FALSE),
   part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
                  8, "Link Length", xl = FALSE, yl = FALSE),
+  
+  part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
+                 8, "Max Depth", xl = FALSE),
+  part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
+                 9, "Distance to Closest Lake", xl = FALSE, yl = FALSE),
+  
   part_pred_plot(nes_iws, readRDS("../data/iws/ll_vollenweider.rds"),
                  7, "Link Length", xl = FALSE), 
-  part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                 7, "Lake Connection", yl = FALSE, xl = FALSE),
+  part_pred_plot(nes_nws, readRDS("../data/nws/sd_vollenweider.rds"),
+                 9, "Stream Density", xl = FALSE, yl = FALSE),
+  
   part_pred_plot(nes_iws, readRDS("../data/iws/bf_vollenweider.rds"),
                  6, "Baseflow"),
-  part_pred_plot(nes_nws, readRDS("../data/nws/la_vollenweider.rds"),
-                 6, "Upstream Lake Area", yl = FALSE), 
+  part_pred_plot(nes_nws, readRDS("../data/lc_vollenweider.rds"), 
+                 7, "Lake Connection", yl = FALSE, xl = FALSE),
+  
   nrow = 4, ncol = 2, rel_widths = c(1, 0.9), 
   rel_heights = c(0.75, 0.75, 0.75, 1))
 
@@ -130,14 +134,14 @@ fit_df_nws <- rbind(
                  c("k1_sr", "k2_sr")))
 
 fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
-                                                    "k1_bf", "k2_bf",
                                                     "k1_sr", "k2_sr",
-                                                    "k1_sd", "k2_sd",
+                                                    "k1_bf", "k2_bf",
                                                     "k1_md", "k2_md",
                                                     "k1_la", "k2_la",
                                                     "k1_lc", "k2_lc",
-                                                    "k1_ll", "k2_ll",
-                                                    "k1_cd", "k2_cd"))
+                                                    "k1_sd", "k2_sd",
+                                                    "k1_cd", "k2_cd",
+                                                    "k1_ll", "k2_ll"))
 
 k_viz_nws <- ggplot(
   fit_df_nws, 
@@ -287,8 +291,12 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
                            
                            ggplot() + 
                              geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf, size = 0.6) + 
-                             geom_sf(data = nes_sub, color = "red", size = 0.6) + 
+                             geom_sf(data = nes_sf, 
+                                     color = viridis::viridis(1, begin = 0),
+                                     size = 0.6) + 
+                             geom_sf(data = nes_sub, 
+                                color = viridis::viridis(1, begin = 0.5), 
+                                size = 0.6) + 
                              coord_sf(datum = NA) + 
                              ggtitle(partition_splits[x, "pnames2"]) + 
                              theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
@@ -308,8 +316,11 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                            ggplot() + 
                              geom_sf(data = us_states) +
                              geom_sf(data = nes_sf[na_rows,], 
-                                 size = 0.6) + 
-                             geom_sf(data = nes_sub, color = "red", size = 0.6) + 
+                                     color = viridis::viridis(1, begin = 0),
+                                     size = 0.6) + 
+                             geom_sf(data = nes_sub,
+                                     color = viridis::viridis(1, begin = 0.5), 
+                                     size = 0.6) + 
                              coord_sf(datum = NA) + 
                              ggtitle(partition_splits[x, "pnames2"]) + 
                              theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))

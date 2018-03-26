@@ -71,7 +71,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing."}
+```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing.", eval=FALSE}
 dt <- data.frame(
   rbind(
     c("closest lake distance", "lower", "higher", "lower", "higher", "lake-stream", "long"), 

@@ -12,9 +12,9 @@ name_key <- function(){
                    "Upstream lake area", "Baseflow", 
                    "Wetland Cover",
                    "Stream density", "Lake Connection"),
-    abb        = c("Max depth", "Closest  \n lake dist.", "S. order \n ratio", 
-                   "Avg. link \n len.", "Up. lake \n area", "Baseflow", 
-                   "W. Cover", "Stream \n density", "Lake Con."), 
+    abb        = c("Max depth", "Closest lake dist.", "S. order ratio", 
+                   "Avg. link len.", "Up. lake area", "Baseflow", 
+                   "W. Cover", "Stream density", "Lake Con."), 
     pnames     = c("maxdepth", "cd", 
                    "sr", "linklength", 
                    "uplakearea", "baseflow", 
@@ -94,7 +94,7 @@ knitr::kable(res,
              digits = 2, row.names = FALSE, 
              col.names = c("Abb", "Scale", "Metric", 
                            "Connectivity Type", "Split Value", "Delta k"), 
-             caption = "Partition cutoff table")
+             caption = "Results table")
 
 # ---- lake_characteristics_table ----
 # table describing basic properties of lake population
@@ -161,15 +161,14 @@ res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
 res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
 names(res)[1] <- ""
 
-# pander::panderOptions('keep.line.breaks', TRUE)
-pander::panderOptions("round", 2)
-pander::panderOptions("missing", '')
-# pander::pander(res, 
-#       caption = "Pearson correlation matrix among connectivity metrics", 
-#       split.cells = c(11, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
+options(knitr.kable.NA = '')
+knitr::kable(res, digits = 2, 
+             caption = "Pearson correlation matrix among connectivity metrics.")
 
-pander::pandoc.table(res, style = "grid", keep.line.breaks = TRUE)
-
-# options(knitr.kable.NA = '')
-# knitr::kable(res, digits = 2, format = 'pandoc', 
-#              caption = "Pearson correlation matrix among connectivity metrics")
+# # pander::panderOptions('keep.line.breaks', TRUE)
+# pander::panderOptions("round", 2)
+# pander::panderOptions("missing", '')
+# # pander::pander(res, 
+# #       caption = "Pearson correlation matrix among connectivity metrics", 
+# #       split.cells = c(11, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
+# pander::pandoc.table(res, style = "grid", keep.line.breaks = TRUE)
