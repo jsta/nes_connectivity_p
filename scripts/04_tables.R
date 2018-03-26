@@ -22,7 +22,7 @@ name_key <- function(){
                    "streamdensity", "lakeconnection"), 
     pnames2 = c("md", "cd", "sr", "ll", "la", "bf", "wc", "sd", "lc"), 
     nws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
-                  "link_length", "upstream_lakes_4ha_area_ha", "baseflow", NA, 
+                  "avg_link_length", "upstream_lakes_4ha_area_ha", "baseflow", NA, 
                   "stream_density", "lakeconnection"),
     iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
                   "link_length", NA, "hu12_baseflowindex_mean", NA, 
@@ -60,7 +60,7 @@ res <- rbind(res, data.frame(pnames = "lakeconnection", splits = NA, scale = "fo
 res <- merge(name_key(), res)
 
 res[res$pnames == "cd", "splits"] <- c(inv_inv_closest(-1.51, nes_rf_iws),
-                                       inv_inv_closest(-1.49, nes_rf_nws))
+                                       inv_inv_closest(-1.448, nes_rf_nws))
 res <- res[order(res$pnames, res$scale), ]
                                        
 d_k <- lapply(list("../data/lc_vollenweider.rds",

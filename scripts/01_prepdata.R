@@ -9,7 +9,7 @@ nes_iws <- prep_full_nes(file.path(pre_path, "nes_x_lagos-ne.csv"),
                          file.path(pre_path, "connectivity_metrics.csv"))
 
 nes_nws <- prep_full_nes(file.path(pre_path, "nes_x_lagos-ne.csv"), 
-                         file.path(pre_path, "connectivity_metrics3.csv"))
+                         file.path(pre_path, "connectivity_metrics4.csv"))
 
 nes_rf_iws <- make_rf_dt(nes_iws)$nes_rf
 # make_rf_dt(nes_iws)$nes_rf_name_key

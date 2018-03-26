@@ -5,7 +5,6 @@ source("01_prepdata.R")
 
 library(partykit)
 library(data.tree)
-
 library(forcats)
 library(rstan)
 library(nesRdata)
@@ -42,12 +41,12 @@ library(akima)
 # nes_rf_nws$inv_closest <- 1 / scale(nes_rf_nws$closest)
 # tree3 <- cforest(nes_rf_nws$p_perce ~ ., data = dplyr::select(nes_rf_nws,
 #                                                 inv_closest),
-#                control = ctree_control(mincriterion = 0.45,
+#                control = ctree_control(mincriterion = 0.43,
 #                                        minsplit = 4))
-# # plot(gettree(tree3))
-# saveRDS(tree3, "01_Chapter/data/nws/cd_forest.rds")
+# plot(gettree(tree3))
+# saveRDS(tree3, "../data/nws/cd_forest.rds")
 # inv_inv_closest(-1.51, nes_rf_iws) # 3773.614
-#inv_inv_closest(-1.469, nes_rf_nws) # 2681.288
+# inv_inv_closest(-1.448, nes_rf_nws) # 2681.288
 
 # stream order ratio
 # tree3 <- cforest(nes_rf$p_perce ~ ., 
@@ -60,8 +59,8 @@ library(akima)
 #         data = dplyr::select(nes_rf_nws,
 #                              stream_),
 #         control = ctree_control(mincriterion = 0.45))
-# # plot(gettree(tree3))
-# saveRDS(tree3, "01_Chapter/data/nws/sr_forest.rds")
+# plot(gettree(tree3))
+# saveRDS(tree3, "../data/nws/sr_forest.rds")
 
 # average link length
 # tree3 <- cforest(nes_rf$p_perce ~ .,
@@ -72,10 +71,10 @@ library(akima)
 #
 # tree3 <- cforest(nes_rf_nws$p_perce ~ .,
 #                  data = dplyr::select(nes_rf_nws,
-#                                       link_le),
-#                  control = ctree_control(mincriterion = 0.29))
+#                                       avg_lin),
+#                  control = ctree_control(mincriterion = 0.32))
 # plot(gettree(tree3))
-# saveRDS(tree3, "01_Chapter/data/nws/linklength_forest.rds")
+# saveRDS(tree3, "../data/nws/linklength_forest.rds")
 
 # upstream lake area
 # tree3 <- cforest(nes_rf$p_perce ~ .,
@@ -101,7 +100,7 @@ library(akima)
 # tree3 <- cforest(nes_rf_nws$p_perce ~ .,
 #                  data = dplyr::select(nes_rf_nws,
 #                                       baseflo),
-#                  control = ctree_control(mincriterion = 0.3))
+#                  control = ctree_control(mincriterion = 0.35))
 # plot(gettree(tree3))
 # saveRDS(tree3, "../data/nws/baseflow_forest.rds")
 
@@ -122,7 +121,7 @@ library(akima)
 # tree3 <- cforest(nes_rf_nws$p_perce ~ .,
 #                  data = dplyr::select(nes_rf_nws,
 #                                       stream_.1),
-#                  control = ctree_control(mincriterion = 0.458))
+#                  control = ctree_control(mincriterion = 0.48))
 # plot(gettree(tree3))
 # saveRDS(tree3, "../data/nws/streamdensity_forest.rds")
 
@@ -155,19 +154,19 @@ m <- readRDS("../data/global_vollenweider.rds")
 # Closest lake distance
 # fit <- part_model(nes_iws, "closest_lake_distance", 0, 3773.614, Inf, 2)
 # saveRDS(fit, "../data/iws/cd_vollenweider.rds")
-# fit <- part_model(nes_nws, "closest_lake_distance", 0, 2681.288, Inf, 2)
+# fit <- part_model(nes_nws, "closest_lake_distance", 0, 3273.649, Inf, 2)
 # saveRDS(fit, "../data/nws/cd_vollenweider.rds")
 
 # Stream order ratio
 # fit <- part_model(nes_iws, "stream_order_ratio", 0, 0.7, Inf)
 # saveRDS(fit, "../data/iws/sr_vollenweider.rds")
-# fit <- part_model(nes_nws, "stream_order_ratio", 0, 0.5, Inf)
+# fit <- part_model(nes_nws, "stream_order_ratio", 0, 0.4, Inf)
 # saveRDS(fit, "../data/nws/sr_vollenweider.rds")
 
 # Link length
 # fit <- part_model(nes_iws, "link_length", 0, 2177.1, Inf)
 # saveRDS(fit, "../data/iws/ll_vollenweider.rds")
-# fit <- part_model(nes_nws, "link_length", 0, 2237.34, Inf)
+# fit <- part_model(nes_nws, "avg_link_length", 0, 2380.09, Inf)
 # saveRDS(fit, "../data/nws/ll_vollenweider.rds")
 
 # not used currently 
@@ -183,14 +182,13 @@ m <- readRDS("../data/global_vollenweider.rds")
 # fit <- part_model(nes_iws, "hu12_baseflowindex_mean", 0, 63.8, Inf)
 # saveRDS(fit, "../data/iws/bf_vollenweider.rds")
 #
-# fit <- part_model(nes_nws, "baseflow", 0, 52.94, Inf)
+# fit <- part_model(nes_nws, "baseflow", 0, 53.42, Inf)
 # saveRDS(fit, "../data/nws/bf_vollenweider.rds")
 
 # Wetland cover
-
-nes$part <- factor(as.numeric(cut(
-  nes$iws_wl_allwetlandsdissolved_overlapping_area_pct, 
-                                  c(0, 11.7, Inf), include.highest = TRUE)))
+# nes$part <- factor(as.numeric(cut(
+#   nes$iws_wl_allwetlandsdissolved_overlapping_area_pct, 
+#                                   c(0, 11.7, Inf), include.highest = TRUE)))
 # fit <- part_model(nes)
 # saveRDS(fit, "01_Chapter/wc_vollenweider.rds")
 
@@ -198,7 +196,7 @@ nes$part <- factor(as.numeric(cut(
 # fit <- part_model(nes_iws, "iws_streamdensity_streams_density_mperha", 0, 4.4, Inf)
 # saveRDS(fit, "../data/iws/sd_vollenweider.rds")
 #
-# fit <- part_model(nes_nws, "stream_density", 0, 10.4, Inf)
+# fit <- part_model(nes_nws, "stream_density", 0, 13.8, Inf)
 # saveRDS(fit, "../data/nws/sd_vollenweider.rds")
 
 fit_df <- rbind(extract_coefs(m, "k"), 

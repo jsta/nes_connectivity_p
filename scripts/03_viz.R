@@ -187,7 +187,7 @@ md_v_ll_iws <- ggplot(data = nes_iws) +
 
 md_v_ll_nws <- ggplot(data = nes_nws) + 
   geom_point(aes(x = maxdepth, 
-                 y = link_length, color = lakeconnection)) +
+                 y = avg_link_length, color = lakeconnection)) +
   ylab("Link Length") + xlab("Max Depth (m)") + 
   geom_vline(data = partition_splits, aes(
     xintercept = partition_splits$splits[
@@ -208,7 +208,7 @@ md_v_cd_nws <- ggplot(data = nes_nws) +
       partition_splits$pnames2 == "cd" & partition_splits$scale == "nws"]))
 
 ll_v_cd_nws <- ggplot(data = nes_nws) + 
-  geom_point(aes(x = link_length, 
+  geom_point(aes(x = avg_link_length, 
                  y = closest_lake_distance, color = lakeconnection)) +
   ylab("Closest Lake Distance") + xlab("Link Length") + 
   geom_vline(data = partition_splits, aes(
@@ -225,8 +225,8 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           md_v_ll_iws + theme(legend.position = "none"), 
           md_v_ll_nws + theme(legend.position = "none"),
           ll_v_cd_nws + theme(legend.position = "none"),
-          ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow, color = nes_iws$lakeconnection)) + 
-            geom_hline(aes(yintercept = 52.94)) +
+          ggplot() + geom_point(aes(nes_iws$hu12_baseflowindex_mean, nes_nws$baseflow, color = nes_iws$state %in% c("MAINE", "NEW HAMPSHIRE", "IOWA", "MISSOURI", "OHIO", "ILLINOIS"))) + 
+            geom_hline(aes(yintercept = 53.43)) +
             geom_vline(aes(xintercept = 63.76)) + 
             ylab("NWS Baseflow") + xlab("IWS Baseflow") + 
             theme(legend.position = "none"),
@@ -300,9 +300,15 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                                               partition_splits[x, "nws_names"],
                                               partition_splits[x, "splits"])
                            
+                           nes_sf_temp <- nes_sf
+                           st_geometry(nes_sf_temp) <- NULL
+                           na_rows <- !is.na(
+                    nes_sf_temp[,as.character(partition_splits[x, "nws_names"])])
+                           
                            ggplot() + 
                              geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf, size = 0.6) + 
+                             geom_sf(data = nes_sf[na_rows,], 
+                                 size = 0.6) + 
                              geom_sf(data = nes_sub, color = "red", size = 0.6) + 
                              coord_sf(datum = NA) + 
                              ggtitle(partition_splits[x, "pnames2"]) + 
