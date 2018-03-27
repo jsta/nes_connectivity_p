@@ -7,3 +7,9 @@ figures/beamer-lake-fig
 *.toc
 *.aux
 .Rproj.user
+.Rhistory
+figures/recursive_partitioning_viz*.pdf
+figures/graphical_exploratory_analysis*.pdf
+*.fls
+*.xml
+*.fdb_latexmk
