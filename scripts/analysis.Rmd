@@ -40,7 +40,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data.", warning=FALSE}
+```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data.", warning=FALSE, fig.width = 4.8, fig.height = 3.6}
 
 ```
 
