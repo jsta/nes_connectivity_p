@@ -32,12 +32,12 @@
     \end{columns}
   
   % cd %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{columns} [c]     
-    \begin{column}{0.4\textwidth}
+  \begin{columns}    
+    \begin{column}[b]{0.4\textwidth}
       \huge{\textbf{Closest Lake Distance:} Network distance to the closest upstream lake.}
     \end{column}
 
-  \begin{column}{0.25\textwidth}
+  \begin{column}[b]{0.25\textwidth}
     \begin{tikzpicture}[scale = 2]
         \draw [-,ultra thick, cyan] (2.2,2.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
         
@@ -46,7 +46,7 @@
       \end{tikzpicture}
   \end{column}
   
-  \begin{column}{0.25\textwidth}
+  \begin{column}[b]{0.25\textwidth}
     \begin{tikzpicture}[scale = 2]
         \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
         \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 5cm, xshift = 2cm] plot (\x:0.6+rnd*0.2);
@@ -56,12 +56,12 @@
   \end{columns}
 
   % ll %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{columns}[c]  
-    \begin{column}{0.4\textwidth}
+  \begin{columns} 
+    \begin{column}[b]{0.4\textwidth}
       \huge{\textbf{Average Link Length:} Sum of the total length of stream reaches between junctions divided by the total number of reaches.}
     \end{column}
 
-    \begin{column}{0.25\textwidth}
+    \begin{column}[b]{0.25\textwidth}
       \begin{tikzpicture}[scale = 2]
         %\draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
         \draw [-,ultra thick, cyan] (1.8,2.6) to [out=180,in=0] (1.1,1.9) to [out=270,in=90] (0,0);        
@@ -74,7 +74,7 @@
       \end{tikzpicture}
     \end{column}
     
-    \begin{column}{0.25\textwidth}
+    \begin{column}[b]{0.25\textwidth}
       \begin{tikzpicture}[scale = 2]
            %\draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
           \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
@@ -87,10 +87,9 @@
         \end{tikzpicture}
     \end{column}
     \end{columns}
-  
 
   % la %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{columns}[c]  
+  \begin{columns}[b]  
     \begin{column}{0.4\textwidth}
       \huge{\textbf{Upstream Lake Area:} Total area of upstream lakes limited to lakes that are greater than or equal to 4ha.}
     \end{column}
@@ -113,7 +112,7 @@
     \end{columns}
 
     % sd %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{columns}[c]  
+  \begin{columns}[b]  
     \begin{column}{0.4\textwidth}
       \huge{\textbf{Stream Density:} the length of all streams (minus artificial lines through lakes) divided by the area of watershed.}
     \end{column}
@@ -142,8 +141,10 @@
     \end{column}
     \end{columns}
 
-    % sr %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{columns}[c]  
+  % \rule{0.9\textwidth}{0.8pt}
+  
+  % sr %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{columns}[b]  
     \begin{column}{0.4\textwidth}
       \huge{\textbf{Stream Order Ratio:} The total number of first order stream reaches divided by the total number of higher order stream reaches. In this example the lower connectivity lake has a stream order ratio of 3 whereas the higher connectivity lake has a stream order ratio of 2.}
     \end{column}

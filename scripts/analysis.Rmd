@@ -44,11 +44,11 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Dark lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 1)", fig.height=8.4, warning=FALSE}
+```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Lighter colored lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 3)", fig.height=7, fig.width = 5, warning=FALSE}
 
 ```
 
-```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales."}
+```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales.", fig.width=6, warning=FALSE}
 
 ```
 
@@ -56,7 +56,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r maps, echo=FALSE, fig.cap="Map of lake connectivity partitions.", warning=FALSE, message=FALSE}
+```{r maps, echo=FALSE, fig.cap="Map of lake connectivity partitions where lighter colored lakes have matric values on the lower side of the respective partition in Table 3.", warning=FALSE, message=FALSE}
 
 ```
 

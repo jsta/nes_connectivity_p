@@ -53,7 +53,7 @@ plot_grid(
   part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
                  8, "Max Depth", xl = FALSE),
   part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
-                 9, "Distance to Closest Lake", xl = FALSE, yl = FALSE),
+                 9, "Distance to \n Closest Lake", xl = FALSE, yl = FALSE),
   
   part_pred_plot(nes_iws, readRDS("../data/iws/ll_vollenweider.rds"),
                  7, "Link Length", xl = FALSE), 
@@ -63,10 +63,10 @@ plot_grid(
   part_pred_plot(nes_iws, readRDS("../data/iws/bf_vollenweider.rds"),
                  6, "Baseflow"),
   part_pred_plot(nes_nws, readRDS("../data/lc_vollenweider.rds"), 
-                 7, "Lake Connection", yl = FALSE, xl = FALSE),
+                 7, "Lake Connection", yl = FALSE, xl = TRUE),
   
   nrow = 4, ncol = 2, rel_widths = c(1, 0.9), 
-  rel_heights = c(0.75, 0.75, 0.75, 1))
+  rel_heights = c(0.85, 0.85, 0.85, 1))
 
 # ---- k_viz ----
 
@@ -102,17 +102,30 @@ fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
 k_viz_iws <- ggplot(
   fit_df_iws, 
   aes(x = coef, y = key, fill = key)) + 
-    geom_density_ridges(size = 2) + ylab("") + 
-    scale_fill_manual(values = c(viridis::viridis(10)[1], 
-                                 rep(viridis::viridis(10)[2:10], each = 2))) + 
-    cowplot::theme_cowplot() + theme(text = element_text(size = 20), 
+    geom_density_ridges(size = 1, rel_min_height = 0.03) + 
+    scale_fill_manual(values = c("grey", 
+                            rep(c(viridis::viridis(1, begin = 0.5), 
+                                  viridis::viridis(1, begin = 0)), 7))) + 
+    cowplot::theme_cowplot() + theme(text = element_text(size = 14), 
                                      axis.text = element_text(size = 10), 
-                                     axis.line.x = element_line(size = 2, 
+                                     axis.text.y = element_text(size = 8), 
+                                     axis.line.x = element_line(size = 1, 
                                      colour = "black"),
-                                     axis.line.y = element_line(size = 2, 
+                                     axis.line.y = element_line(size = 1, 
                                                        colour = "black"), 
-                      legend.position = "none") + xlab("Coefficient \n Value")
-
+                                     legend.position = "none", 
+                                     plot.margin = margin(0.5,0,0,0, "cm")) + 
+  xlab("Coefficient \n Value") + ylab("") + 
+  scale_y_discrete(breaks = levels(fit_df_iws$key)[
+    c(1, seq(3, length(levels(fit_df_iws$key)), by = 2))], 
+                   labels = rev(c("Lake \n Connection",  
+                                                 "Max Depth",
+                                                 "Link Length",
+                                                 "Baseflow",
+                                                 "Stream \n Order Ratio",
+                                                 "Closest \n Lake Distance",
+                                                 "Stream \n Density",
+                                                 "Global")))
 
 fit_df_nws <- rbind(
   extract_coefs(readRDS("../data/global_vollenweider.rds"), "k"), 
@@ -146,21 +159,23 @@ fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
 k_viz_nws <- ggplot(
   fit_df_nws, 
   aes(x = coef, y = key, fill = key)) + 
-  geom_density_ridges(size = 2) + ylab("") + 
+  geom_density_ridges(size = 1) + ylab("") + 
   scale_fill_manual(values = c(viridis::viridis(10)[1], 
                                rep(viridis::viridis(10)[2:10], each = 2))) + 
-  cowplot::theme_cowplot() + theme(text = element_text(size = 20), 
+  cowplot::theme_cowplot() + theme(text = element_text(size = 16), 
                                    axis.text = element_text(size = 10), 
-                                   axis.line.x = element_line(size = 2, 
+                                   axis.line.x = element_line(size = 1, 
                                                   colour = "black"),
-                                   axis.line.y = element_line(size = 2, 
+                                   axis.line.y = element_line(size = 1, 
                                                   colour = "black"), 
-                                   legend.position = "none") + 
+                                   legend.position = "none", 
+                                   plot.margin = margin(0.5,0,0,-0.7, "cm")) + 
   xlab("Coefficient \n Value")
 
 plot_grid(
-  k_viz_iws + ggtitle("IWS Scale") + xlim(0.75, 1.75),
-  k_viz_nws + ggtitle("NWS Scale") + xlim(0.75, 1.75))
+  k_viz_iws + ggtitle("IWS Scale") + xlim(0.8, 1.6),
+  k_viz_nws + ggtitle("NWS Scale") + xlim(0.8, 1.6), ncol = 2,
+  align = "v")
 
 # ---- graphical_exploratory_analysis ----
 
@@ -298,8 +313,8 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
                                 color = viridis::viridis(1, begin = 0.5), 
                                 size = 0.6) + 
                              coord_sf(datum = NA) + 
-                             ggtitle(partition_splits[x, "pnames2"]) + 
-                             theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+                             ggtitle(partition_splits[x, "abb"]) + 
+                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"))
                          })
 
 lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
@@ -322,8 +337,8 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                                      color = viridis::viridis(1, begin = 0.5), 
                                      size = 0.6) + 
                              coord_sf(datum = NA) + 
-                             ggtitle(partition_splits[x, "pnames2"]) + 
-                             theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+                             ggtitle(partition_splits[x, "abb"]) + 
+                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"))
                          })
 
 lower_iws_maps <- lower_iws_maps[
@@ -340,9 +355,21 @@ lower_nws_maps <- lower_nws_maps[
   ]
 
 plot_grid(
-  NULL,  plot_grid(plotlist = lower_iws_maps),
-  NULL,  plot_grid(plotlist = lower_nws_maps), 
-  ncol = 1, labels = c(NA, "iws", NA, "nws"), 
-  rel_heights = c(0.2, 1, 0.2, 1), vjust = -0.6, label_colour = "gray")
+  plot_grid(NULL,
+            NULL, 
+            NULL,
+            NULL, nrow = 4, 
+            labels = c("", "IWS", "", "NWS"), 
+            label_colour = "gray"),
+plot_grid(
+  # ggplot() + geom_blank(), 
+  plot_grid(plotlist = lower_iws_maps, 
+                   ncol = 3, nrow = 2, align = "v"),
+  # ggplot() + geom_blank(),
+  plot_grid(plotlist = lower_nws_maps,
+                   ncol = 3, nrow = 2, align = "v"), 
+  ncol = 1, # labels = c("", "IWS", "", "NWS"), 
+  rel_heights = c(1, 1), vjust = -0.6, label_colour = "gray", 
+  align = "v", axis = "tb"), rel_widths = c(0.25, 1), ncol = 2)
 
 # ggplot() + geom_point(data = nes_nws, aes(x = lg_long, y = lg_lat, color = baseflow))

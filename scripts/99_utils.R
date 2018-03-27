@@ -105,7 +105,8 @@ full_pred_plot <- function(nes, fit){
   ggplot() + 
     stat_lineribbon(data = test, 
                              aes(x = retention_time_yr, 
-                                 y = estimate), .prob = c(0.95)) + 
+                                 y = estimate), .prob = c(0.95), 
+                    fill = "grey", color = "grey", alpha = 0.5) + 
     geom_point(data = nes, aes(x = retention_time_yr, 
                                y = p_percent_retention)) + 
     scale_x_log10() + ylim(0, 1) +
