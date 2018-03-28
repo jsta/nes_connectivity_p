@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5.5, fig.height = 4.2, fig.pos = 'H')
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6, fig.pos = 'H')
 ```
 
 ```{r read_chunks, cache=FALSE, echo=FALSE}
@@ -40,15 +40,15 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data.", warning=FALSE, fig.width = 4.8, fig.height = 3.6}
+```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
 
 ```
 
-```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Lighter colored lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 3)", fig.height=7, fig.width = 5, warning=FALSE}
+```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Lighter colored lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 3)", fig.width = 4.8, fig.height=5, warning=FALSE}
 
 ```
 
-```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales.", fig.width=6, warning=FALSE}
+```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales.", fig.width=5, fig.height=3.8, warning=FALSE}
 
 ```
 

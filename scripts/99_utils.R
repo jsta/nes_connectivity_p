@@ -87,7 +87,10 @@ prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALS
 }
 
 theme_pred <- function(){
-  theme(legend.position = "na")
+  theme(legend.position = "na", 
+        axis.text = element_text(size = 10), 
+        axis.title = element_text(size = 12),
+        plot.title = element_text(size = 12))
 }
 
 full_model <- function(nes){
@@ -149,7 +152,10 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   
   gg_format <- function(gg){
     gg <- gg + 
-      theme(legend.position = "none") + 
+      theme(legend.position = "none", 
+            plot.title = element_text(size = 12), 
+            axis.title = element_text(size = 12), 
+            axis.text = element_text(size = 10)) + 
       ylim(0, 1) + scale_x_log10() + ggtitle(title) +
       ylab("P Retention (%)") + xlab("Residence Time (yr)")
     
@@ -167,7 +173,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   gg_1 <- ggplot() + 
     geom_point(data = nes, aes(x = retention_time_yr, 
                                y = p_percent_retention), 
-               size = 0.9) +
+               size = 0.6, color = "gray") +
     stat_summary(data = test[1][[1]], geom = "ribbon", 
                  aes(x = retention_time_yr, y = estimate, 
                      fill = forcats::fct_rev(ordered(...prob..))), 
