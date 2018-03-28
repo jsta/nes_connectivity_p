@@ -181,6 +181,11 @@ plot_grid(
 
 partition_splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 
+nes_iws$p_pnt_source <-  rowSums(cbind(nes_iws$p_pnt_source_muni,
+                                       nes_iws$p_pnt_source_septic,
+                                       nes_iws$p_pnt_source_industrial),
+                                 na.rm = TRUE)
+
 md_v_la <- ggplot(data = nes_iws) + 
   geom_point(aes(x = maxdepth, 
                  y = upstream_lakes_4ha_area_ha, color = lakeconnection)) +
@@ -268,16 +273,10 @@ plot_grid(md_v_la + theme(legend.position = "none"),
             scale_y_log10() + 
             ylab("NWS Lake Distance") + xlab("IWS Lake Distance") + 
             theme(legend.position = "none"),
-          
-          legend, ncol = 2)
-
-# nes_iws$p_pnt_source <-  rowSums(cbind(nes_iws$p_pnt_source_muni,
-#                                        nes_iws$p_pnt_source_septic,
-#                                        nes_iws$p_pnt_source_industrial), 
-#                                  na.rm = TRUE)
-# 
-# plot(nes_iws$p_pnt_source / 
-#        nes_iws$p_nonpnt_source, nes_iws$p_percent_retention)
+          ggplot(data = nes_iws) + 
+            geom_point(aes(x = p_pnt_source / p_nonpnt_source, 
+                           y = p_percent_retention)) + scale_x_log10(), 
+          ncol = 2)
 
 # ---- maps ----
 
