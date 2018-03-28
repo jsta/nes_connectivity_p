@@ -45,16 +45,21 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 # ---- partition_vollenweider_viz ----
 
 plot_grid(
-  part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                 9, "Lake connection", xl = FALSE),
-  part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
-                 8, "Link length", xl = FALSE, yl = FALSE),
-  part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
+  plot_grid(
+    part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
+                   9, "Lake connection", xl = FALSE),
+    part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
+                   8, "Link length", xl = FALSE, yl = FALSE), 
+    rel_widths = c(1, 0.93), labels = c("IWS", "NWS"), 
+    hjust = c(-4, -2.7), vjust = 2.5),
+  NULL,
+  plot_grid(
+    part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
                  8, "Max depth", xl = TRUE),
-  part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
-                 9, "Distance to \n closest lake", xl = TRUE, yl = FALSE),
-  nrow = 2, ncol = 2, rel_widths = c(1, 0.93), 
-  rel_heights = c(0.88, 1))
+    part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
+                 9, "Distance to \n closest lake", xl = TRUE, yl = FALSE), 
+    rel_widths = c(1, 0.93)), 
+  rel_heights = c(0.91, 0.1, 1), ncol = 1)
 
 # ---- k_viz ----
 
@@ -106,7 +111,7 @@ k_viz_iws <- ggplot(
   xlab("Coefficient \n Value") + ylab("") + 
   scale_y_discrete(breaks = levels(fit_df_iws$key)[
     c(1, seq(3, length(levels(fit_df_iws$key)), by = 2))], 
-                   labels = rev(c("Lake \n Connection",  
+                   labels = rev(c("Lake \n connection",  
                                                  "Max depth",
                                                  "Link length",
                                                  "Baseflow",
@@ -153,7 +158,7 @@ k_viz_nws <- ggplot(
                                      viridis::viridis(1, begin = 0)), 8))) + 
   cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
                                    axis.title = element_text(size = 12),
-                                   plot.title = element_text(size = 12),
+                               plot.title = element_text(size = 12, face = "plain"),
                                    axis.line.x = element_line(size = 1, 
                                                   colour = "black"),
                                    axis.line.y = element_line(size = 1, 
@@ -163,19 +168,19 @@ k_viz_nws <- ggplot(
   xlab("Coefficient \n Value") +  ylab("") +
   scale_y_discrete(breaks = levels(fit_df_nws$key)[
     c(1, seq(3, length(levels(fit_df_nws$key)), by = 2))], 
-    labels = rev(c("Link Length",
-                   "Closest \n Lake Distance",
-                   "Stream \n Density",
-                   "Lake \n Connection",  
-                   "Upstream \n Lake Area",
-                   "Max Depth",
+    labels = rev(c("Link length",
+                   "Closest \n lake distance",
+                   "Stream \n density",
+                   "Lake \n connection",  
+                   "Upstream \n lake area",
+                   "Max depth",
                    "Baseflow",
-                   "Stream \n Order Ratio",
+                   "Stream \n order ratio",
                    "Global")))
 
 plot_grid(
-  k_viz_iws + ggtitle("IWS Scale") + xlim(0.8, 1.6),
-  k_viz_nws + ggtitle("NWS Scale") + xlim(0.8, 1.6), ncol = 2,
+  k_viz_iws + ggtitle("IWS scale") + xlim(0.8, 1.6),
+  k_viz_nws + ggtitle("NWS scale") + xlim(0.8, 1.6), ncol = 2,
   align = "v")
 
 # ---- graphical_exploratory_analysis ----
@@ -314,7 +319,8 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
                                 size = 0.6) + 
                              coord_sf(datum = NA) + 
                              ggtitle(partition_splits[x, "abb"]) + 
-                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"))
+                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"),
+                               plot.title = element_text(face = "plain", size = 12))
                          })
 
 lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
@@ -338,7 +344,8 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                                      size = 0.6) + 
                              coord_sf(datum = NA) + 
                              ggtitle(partition_splits[x, "abb"]) + 
-                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"))
+                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"), 
+                               plot.title = element_text(face = "plain", size  = 12))
                          })
 
 lower_iws_maps <- lower_iws_maps[

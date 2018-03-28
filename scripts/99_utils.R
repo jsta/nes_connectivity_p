@@ -115,7 +115,7 @@ full_pred_plot <- function(nes, fit){
     scale_x_log10() + ylim(0, 1) +
     scale_fill_discrete("grey") + 
     theme_pred() + 
-    ylab("P Retention (%)") + xlab("Residence Time (yr)")
+    ylab("P retention (%)") + xlab("Residence time (yr)")
 }
 
 part_model <- function(nes, part_var = NA, lower = NA, mid = NA, 
@@ -153,14 +153,15 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   gg_format <- function(gg){
     gg <- gg + 
       theme(legend.position = "none", 
-            plot.title = element_text(size = 12), 
+            plot.title = element_text(size = 12, face = "plain"), 
             axis.title = element_text(size = 12), 
             axis.text = element_text(size = 10)) + 
       ylim(0, 1) + scale_x_log10() + ggtitle(title) +
-      ylab("P Retention (%)") + xlab("Residence Time (yr)")
+      ylab("P retention (%)") + xlab("Residence time (yr)")
     
     if(!xl){
-      gg <- gg + theme(axis.title.x = element_blank())
+      gg <- gg + theme(axis.title.x = element_blank(), 
+                       plot.margin = margin(t = 1.2, r = 0.2, l = 0.2, unit = "cm"))
     }
     
     if(!yl){

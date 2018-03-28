@@ -236,7 +236,7 @@ fit_df$key <- factor(fit_df$key, levels = c("k",
                                      axis.line.y = element_line(size = 2, 
                                                         colour = "black"), 
                                      legend.position = "none")) + 
-  xlab("Coefficient Value")
+  xlab("Coefficient value")
 
 # ggplot(fit_df) + 
 #   stat_boxplot(geom = 'errorbar', aes(x = coef,
