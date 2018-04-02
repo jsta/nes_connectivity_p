@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6, fig.pos = 'H')
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
 ```
 
 ```{r read_chunks, cache=FALSE, echo=FALSE}
@@ -36,7 +36,7 @@ knitr::include_graphics("../figures/iws_nws.pdf")
 knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 ```
 
-```{r cor_mat_table, echo=FALSE, results='asis'}
+```{r cor_mat_hmap, echo=FALSE, warning=FALSE, out.width="3.5in", fig.cap="Connectivity metric correlation heatmap.", message=FALSE}
 
 ```
 

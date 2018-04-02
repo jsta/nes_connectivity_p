@@ -400,3 +400,96 @@ plot_grid(
 rel_widths = c(0.2, 1), ncol = 2)
 
 # ggplot() + geom_point(data = nes_nws, aes(x = lg_long, y = lg_lat, color = baseflow))
+
+# ---- cor_mat_hmap ----
+# correlation matrix heatmap
+
+library(corrr)
+library(superheat)
+
+splits      <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
+
+nes_iws$p_pnt_source <-  rowSums(cbind(nes_iws$p_pnt_source_muni,
+                                       nes_iws$p_pnt_source_septic,
+                                       nes_iws$p_pnt_source_industrial),
+                                 na.rm = TRUE)
+
+nes_iws$p_pnt_source_pct <- nes_iws$p_pnt_source / 
+  (nes_iws$p_nonpnt_source + nes_iws$p_pnt_source)
+
+lg <- lagosne_load("1.087.1")
+nes_iws <- dplyr::left_join(nes_iws, select(lg$iws, lagoslakeid, iws_ha))
+
+nes_nws$p_pnt_source <-  rowSums(cbind(nes_nws$p_pnt_source_muni,
+                                       nes_nws$p_pnt_source_septic,
+                                       nes_nws$p_pnt_source_industrial),
+                                 na.rm = TRUE)
+
+nes_nws$p_pnt_source_pct <- nes_nws$p_pnt_source / 
+  (nes_nws$p_nonpnt_source + nes_nws$p_pnt_source)
+nes_nws <- dplyr::left_join(nes_nws, select(lg$iws, lagoslakeid, iws_ha))
+
+# format iws data
+nes_iws_sub <- dplyr::select(nes_iws, -lakeconnection)
+conny_cols  <- unique(splits$iws_names)[!is.na(unique(splits$iws_names))]
+conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
+
+nes_iws_sub <- nes_iws_sub[,c(conny_cols, 
+                              "lake_area_ha", "p_pnt_source_pct", "iws_ha")]
+
+iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)), 
+                 splits[,c("iws_names", "abb")], sort = FALSE)
+iws_key <- rbind(iws_key, data.frame(iws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), abb = c("Lake Area", "Pnt. Src. P", "IWS area")))
+iws_key <- iws_key[!duplicated(iws_key),]
+names(nes_iws_sub) <- iws_key$abb
+
+# format nws data
+nes_nws_sub <- dplyr::select(nes_nws, -lakeconnection)
+conny_cols  <- unique(splits$nws_names)[!is.na(unique(splits$nws_names))]
+conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
+
+nes_nws_sub <- nes_nws_sub[,c(conny_cols, 
+                              "lake_area_ha", "p_pnt_source_pct", "iws_ha")]
+nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
+                 splits[,c("nws_names", "abb")], sort = FALSE)
+nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), abb = c("Lake Area", "Pnt. Src. P", "IWS area")))
+nws_key <- nws_key[!duplicated(nws_key),]
+names(nes_nws_sub) <- nws_key$abb
+
+# combine iws and nws data
+nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
+
+# correlation matrix 
+res <- rearrange(shave(correlate(nes_sub)), method = "SA")
+res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
+res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
+names(res)[1] <- ""
+
+res_names_c <- names(res)
+res_f <- data.frame(res)
+res_names_r <- res_f$Var.1
+res_f <- res_f[,-1]
+names(res_f) <- res_names_c[-1]
+row.names(res_f) <- res_names_r
+res_f <- res_f[rev(1:nrow(res_f)),]
+
+# names(res) <- 
+#   row.names(res) <- 
+#   sapply(row.names(res), function(x) paste(strwrap(x, 10), collapse="\n "))
+
+test <- superheat(X = res_f, bottom.label.text.angle = 90, 
+          left.label.size = 1.4, bottom.label.size = 1.4, 
+          heat.pal = c("#542788", "white", "#b35806"), 
+          heat.pal.values = c(0, 0.6, 1))
+
+# options(knitr.kable.NA = '')
+# knitr::kable(res, digits = 2, 
+#              caption = "Pearson correlation matrix among connectivity metrics.")
+
+# # pander::panderOptions('keep.line.breaks', TRUE)
+# pander::panderOptions("round", 2)
+# pander::panderOptions("missing", '')
+# # pander::pander(res, 
+# #       caption = "Pearson correlation matrix among connectivity metrics", 
+# #       split.cells = c(11, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
+# pander::pandoc.table(res, style = "grid", keep.line.breaks = TRUE)
