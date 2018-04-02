@@ -284,6 +284,25 @@ plot_grid(md_v_la + theme(legend.position = "none"),
                            y = p_percent_retention)), 
           ncol = 2)
 
+# ---- graphical_exploratory_analysis_cont ----
+
+lg <- lagosne_load("1.087.1")
+nes_nws_temp <- dplyr::left_join(nes_nws, select(lg$iws, lagoslakeid, iws_ha))
+
+plot_grid(
+ggplot() + geom_point(data = nes_nws_temp, 
+                      aes(x = iws_ha, y = avg_link_length)) + 
+  xlim(300, 100000) + ylab("Average Link Length") + 
+  xlab("Interlake Watershed Area (ha)") + 
+  geom_hline(aes(yintercept = 2380.09), color = "red"),
+
+ggplot() + geom_point(data = nes_nws_temp, 
+                      aes(x = iws_ha, y = closest_lake_distance)) + 
+  xlim(300, 100000) + ylab("Closest Lake Distance") + 
+  xlab("Interlake Watershed Area (ha)") + 
+  geom_hline(aes(yintercept = 3273.65), color = "red")
+)
+
 # ---- maps ----
 
 partition_splits <- read.csv("../figures/table_1.csv")
