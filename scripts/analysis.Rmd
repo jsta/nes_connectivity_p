@@ -71,7 +71,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r graphical_exploratory_analysis_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=3.5, fig.cap="Exploratory plots cont"}
+```{r graphical_exploratory_analysis_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6.3, fig.cap="Exploratory plots cont"}
 
 ```
 

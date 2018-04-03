@@ -288,6 +288,13 @@ plot_grid(md_v_la + theme(legend.position = "none"),
 
 lg <- lagosne_load("1.087.1")
 nes_nws_temp <- dplyr::left_join(nes_nws, select(lg$iws, lagoslakeid, iws_ha))
+nes_nws_temp$p_pnt_source <-  rowSums(cbind(nes_nws_temp$p_pnt_source_muni,
+                                       nes_nws_temp$p_pnt_source_septic,
+                                       nes_nws_temp$p_pnt_source_industrial),
+                                 na.rm = TRUE)
+nes_nws_sf    <- coordinatize(nes_nws_temp, "lat", "long")
+us_states <- st_intersects(us_states(), nes_sf)
+us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
 plot_grid(
 ggplot() + geom_point(data = nes_nws_temp, 
@@ -305,8 +312,16 @@ ggplot() + geom_point(data = nes_nws_temp,
 ggplot() + geom_point(data = nes_nws_temp, 
                       aes(x = iws_ha, y = p_percent_retention)) + 
   xlim(300, 100000) + ylab("P Retention") + 
-  xlab("Interlake Watershed Area (ha)")
-)
+  xlab("Interlake Watershed Area (ha)"),
+
+ggplot() + geom_sf(data = us_states) + 
+  geom_sf(data = nes_nws_sf, aes(color = p_pnt_source / (p_nonpnt_source + p_pnt_source))) + theme(legend.direction = "horizontal", legend.position = "bottom") + ggtitle("% pnt source P"),
+
+ggplot() + geom_sf(data = us_states) + 
+  geom_sf(data = nes_nws_sf, aes(color = log(maxdepth))) + theme(legend.direction = "horizontal", legend.position = "bottom") + ggtitle("max depth"), 
+ggplot() + geom_sf(data = us_states) + 
+  geom_sf(data = nes_nws_sf, aes(color = log(iws_ha))) + theme(legend.direction = "horizontal", legend.position = "bottom") + ggtitle("iws area"), 
+ncol = 2)
 
 # ---- maps ----
 
@@ -463,6 +478,8 @@ names(nes_nws_sub) <- nws_key$abb
 
 # combine iws and nws data
 nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
+# nes_sub <- nes_iws_sub
+# nes_sub <- nes_nws_sub
 
 # correlation matrix 
 res <- shave(correlate(nes_sub))
