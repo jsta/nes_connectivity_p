@@ -92,7 +92,7 @@ res <- res[, c(1,2,4,8,9,10)]
 res <- res[, c(3, 2, 4, 5, 6)]
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 
-                   conny_full = c("Lateral", "Longitudinal", NA))
+                   conny_full = c("Longitudinal", "Lateral", NA))
 res <- merge(res, key2, sort = FALSE)
 res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[,c(2, 3, 6, 4, 5)]
@@ -133,4 +133,4 @@ res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
 names(res)[2:ncol(res)] <-c("Mean", "LQ", "UQ")
 
 knitr::kable(res, format = 'pandoc', 
-             caption = "Summary of study lake characteristics")
+             caption = "Summary of study lakes showing the mean, lower quartile (LQ), and upper quartile (UQ) of selected characteristics.")

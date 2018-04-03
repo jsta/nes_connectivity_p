@@ -300,7 +300,12 @@ ggplot() + geom_point(data = nes_nws_temp,
                       aes(x = iws_ha, y = closest_lake_distance)) + 
   xlim(300, 100000) + ylab("Closest Lake Distance") + 
   xlab("Interlake Watershed Area (ha)") + 
-  geom_hline(aes(yintercept = 3273.65), color = "red")
+  geom_hline(aes(yintercept = 3273.65), color = "red"), 
+
+ggplot() + geom_point(data = nes_nws_temp, 
+                      aes(x = iws_ha, y = p_percent_retention)) + 
+  xlim(300, 100000) + ylab("P Retention") + 
+  xlab("Interlake Watershed Area (ha)")
 )
 
 # ---- maps ----
