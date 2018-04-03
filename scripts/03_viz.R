@@ -460,27 +460,34 @@ names(nes_nws_sub) <- nws_key$abb
 nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
 
 # correlation matrix 
-res <- rearrange(shave(correlate(nes_sub)), method = "SA")
+res <- shave(correlate(nes_sub))
 res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
 res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
 names(res)[1] <- ""
 
-res_names_c <- names(res)
-res_f <- data.frame(res)
-res_names_r <- res_f$Var.1
-res_f <- res_f[,-1]
-names(res_f) <- res_names_c[-1]
+res_names_c      <- names(res)
+res_f            <- data.frame(res)
+res_names_r      <- res_f$Var.1
+res_f            <- res_f[,-1]
+names(res_f)     <- res_names_c[-1]
 row.names(res_f) <- res_names_r
-res_f <- res_f[rev(1:nrow(res_f)),]
+# res_f            <- res_f[rev(1:nrow(res_f)),]
+
 
 # names(res) <- 
 #   row.names(res) <- 
 #   sapply(row.names(res), function(x) paste(strwrap(x, 10), collapse="\n "))
 
-test <- superheat(X = res_f, bottom.label.text.angle = 90, 
-          left.label.size = 1.4, bottom.label.size = 1.4, 
-          heat.pal = c("#542788", "white", "#b35806"), 
-          heat.pal.values = c(0, 0.6, 1))
+pheatmap::pheatmap(res_f, na_col = "grey", 
+                   cluster_cols = FALSE, cluster_rows = FALSE, 
+                   color = colorRampPalette(
+                     rev(RColorBrewer::brewer.pal(n = 7, name ="RdBu")))(100))
+
+# test <- superheat(
+#           X = res_f, bottom.label.text.angle = 90, 
+#           left.label.size = 1.4, bottom.label.size = 1.4, 
+#           heat.pal = c("#542788", "white", "#b35806"), 
+#           heat.pal.values = c(0, 0.6, 1))
 
 # options(knitr.kable.NA = '')
 # knitr::kable(res, digits = 2, 

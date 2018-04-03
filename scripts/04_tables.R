@@ -27,7 +27,7 @@ name_key <- function(){
     iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
                   "link_length", NA, "hu12_baseflowindex_mean", NA, 
                   "iws_streamdensity_streams_density_mperha", "lakeconnection"),
-    conny_type = c(NA, "long", "long", "lat", "long", "lat", "lat", "lat", "long")
+    conny_type = c(NA, "long", "long", "long", "long", "lat", "lat", "lat", "long")
   )
 }
 
@@ -97,6 +97,7 @@ res <- merge(res, key2, sort = FALSE)
 res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[,c(2, 3, 6, 4, 5)]
 
+options(knitr.kable.NA = '')
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
