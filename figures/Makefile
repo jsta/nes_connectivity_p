@@ -1,6 +1,7 @@
 .PHONY: all
 
 all: iws_nws.pdf conny_metric_key.pdf
+	mogrify -density 300 -format png *.pdf
 	echo done
 
 iws_nws.pdf: iws_nws.tex beamer-lake-fig/beamer-lake-fig.tex
