@@ -120,7 +120,8 @@ pull_nws_metrics <- function(lakes){
 flist <-c("data/nes_x_lagos-ne.csv", 
           "../data/nes_x_lagos-ne.csv", 
           "nes_x_lagos-ne.csv")
-nes_x_lagos <- read.csv(flist[sapply(flist, file.exists)], stringsAsFactors = FALSE)
+nes_x_lagos <- read.csv(flist[which.min(sapply(flist, file.exists))], 
+                        stringsAsFactors = FALSE)
 
 # all(nes_x_lagos$lagoslakeid %in% lg$locus$lagoslakeid)
 
