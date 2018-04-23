@@ -322,6 +322,41 @@ ggplot() + geom_sf(data = us_states) +
   geom_sf(data = nes_nws_sf, aes(color = log(iws_ha))) + theme(legend.direction = "horizontal", legend.position = "bottom") + ggtitle("iws area"), 
 ncol = 2)
 
+# ---- graphical_exploratory_analysis_cont_cont ----
+
+lg <- lagosne_load("1.087.1")
+
+nes_nws_temp <- nes_nws
+nes_nws_temp$p_pnt_source <-  rowSums(cbind(nes_nws_temp$p_pnt_source_muni,
+                                            nes_nws_temp$p_pnt_source_septic,
+                                            nes_nws_temp$p_pnt_source_industrial),
+                                      na.rm = TRUE)
+nes_nws_sf    <- coordinatize(nes_nws_temp, "lat", "long")
+us_states <- st_intersects(us_states(), nes_nws_sf)
+us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
+
+plot_grid(
+  ggplot() + geom_point(data = nes_nws_temp, 
+                        aes(x = nws_ha, y = upstream_lakes_4ha_area_ha)) + 
+    xlim(300, 100000) + ylab("Up. Lk. Area") + 
+    xlab("Network Watershed Area (ha)"),
+  ggplot() + geom_point(data = nes_nws_temp, 
+                        aes(x = nws_ha, y = stream_order_ratio)) + 
+    xlim(300, 100000) + ylab("Stream Order Ratio") + 
+    xlab("Network Watershed Area (ha)"), 
+  
+  ggplot() + geom_point(data = nes_nws_temp, 
+                        aes(x = nws_ha, y = p_percent_retention)) + 
+    xlim(300, 100000) + ylab("P Retention") + 
+    xlab("Network Watershed Area (ha)"),
+  
+  ggplot() + geom_point(data = nes_nws_temp, 
+                        aes(x = nws_ha, 
+                            y = p_pnt_source / (p_nonpnt_source + p_pnt_source))) + 
+    xlim(300, 100000) + ylab("% Pnt Source") + 
+    xlab("Network Watershed Area (ha)"), 
+  ncol = 2)
+
 # ---- maps ----
 
 partition_splits <- read.csv("../figures/table_1.csv")

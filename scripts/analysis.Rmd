@@ -75,6 +75,10 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
+```{r graphical_exploratory_analysis_cont_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6.3, fig.cap="Exploratory plots cont x 2"}
+
+```
+
 ```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing.", eval=FALSE}
 dt <- data.frame(
   rbind(
