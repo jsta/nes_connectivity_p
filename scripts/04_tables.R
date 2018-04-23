@@ -102,7 +102,7 @@ knitr::kable(res,
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
                            "Connectivity Type", "Split Value", "Delta k"), 
-             caption = "Results table")
+             caption = "Ranking of connectivity metrics according to median effect size.")
 
 # ---- lake_characteristics_table ----
 # table describing basic properties of lake population
@@ -130,7 +130,9 @@ res[res$property == "tp", 1:3] <- 1000 * res[res$property == "tp", 1:3] # mg to 
 
 res <- merge(res, name_key, sort = FALSE)
 res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
-names(res)[2:ncol(res)] <-c("Mean", "LQ", "UQ")
 
-knitr::kable(res, format = 'pandoc', 
-             caption = "Summary of study lakes showing the mean, lower quartile (LQ), and upper quartile (UQ) of selected characteristics.")
+res <- data.frame(res[,1], paste0(res$X50.," (", res$X25., " - ", res$X75., ")"))
+names(res) <-c("", "Mean (IQR)")
+
+knitr::kable(res, format = 'pandoc', align = c("ll"),
+             caption = "Summary of selected study lake characteristics.")
