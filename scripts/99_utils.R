@@ -153,7 +153,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   gg_format <- function(gg){
     gg <- gg + 
       theme(legend.position = "none", 
-            plot.title = element_text(size = 12, face = "plain"), 
+            plot.title = element_text(size = 10, face = "plain", color = "grey"), 
             axis.title = element_text(size = 12), 
             axis.text = element_text(size = 10)) + 
       ylim(0, 1) + scale_x_log10() + ggtitle(title) +

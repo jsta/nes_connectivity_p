@@ -47,19 +47,18 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 plot_grid(
   plot_grid(
     part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                   9, "Lake connection", xl = FALSE),
+                   9, "Lake connection", xl = TRUE),
     part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
-                   8, "Link length", xl = FALSE, yl = FALSE), 
-    rel_widths = c(1, 0.93), labels = c("IWS", "NWS"), 
-    hjust = c(-4, -2.7), vjust = 2.5),
+                   8, "Link length (NWS)", xl = TRUE, yl = FALSE), 
+    rel_widths = c(1, 0.93)),
   NULL,
   plot_grid(
     part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
                  8, "Max depth", xl = TRUE),
     part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
-                 9, "Distance to \n closest lake", xl = TRUE, yl = FALSE), 
+                 9, "Distance to \n closest lake (NWS)", xl = TRUE, yl = FALSE), 
     rel_widths = c(1, 0.93)), 
-  rel_heights = c(0.91, 0.1, 1), ncol = 1)
+  rel_heights = c(1, 0.05, 1), ncol = 1)
 
 # ---- k_viz ----
 
@@ -469,10 +468,10 @@ conny_cols  <- unique(splits$nws_names)[!is.na(unique(splits$nws_names))]
 conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 
 nes_nws_sub <- nes_nws_sub[,c(conny_cols, 
-                              "lake_area_ha", "p_pnt_source_pct", "iws_ha")]
+                              "lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha")]
 nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
                  splits[,c("nws_names", "abb")], sort = FALSE)
-nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), abb = c("Lake Area", "Pnt. Src. P", "IWS area")))
+nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha"), abb = c("Lake Area", "Pnt. Src. P", "IWS area", "NWS area")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb
 
@@ -494,7 +493,6 @@ res_f            <- res_f[,-1]
 names(res_f)     <- res_names_c[-1]
 row.names(res_f) <- res_names_r
 # res_f            <- res_f[rev(1:nrow(res_f)),]
-
 
 # names(res) <- 
 #   row.names(res) <- 

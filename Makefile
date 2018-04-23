@@ -6,7 +6,7 @@ data:
 draft.pdf: draft.md scripts/analysis.pdf
 	pandoc draft.md -o draft.pdf
 
-analysis: scripts/analysis.Rmd
+analysis.pdf: scripts/analysis.Rmd
 	cd scripts && make analysis
 
 figures:  

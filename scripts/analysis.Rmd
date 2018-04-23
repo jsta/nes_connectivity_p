@@ -28,27 +28,27 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r fig.cap="Watershed diagram", echo=FALSE}
+```{r fig.cap="Diagram showing the inter-lake watershed (IWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the IWS of lake 2 because of its small size but not the IWS of lake 1 because it is large.  In contrast, the NWS of lake 3 extends to the headwaters of the lake chain.", echo=FALSE}
 knitr::include_graphics("../figures/iws_nws.pdf")
 ```
 
-```{r fig.cap="Definition of connectivity metrics.", echo=FALSE}
+```{r fig.cap="Connectivity metric definitions and examples of high and low connectivity lakes.", echo=FALSE}
 knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 ```
 
-```{r cor_mat_hmap, echo=FALSE, warning=FALSE, fig.width=3.5, fig.height=3.2, fig.cap="Connectivity metric correlation heatmap.", message=FALSE}
+```{r cor_mat_hmap, echo=FALSE, warning=FALSE, fig.width=3.5, fig.height=3.2, fig.cap="Correlation between connectivity metrics and selected lake characteristics.", message=FALSE}
 
 ```
 
-```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the non-hierarchical model posterior relative to raw data.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
+```{r global_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from global model posterior relative to NES data.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
 
 ```
 
-```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from the hierarchical model posteriors relative to raw data. Lighter colored lines and shaded polygons represent the estimates from the lower of the two partition groups (see Table 3).", fig.width = 4.8, fig.height=5, warning=FALSE}
+```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Median and central 95% interval estimates from hierarchical model posteriors relative to NES data. Lighter colored lines and lighter colored polygons represent the estimates from the lower of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
 
 ```
 
-```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales.", fig.width=5, fig.height=3.8, warning=FALSE}
+```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of Vollenweider's k in low and high connectivity partitions at the IWS and NWS scales. Lighter colors indicate the lower of the two partition groups (see Table 2).", fig.width=5, fig.height=3.8, warning=FALSE}
 
 ```
 
@@ -56,7 +56,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r maps, echo=FALSE, fig.cap="Map of lake connectivity partitions where lighter colored lakes have matric values on the lower side of the respective partition in Table 3.", warning=FALSE, message=FALSE}
+```{r maps, echo=FALSE, fig.cap="Map of lake connectivity partitions where lighter colored lakes have metric values on the lower side of their respective partitions (see Table 2).", warning=FALSE, message=FALSE}
 
 ```
 
