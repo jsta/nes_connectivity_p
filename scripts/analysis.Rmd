@@ -24,7 +24,7 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r lake_characteristics_table, echo=FALSE, results='asis'}
+```{r lake_characteristics_table, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
 
 ```
 

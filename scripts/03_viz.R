@@ -47,16 +47,16 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 plot_grid(
   plot_grid(
     part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                   9, "Lake connection", xl = TRUE),
+                   9, "A. Effect of lake connection", xl = TRUE),
     part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
-                   8, "Link length (NWS)", xl = TRUE, yl = FALSE), 
+                   8, "B. Effect of link length \n (NWS)", xl = TRUE, yl = FALSE), 
     rel_widths = c(1, 0.93)),
   NULL,
   plot_grid(
     part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
-                 8, "Max depth", xl = TRUE),
+                 8, "C. Effect of max depth", xl = TRUE),
     part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
-                 9, "Distance to \n closest lake (NWS)", xl = TRUE, yl = FALSE), 
+                 9, "D. Effect of distance to \n closest lake (NWS)", xl = TRUE, yl = FALSE), 
     rel_widths = c(1, 0.93)), 
   rel_heights = c(1, 0.05, 1), ncol = 1)
 
@@ -100,7 +100,7 @@ k_viz_iws <- ggplot(
                                   viridis::viridis(1, begin = 0)), 7))) + 
     cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
                                      axis.title = element_text(size = 12),
-                               plot.title = element_text(size = 12, face = "plain"),
+                               plot.title = element_text(size = 12, face = "plain", hjust = 0),
                                      axis.line.x = element_line(size = 1, 
                                      colour = "black"),
                                      axis.line.y = element_line(size = 1, 
@@ -157,7 +157,7 @@ k_viz_nws <- ggplot(
                                      viridis::viridis(1, begin = 0)), 8))) + 
   cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
                                    axis.title = element_text(size = 12),
-                               plot.title = element_text(size = 12, face = "plain"),
+                               plot.title = element_text(size = 12, face = "plain", hjust = 0),
                                    axis.line.x = element_line(size = 1, 
                                                   colour = "black"),
                                    axis.line.y = element_line(size = 1, 
@@ -178,8 +178,8 @@ k_viz_nws <- ggplot(
                    "Global")))
 
 plot_grid(
-  k_viz_iws + ggtitle("IWS scale") + xlim(0.8, 1.6),
-  k_viz_nws + ggtitle("NWS scale") + xlim(0.8, 1.6), ncol = 2,
+  k_viz_iws + ggtitle("A. IWS scale") + xlim(0.8, 1.6),
+  k_viz_nws + ggtitle("B. NWS scale") + xlim(0.8, 1.6), ncol = 2,
   align = "v")
 
 # ---- graphical_exploratory_analysis ----
@@ -391,7 +391,7 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
                                 color = viridis::viridis(1, begin = 0.5), 
                                 size = 0.6) + 
                              coord_sf(datum = NA) + 
-                             ggtitle(partition_splits[x, "abb"]) + 
+                             ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
                              theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"),
                                plot.title = element_text(face = "plain", size = 12))
                          })
@@ -416,7 +416,7 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                                      color = viridis::viridis(1, begin = 0.5), 
                                      size = 0.6) + 
                              coord_sf(datum = NA) + 
-                             ggtitle(partition_splits[x, "abb"]) + 
+                             ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
                              theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"), 
                                plot.title = element_text(face = "plain", size  = 12))
                          })
@@ -493,7 +493,9 @@ nes_iws_sub <- nes_iws_sub[,c(conny_cols,
 
 iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)), 
                  splits[,c("iws_names", "abb")], sort = FALSE)
-iws_key <- rbind(iws_key, data.frame(iws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), abb = c("Lake Area", "Pnt. Src. P", "IWS area")))
+iws_key <- rbind(iws_key, 
+                 data.frame(iws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), 
+                            abb = c("Lake Area", "Point Source P", "IWS area")))
 iws_key <- iws_key[!duplicated(iws_key),]
 names(nes_iws_sub) <- iws_key$abb
 
@@ -506,7 +508,8 @@ nes_nws_sub <- nes_nws_sub[,c(conny_cols,
                               "lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha")]
 nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
                  splits[,c("nws_names", "abb")], sort = FALSE)
-nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha"), abb = c("Lake Area", "Pnt. Src. P", "IWS area", "NWS area")))
+nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha"), 
+                                     abb = c("Lake Area", "Point Source P", "IWS area", "NWS area")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb
 

@@ -157,7 +157,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   gg_format <- function(gg){
     gg <- gg + 
       theme(legend.position = "none", 
-            plot.title = element_text(size = 10, face = "plain", color = "grey"), 
+            plot.title = element_text(size = 10, face = "plain", color = "black", hjust = 0), 
             axis.title = element_text(size = 12), 
             axis.text = element_text(size = 10)) + 
       ylim(0, 1) + scale_x_log10() + ggtitle(title) +
@@ -309,4 +309,16 @@ delta_k <- function(rds_path){
   data.frame(pnames2 = substring(basename(rds_path), 0, 2), d_k = 
   abs(median(dplyr::filter(dt, key == "k2")$coef) - 
     median(dplyr::filter(dt, key == "k1")$coef)))
+}
+
+break_word <- function(x, max.len){
+  
+  x_split <- stringr::str_split(x, " ")[[1]]
+  n_chars <- sapply(x_split, nchar)
+  
+  first_line  <- cumsum(n_chars + 1) < max.len
+  second_line <- !first_line
+  
+  res <- paste(x_split[first_line], collapse = " ")
+  paste(res, "\n", paste(x_split[second_line], collapse = " "))
 }
