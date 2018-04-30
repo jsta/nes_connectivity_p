@@ -4,22 +4,26 @@ source("01_prepdata.R")
 
 # ---- lake_characteristics_table ----
 # table describing basic properties of lake population
-nes_iws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
+lg                 <- lagosne_load("1.087.1")
+nes_nws <- left_join(nes_nws, dplyr::select(lg$iws, lagoslakeid, iws_ha))
+nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
   
 name_key <- data.frame(
   property = c(
     "tp", "chl", "secchi", # chemistry
     "p_percent_retention", "retention_time_yr", # retention
-    "maxdepth", "percent_ag", "percent_urban"), # features
+    "maxdepth", "percent_ag", "percent_urban", # features
+    "iws_ha", "nws_ha"), 
   Characteristic = c(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
     "P Retention (%)", "Residence Time (yr)",
-    "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %"))
+    "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
+    "Inter-lake Watershed Area (ha)", "Network Watershed Area (ha)"))
 
-qs <- function(x) quantile(nes_iws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
+qs <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
 summary_names <- c("tp", "chl", "secchi", 
                    "p_percent_retention", "retention_time_yr",
-                   "maxdepth", "percent_ag")
+                   "maxdepth", "percent_ag", "iws_ha", "nws_ha")
 res <- lapply(summary_names, qs)
 res <- round(data.frame(do.call("rbind", res)), 2)
 res$property <- summary_names
@@ -27,6 +31,7 @@ res$property <- summary_names
 # unit conversions
 res[res$property == "tp", 1:3] <- 1000 * res[res$property == "tp", 1:3] # mg to ug
 
+# organization
 res <- merge(res, name_key, sort = FALSE)
 res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
 
