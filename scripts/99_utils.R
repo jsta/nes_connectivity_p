@@ -1,6 +1,9 @@
 
 # ---- source_utils ----
 
+library(pheatmap)
+library(superheat)
+library(corrr)
 library(LAGOSNE)
 library(nesRdata)
 library(dplyr)
