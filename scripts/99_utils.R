@@ -2,6 +2,7 @@
 # ---- source_utils ----
 
 library(LAGOSNE)
+library(nesRdata)
 library(dplyr)
 library(brms)
 library(tidybayes)
