@@ -122,11 +122,11 @@ res <- res[order(res$d_k, decreasing = TRUE),]
 # pander::panderOptions('keep.line.breaks', TRUE)
 # pander::pander(res)
 
-res <- res[, c(1,2,4,8,9,10)]
+res <- res[, c(1, 2, 4, 8, 9, 10)]
 res <- res[, c(3, 2, 4, 5, 6)]
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 
-                   conny_full = c("Longitudinal", "Lateral", NA))
+                   conny_full = c("Longitudinal", "Lateral", "-"))
 res <- merge(res, key2, sort = FALSE)
 res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[,c(2, 3, 6, 4, 5)]
