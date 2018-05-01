@@ -370,6 +370,7 @@ nes_sf    <- coordinatize(nes_nws, "lat", "long")
 us_states <- st_intersects(us_states(), nes_sf)
 us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
+# pull the lower partition group as an sf object
 get_sub <- function(dt, col_name, split_value){
   coordinatize(
     dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
@@ -409,7 +410,7 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                            
                            ggplot() + 
                              geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf[na_rows,], 
+                             geom_sf(data = nes_sf, 
                                      color = viridis::viridis(1, begin = 0),
                                      size = 0.6) + 
                              geom_sf(data = nes_sub,
