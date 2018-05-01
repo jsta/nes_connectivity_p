@@ -2,16 +2,19 @@ cmdargs <- commandArgs(trailingOnly = TRUE)
 
 # ---- prep_network ----
 
+# cran
 library(concaveman)
-library(vapour)
 library(sf)
-library(nhdR)
 library(dplyr)
 library(mapview)
-library(streamnet)
 library(sp)
-library(LAGOSNE)
 library(ggsn)
+
+# github
+library(vapour)
+library(nhdR)
+library(LAGOSNE)
+library(streamnet)
 
 pull_iws <- function(lagoslakeid, maxsteps = 15){
   gdb_path <- path.expand("~/.local/share/LAGOS-GIS/lagos-ne_gis.gpkg")
@@ -141,14 +144,16 @@ nes_x_lagos <- read.csv(flist[which.max(sapply(flist, file.exists))],
 # lagoslakeid <- 6302
 # lagoslakeid <- cmdargs <- 1906
 # lagoslakeid <- cmdargs <- 8016
+# lagoslakeid <- cmdargs <- x <- 6076
 # iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 # nws <- pull_nws(lagoslakeid, maxsteps = Inf)
+# iws_lakes <- pull_lakes(iws)
 # nws_lakes <- pull_lakes(nws)
 # nws_avgs  <- pull_nws_metrics(nws_lakes)
 #  
 # mapview(nws) + mapview(nws_lakes) + mapview(iws, color = "green")
 #  
-# iws_metrics <- run_lake(lagoslakeid, lines = iws)
+# iws_metrics <- run_lake(lagoslakeid, lines = iws, lakes = iws_lakes)
 # nws_metrics <- run_lake(lagoslakeid, lines = nws, lakes = nws_lakes)
 # tryCatch({
 #   nws_metrics <- run_lake(lagoslakeid, lines = nws, lakes = nws_lakes)
@@ -214,7 +219,9 @@ res   <- lapply(nes_x_lagos$lagoslakeid, function(x) {
 
 })
 
+if(length(cmdargs) > 0){
   res <- do.call("rbind", res)
   write.table(res, file = "connectivity_metrics_nws.csv", append = TRUE, 
               sep = ",", row.names = FALSE, col.names = TRUE)
+}
   print(res)
