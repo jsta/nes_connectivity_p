@@ -219,7 +219,7 @@ res   <- lapply(nes_x_lagos$lagoslakeid, function(x) {
 
 })
 
-if(length(cmdargs) > 0){
+if(length(cmdargs) == 0){
   res <- do.call("rbind", res)
   write.table(res, file = "connectivity_metrics_nws.csv", append = TRUE, 
               sep = ",", row.names = FALSE, col.names = TRUE)
