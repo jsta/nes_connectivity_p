@@ -122,6 +122,8 @@ full_pred_plot <- function(nes, fit){
     ylab("P retention (%)") + xlab("Residence time (yr)")
 }
 
+# na_var: value assigned to rows with NAs
+# fac: group assignment for non-numeric variables like lakeconnection?
 part_model <- function(nes, part_var = NA, lower = NA, mid = NA, 
                        upper = NA, na_var = NA, fac = NA){
   
