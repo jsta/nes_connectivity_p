@@ -1,15 +1,20 @@
 # setwd("scripts")
-source("99_utils.R")
+if(file.exists("99_utils.R")){
+  source("99_utils.R")
+}
 
 # ---- prep_nes_lagos ----
 
 # Base data
-pre_path <- "../data"
+if(file.exists("../data")){
+  pre_path <- "../data"
+}else{
+  pre_path <- "data"
+}
 
 nes_iws <- prep_full_nes(file.path(pre_path, "nes_x_lagos-ne.csv"), 
                          file.path(pre_path, "connectivity_metrics_iws.csv"))
 
-pre_path <- "../data"
 nes_nws <- prep_full_nes(file.path(pre_path, "nes_x_lagos-ne.csv"), 
                          file.path(pre_path, "connectivity_metrics_nws.csv"))
 

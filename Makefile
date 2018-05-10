@@ -6,10 +6,15 @@ data:
 draft.pdf: draft.md scripts/analysis.pdf
 	pandoc draft.md -o draft.pdf
 
+all: analysis
+
 analysis: analysis.pdf
 
-analysis.pdf: scripts/analysis.Rmd
-	cd scripts && make analysis.pdf
+analysis.pdf: scripts/analysis.Rmd table_1.csv
+	cd scripts && make all
 
 figures:  
 	cd figures && make all
+
+table_1.csv: scripts/table_1.R
+	Rscript scripts/table_1.R
