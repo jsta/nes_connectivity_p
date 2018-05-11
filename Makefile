@@ -10,11 +10,11 @@ all: analysis
 
 analysis: analysis.pdf
 
-analysis.pdf: scripts/analysis.Rmd table_1.csv
+analysis.pdf: scripts/analysis.Rmd scripts/table_1.csv
 	cd scripts && make all
 
 figures:  
 	cd figures && make all
 
-table_1.csv: scripts/table_1.R
+scripts/table_1.csv: scripts/table_1.R
 	Rscript scripts/table_1.R
