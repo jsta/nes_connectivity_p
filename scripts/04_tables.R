@@ -64,4 +64,4 @@ knitr::kable(res,
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
                            "Connectivity Type", "Delta k"), 
-             caption = "Ranking of connectivity metrics according to median effect size.")
+             caption = "Ranking of connectivity metrics and lake depth according to median effect size.")
