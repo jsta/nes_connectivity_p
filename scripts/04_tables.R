@@ -39,29 +39,24 @@ res <- data.frame(res[,1], res$X50., paste0(res$X25., " - ", res$X75.))
 names(res) <- c("", "Mean", "IQR")
 
 knitr::kable(res, format = 'pandoc', align = c("lll"),
-             caption = "Mean and interquartile range of selected study lake characteristics.")
+             caption = "Mean and interquartile range of selected lake characteristics.")
 
 # ---- model_results_table ----
 # table showing model results
 
 res <- read.csv("table_1.csv", stringsAsFactors = FALSE)
-
-# pander::panderOptions('keep.line.breaks', TRUE)
-# pander::pander(res)
-
-res <- res[, c(1, 2, 3, 7, 8, 9)]
-res <- res[, c(3, 2, 4, 5, 6)]
+res <- res[, c("parameter", "scale", "conny_type", "splits", "d_k")]
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 
                    conny_full = c("Longitudinal", "Lateral", "-"))
 res <- merge(res, key2, sort = FALSE)
 res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[,c(2, 3, 6, 4, 5)]
-res <- dplyr::select(res, -splits)
+# res <- dplyr::select(res, -splits)
 
 options(knitr.kable.NA = '')
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
-                           "Connectivity Type", "Delta k"), 
-             caption = "Ranking of connectivity metrics and lake depth according to median effect size.")
+                           "Connectivity Type", "Split Value", "Delta k"), 
+             caption = "Classification and partition splits of lake depth and connectivity metrics ranked according to median effect size.")
