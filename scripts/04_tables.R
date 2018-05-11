@@ -54,7 +54,7 @@ res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[,c(2, 3, 6, 4, 5)]
 # res <- dplyr::select(res, -splits)
 
-options(knitr.kable.NA = '')
+options(knitr.kable.NA = "-")
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
