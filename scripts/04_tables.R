@@ -5,7 +5,7 @@ source("01_prepdata.R")
 # ---- lake_characteristics_table ----
 # table describing basic properties of lake population
 lg                 <- lagosne_load("1.087.1")
-nes_nws <- left_join(nes_nws, dplyr::select(lg$iws, lagoslakeid, iws_ha))
+nes_nws            <- left_join(nes_nws, dplyr::select(lg$iws, lagoslakeid, iws_ha))
 nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
   
 name_key <- data.frame(
@@ -20,13 +20,14 @@ name_key <- data.frame(
     "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
     "Inter-lake Watershed Area (ha)", "Network Watershed Area (ha)"))
 
-qs <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
+qs            <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
 summary_names <- c("tp", "chl", "secchi", 
                    "p_percent_retention", "retention_time_yr",
                    "maxdepth", "percent_ag", "iws_ha", "nws_ha")
-res <- lapply(summary_names, qs)
-res <- round(data.frame(do.call("rbind", res)), 2)
-res$property <- summary_names
+
+res           <- lapply(summary_names, qs)
+res           <- round(data.frame(do.call("rbind", res)), 2)
+res$property  <- summary_names
 
 # unit conversions
 res[res$property == "tp", 1:3] <- 1000 * res[res$property == "tp", 1:3] # mg to ug
@@ -59,4 +60,4 @@ knitr::kable(res,
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
                            "Connectivity Type", "Split Value", "Delta k"), 
-             caption = "Classification and partition splits of lake depth and connectivity metrics ranked according to median effect size.")
+             caption = "Classification and ranking of connectivity metrics, lake depth, and their partition split values according to median effect size.")
