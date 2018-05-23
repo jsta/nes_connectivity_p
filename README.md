@@ -8,6 +8,8 @@ Code and data for:
 
 Figures: [scripts/analysis.pdf](scripts/analysis.pdf)
 
+Appendic Figures: [scripts/appendix.pdf](scripts/appendix.pdf)
+
 Manuscript: [draft.pdf](draft.pdf)
 
 ## Reproducibility
