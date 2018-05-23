@@ -61,7 +61,13 @@ key2 <- data.frame(conny_type = unique(as.character(res$conny_type)),
 res <- merge(res, key2, sort = FALSE)
 res <- res[order(res$d_k, decreasing = TRUE),]
 res <- res[,c(2, 3, 6, 4, 5)]
+
+# splits
 # res <- dplyr::select(res, -splits)
+res$splits[!is.na(res$splits)] <- sapply(res$splits[!is.na(res$splits)], 
+                                         function(x) if(x > 100){
+                                           as.character(round(x, 0))
+                                           }else{as.character(round(x, 2))})
 
 options(knitr.kable.NA = "-")
 knitr::kable(res, 
