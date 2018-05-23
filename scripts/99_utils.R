@@ -163,7 +163,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
             axis.title = element_text(size = 12), 
             axis.text = element_text(size = 10)) + 
       ylim(0, 1) + scale_x_log10() + ggtitle(title) +
-      ylab("P retention (%)") + xlab("Residence time (yr)")
+      ylab("P retention") + xlab("Residence time (yr)")
     
     if(!xl){
       gg <- gg + theme(axis.title.x = element_blank(), 
@@ -184,20 +184,20 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
     stat_summary(data = test[1][[1]], geom = "ribbon", 
                  aes(x = retention_time_yr, y = estimate, 
                      fill = forcats::fct_rev(ordered(...prob..))), 
-                 fun.data = median_qi, fun.args = list(.prob = 0.95), alpha = 0.15) +
-    stat_summary(data = test[1][[1]], aes(x = retention_time_yr, y = estimate), 
-                 fun.y = median, geom = "line", color = viridis::viridis(1, begin = 0.5), 
-                 size = 0.5) +
+                 fun.data = median_qi, fun.args = list(.prob = 0.95), alpha = 0.25) +
+    # stat_summary(data = test[1][[1]], aes(x = retention_time_yr, y = estimate), 
+    #              fun.y = median, geom = "line", color = viridis::viridis(1, begin = 0.5), 
+    #              size = 0.5) +
     scale_fill_viridis_d(begin = 0.5)
   
   gg_2 <- ggplot() +
     stat_summary(data = test[2][[1]], geom = "ribbon", 
                  aes(x = retention_time_yr, y = estimate, 
                      fill = forcats::fct_rev(ordered(...prob..))), 
-                 fun.data = median_qi, fun.args = list(.prob = c(0.95)), alpha = 0.15) + 
-    stat_summary(data = test[2][[1]], aes(x = retention_time_yr, y = estimate), 
-                 fun.y = median, geom = "line", color = viridis::viridis(1, begin = 0), 
-                 size = 0.5) +
+                 fun.data = median_qi, fun.args = list(.prob = c(0.95)), alpha = 0.25) + 
+    # stat_summary(data = test[2][[1]], aes(x = retention_time_yr, y = estimate), 
+    #              fun.y = median, geom = "line", color = viridis::viridis(1, begin = 0), 
+    #              size = 0.5, fun.args = list(alpha = 0.15)) +
     scale_fill_viridis_d(begin = 0) + 
     theme(panel.background = element_rect(fill = "transparent"), 
           plot.background = element_rect(
@@ -214,7 +214,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   # print(g2)
   g2 <- gtable::gtable_filter(g2, "panel")
   
-  gg <- gtable::gtable_add_grob(g1, g2, t = 6, l = 4)
+  gg <- gtable::gtable_add_grob(g1, g2, t = 7, l = 5)
   
   # grid::grid.newpage()
   # grid::grid.draw(gg)
