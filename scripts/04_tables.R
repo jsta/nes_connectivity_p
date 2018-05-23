@@ -18,7 +18,11 @@ name_key <- data.frame(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
     "P Retention (%)", "Residence Time (yr)",
     "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
-    "Inter-lake Watershed Area (ha)", "Network Watershed Area (ha)"))
+    "Inter-lake Watershed Area (ha)", "Network Watershed Area (ha)"), 
+  digits = c(2, 2, 2, 
+             2, 2, 
+             2, 2, 2, 
+             0, 0))
 
 qs            <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
 summary_names <- c("tp", "chl", "secchi", 
@@ -31,10 +35,14 @@ res$property  <- summary_names
 
 # unit conversions
 res[res$property == "tp", 1:3] <- 1000 * res[res$property == "tp", 1:3] # mg to ug
-
 # organization
 res <- merge(res, name_key, sort = FALSE)
-res <- res[,c(ncol(res), 2:(ncol(res) - 1))]
+# rounding
+res_temp <- res
+res[,c("X50.", "X25.", "X75.")] <- apply(res[,c("X50.", "X25.", "X75.")], 2, as.character)
+res[,c("X50.", "X25.", "X75.")] <- t(apply(res_temp[,c("X50.", "X25.", "X75.", "digits")], 1, 
+                                         function(x) as.character(round(x[-4], x[4]))))
+res <- res[,c(ncol(res) - 1, 2:(ncol(res) - 2))]
 
 res <- data.frame(res[,1], res$X50., paste0(res$X25., " - ", res$X75.))
 names(res) <- c("", "Mean", "IQR")
