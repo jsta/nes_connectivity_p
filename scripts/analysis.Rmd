@@ -28,7 +28,7 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r fig.cap="Diagram showing the inter-lake watershed (IWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the IWS of lake 2 because of it is smaller than 10 ha small size but it does not encompass the IWS of lake 1 because it has an area of at least 10 ha. In contrast to the IWS boundaries, the NWS boundaries extend to the headwaters of the lake chain.", echo=FALSE}
+```{r fig.cap="Diagram showing the lake watershed (LWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the LWS of lake 2 because of it is smaller than 10 ha small size but it does not encompass the LWS of lake 1 because it has an area of at least 10 ha.  In contrast to the LWS boundaries, the NWS boundaries extend to the headwaters of the lake chain.", echo=FALSE}
 knitr::include_graphics("../figures/iws_nws.pdf")
 ```
 
@@ -40,15 +40,15 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 ```
 
-```{r global_vollenweider_viz, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data as the median and central 95% interval estimates.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
+```{r global_vollenweider_viz, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data where the solid line and shaded interval represents the median and central 95% interval estimates respectively.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
 
 ```
 
-```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Residence time (yr) versus P retention (%) for the NES dataset and hierarchical model fits to the data as the median and central 95% interval estimates.  The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
+```{r partition_vollenweider_viz, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and hierarchical model fits to the data where the solid lines and shaded intervals represent the median and central 95% model  estimates respectively. The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
 
 ```
 
-```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider's equation in low and high connectivity partitions at the (A) IWS and (B) NWS scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=5, fig.height=3.8, warning=FALSE}
+```{r k_viz, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider's equation in low and high connectivity partitions at the (A) LWS and (B) NWS scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=5, fig.height=3.8, warning=FALSE}
 
 ```
 

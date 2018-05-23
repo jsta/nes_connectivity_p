@@ -5,10 +5,10 @@
 "lc","focal","Lake Connection","Lake Connection","lakeconnection","lakeconnection","long",NA,0.167077991501296
 "la","nws","Upstream lake area","Upstream lake area","upstream_lakes_4ha_area_ha",NA,"long",153.5,0.164495308176672
 "md","focal","Max Depth","Max depth","maxdepth","maxdepth",NA,19.812,0.146197117331498
-"ll","iws","Average Link Length","Average link length","avg_link_length","link_length","long",2177.08256,0.140873691160561
-"bf","iws","Baseflow","Baseflow","baseflow","hu12_baseflowindex_mean","lat",63.7619,0.115001413622331
-"sr","iws","Stream order ratio","Stream order ratio","stream_order_ratio","stream_order_ratio","long",0.66667,0.0950217984452517
+"ll","lws","Average Link Length","Average link length","avg_link_length","link_length","long",2177.08256,0.140873691160561
+"bf","lws","Baseflow","Baseflow","baseflow","hu12_baseflowindex_mean","lat",63.7619,0.115001413622331
+"sr","lws","Stream order ratio","Stream order ratio","stream_order_ratio","stream_order_ratio","long",0.66667,0.0950217984452517
 "bf","nws","Baseflow","Baseflow","baseflow","hu12_baseflowindex_mean","lat",53.42746,0.0781325144245213
-"cd","iws","Closest lake distance","Closest lake distance","closest_lake_distance","closest_lake_distance","long",3773.61384255834,0.0487814508390569
+"cd","lws","Closest lake distance","Closest lake distance","closest_lake_distance","closest_lake_distance","long",3773.61384255834,0.0487814508390569
 "sr","nws","Stream order ratio","Stream order ratio","stream_order_ratio","stream_order_ratio","long",0.4,0.0414755834907592
-"sd","iws","Stream density","Stream density","stream_density","iws_streamdensity_streams_density_mperha","lat",4.4317,0.0279296778968927
+"sd","lws","Stream density","Stream density","stream_density","iws_streamdensity_streams_density_mperha","lat",4.4317,0.0279296778968927

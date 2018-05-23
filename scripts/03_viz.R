@@ -184,7 +184,7 @@ k_viz_nws <- ggplot(
                    "Global")))
 
 plot_grid(
-  k_viz_iws + ggtitle("A. IWS scale") + xlim(0.8, 1.6),
+  k_viz_iws + ggtitle("A. LWS scale") + xlim(0.8, 1.6),
   k_viz_nws + ggtitle("B. NWS scale") + xlim(0.8, 1.6), ncol = 2,
   align = "v")
 
@@ -448,8 +448,8 @@ plot_grid(
             NULL,
             NULL, 
             nrow = 4, ncol = 1,
-            labels = c("IWS:", "", "NWS:", "", ""), 
-            label_colour = "gray", vjust = c(1.2, 0, 2, 0, 0), 
+            labels = c("A. LWS:", "", "B. NWS:", "", ""), 
+            label_colour = "black", vjust = c(1.2, 0, 2, 0, 0), 
             hjust = c(-0.1, 0, -0.12, 0, 0)),
   plot_grid(
     plot_grid(plotlist = lower_iws_maps, 
@@ -459,8 +459,6 @@ plot_grid(
                    ncol = 3, nrow = 2, align = "v"), 
     ncol = 1, rel_heights = c(1, 0.1, 1)), 
 rel_widths = c(0.2, 1), ncol = 2)
-
-# ggplot() + geom_point(data = nes_nws, aes(x = lg_long, y = lg_lat, color = baseflow))
 
 # ---- cor_mat_hmap ----
 # correlation matrix heatmap
@@ -502,7 +500,7 @@ iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)),
                  splits[,c("iws_names", "abb")], sort = FALSE)
 iws_key <- rbind(iws_key, 
                  data.frame(iws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), 
-                            abb = c("Lake Area", "Point Source P", "IWS area")))
+                            abb = c("Lake Area", "Point Source P", "LWS area")))
 iws_key <- iws_key[!duplicated(iws_key),]
 names(nes_iws_sub) <- iws_key$abb
 
@@ -516,7 +514,7 @@ nes_nws_sub <- nes_nws_sub[,c(conny_cols,
 nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
                  splits[,c("nws_names", "abb")], sort = FALSE)
 nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha"), 
-                                     abb = c("Lake Area", "Point Source P", "IWS area", "NWS area")))
+                                     abb = c("Lake Area", "Point Source P", "LWS area", "NWS area")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb
 

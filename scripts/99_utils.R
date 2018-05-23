@@ -79,7 +79,7 @@ prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALS
   }
   nes <- dplyr::filter(nes, lakeconnection != "Isolated",
                        lakeconnection != "Headwater")
-  nes$lakeconnection <- droplevels(nes$lakeconnection)
+  nes$lakeconnection      <- droplevels(nes$lakeconnection)
   nes$p_percent_retention <- nes$p_percent_retention / 100
   
   nes$tp_in <- nesRdata:::calculate_tp_in(nes)
