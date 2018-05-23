@@ -93,11 +93,14 @@ fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
 
 k_viz_iws <- ggplot(
   fit_df_iws, 
-  aes(x = coef, y = key, fill = key)) + 
+  aes(x = coef, y = key, fill = key, color = key)) + 
     geom_density_ridges(size = 1, rel_min_height = 0.03) + 
     scale_fill_manual(values = c("grey", 
                             rep(c(viridis::viridis(1, begin = 0.5), 
-                                  viridis::viridis(1, begin = 0)), 7))) + 
+                                  viridis::viridis(1, begin = 0)), 7))) +
+    scale_color_manual(values = c("grey", 
+                               rep(c(viridis::viridis(1, begin = 0.5), 
+                                     viridis::viridis(1, begin = 0)), 7))) +
     cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
                                      axis.title = element_text(size = 12),
                                plot.title = element_text(size = 12, face = "plain", hjust = 0),
@@ -150,11 +153,14 @@ fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
 
 k_viz_nws <- ggplot(
   fit_df_nws, 
-  aes(x = coef, y = key, fill = key)) + 
+  aes(x = coef, y = key, fill = key, color = key)) + 
   geom_density_ridges(size = 1, rel_min_height = 0.03) + 
-  scale_fill_manual(values = c("grey", 
+  scale_fill_manual(values = c("grey",
+                               rep(c(viridis::viridis(1, begin = 0.5),
+                                     viridis::viridis(1, begin = 0)), 8))) +
+  scale_color_manual(values = c("grey", 
                                rep(c(viridis::viridis(1, begin = 0.5), 
-                                     viridis::viridis(1, begin = 0)), 8))) + 
+                                     viridis::viridis(1, begin = 0)), 8))) +
   cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
                                    axis.title = element_text(size = 12),
                                plot.title = element_text(size = 12, face = "plain", hjust = 0),
