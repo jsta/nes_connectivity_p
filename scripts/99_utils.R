@@ -119,7 +119,7 @@ full_pred_plot <- function(nes, fit){
     scale_x_log10() + ylim(0, 1) +
     scale_fill_discrete("grey") + 
     theme_pred() + 
-    ylab("P retention (%)") + xlab("Residence time (yr)")
+    ylab("P retention") + xlab("Residence time (yr)")
 }
 
 # na_var: value assigned to rows with NAs
