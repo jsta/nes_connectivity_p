@@ -28,12 +28,16 @@ knitr::read_chunk("99_utils.R")
 
 ```
 
-```{r fig.cap="Diagram showing the lake watershed (LWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the LWS of lake 2 because of it is smaller than 10 ha small size but it does not encompass the LWS of lake 1 because it has an area of at least 10 ha.  In contrast to the LWS boundaries, the NWS boundaries extend to the headwaters of the lake chain.", echo=FALSE}
-knitr::include_graphics("../figures/iws_nws.pdf")
+```{r fig.cap="Major lake and watershed characteristics, factors, and processes affecting lake P retention. Shaded symbols indicate items typically considered in P retention models while open symbols indicate additional items considered in the present study.", echo=FALSE}
+knitr::include_graphics("../figures/conceptual_p-cycle.pdf")
 ```
 
-```{r fig.cap="Connectivity metric definitions and examples of high and low connectivity lakes.", echo=FALSE}
+```{r fig.cap="Connectivity metric definitions along with examples of high and low connectivity lakes.", echo=FALSE}
 knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
+```
+
+```{r fig.cap="Diagram showing the lake watershed (LWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the LWS of lake 2 because of it is smaller than 10 ha small size but it does not encompass the LWS of lake 1 because it has an area of at least 10 ha.  In contrast to the LWS boundaries, the NWS boundaries extend to the headwaters of the lake chain.", echo=FALSE}
+knitr::include_graphics("../figures/iws_nws.pdf")
 ```
 
 ```{r cor_mat_hmap, echo=FALSE, warning=FALSE, fig.width=3.5, fig.height=3.2, fig.cap="Correlation between connectivity metrics and selected lake characteristics.", message=FALSE}
@@ -62,6 +66,7 @@ knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
 
 <!-- * Olin Lake has a completely undeveloped shoreline -->
 <!-- * Madison Lake is impaired according to MPCA -->
+
 
 ```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
 
