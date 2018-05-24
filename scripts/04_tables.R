@@ -74,4 +74,5 @@ knitr::kable(res,
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Scale",
                            "Connectivity Type", "Split Value", "Delta k"), 
+             align = c("lllcc"),
              caption = "Classification and ranking of connectivity metrics, lake depth, and their partition split values according to median effect size.")
