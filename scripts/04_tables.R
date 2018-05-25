@@ -58,7 +58,7 @@ spaces <- sapply(row_nchar_max[2] - row_nchar[,2],
                  function(x) paste(rep(" ", x), collapse = ""))
 res$X75. <- paste0(res$X75., spaces)
 
-res <- data.frame(res[,1], res$X50., paste0(res$X25., " - ", res$X75.))
+res        <- data.frame(res[,1], res$X50., paste0(res$X25., " - ", res$X75.))
 names(res) <- c("", "Mean", "IQR")
 
 knitr::kable(res, format = 'pandoc', align = c("lll"),
