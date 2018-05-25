@@ -12,22 +12,22 @@ name_key <- data.frame(
   property = c(
     "tp", "chl", "secchi", # chemistry
     "p_percent_retention", "retention_time_yr", # retention
-    "maxdepth", "percent_ag", "percent_urban", # features
+    "surface_area", "maxdepth", "percent_ag", "percent_urban", # features
     "iws_ha", "nws_ha"), 
   Characteristic = c(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
     "P Retention (%)", "Residence Time (yr)",
-    "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
-    "Lake Watershed Area (ha)", "Network Watershed Area (ha)"), 
+    "Lake Area (km2)", "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
+    "Lake Watershed Area (km2)", "Network Watershed Area (km2)"), 
   digits = c(2, 2, 2, 
              2, 2, 
-             2, 2, 2, 
+             2, 2, 2, 2, 
              0, 0))
 
 qs            <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
 summary_names <- c("tp", "chl", "secchi", 
                    "p_percent_retention", "retention_time_yr",
-                   "maxdepth", "percent_ag", "iws_ha", "nws_ha")
+                   "surface_area", "maxdepth", "percent_ag", "iws_ha", "nws_ha")
 
 res           <- lapply(summary_names, qs)
 res           <- round(data.frame(do.call("rbind", res)), 2)
@@ -35,6 +35,9 @@ res$property  <- summary_names
 
 # unit conversions
 res[res$property == "tp", 1:3] <- 1000 * res[res$property == "tp", 1:3] # mg to ug
+res[res$property == "iws_ha", 1:3] <- res[res$property == "iws_ha", 1:3]  / 100 # ha to km2
+res[res$property == "nws_ha", 1:3] <- res[res$property == "nws_ha", 1:3]  / 100 # ha to km2
+
 # organization
 res <- merge(res, name_key, sort = FALSE)
 # rounding
@@ -44,10 +47,10 @@ res[,c("X50.", "X25.", "X75.")] <- t(apply(res_temp[,c("X50.", "X25.", "X75.", "
                                          function(x) as.character(round(x[-4], x[4]))))
 res <- res[,c(ncol(res) - 1, 2:(ncol(res) - 2))]
 
-res <- data.frame(res[,1], res$X50., paste0(res$X25., " - ", res$X75.))
-names(res) <- c("", "Mean", "IQR")
+res <- data.frame(res[,1], res$X50., res$X25., " - ", res$X75.)
+names(res) <- c("", "Mean", "", "IQR", "")
 
-knitr::kable(res, format = 'pandoc', align = c("lll"),
+knitr::kable(res, format = 'pandoc', align = c("lllcl"),
              caption = "Mean and interquartile range of selected lake characteristics.")
 
 # ---- model_results_table ----
