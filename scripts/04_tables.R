@@ -47,10 +47,21 @@ res[,c("X50.", "X25.", "X75.")] <- t(apply(res_temp[,c("X50.", "X25.", "X75.", "
                                          function(x) as.character(round(x[-4], x[4]))))
 res <- res[,c(ncol(res) - 1, 2:(ncol(res) - 2))]
 
-res <- data.frame(res[,1], res$X50., res$X25., " - ", res$X75.)
-names(res) <- c("", "Mean", "", "IQR", "")
+# space formatting 
+row_nchar     <- t(apply(res[,3:4], 1, nchar))
+row_nchar_max <- apply(row_nchar, 2, max)
+spaces <- sapply(row_nchar_max[1] - row_nchar[,1], 
+                 function(x) paste(rep(" ", x), collapse = ""))
+res$X25. <- paste0(res$X25., spaces)
 
-knitr::kable(res, format = 'pandoc', align = c("lllcl"),
+spaces <- sapply(row_nchar_max[2] - row_nchar[,2], 
+                 function(x) paste(rep(" ", x), collapse = ""))
+res$X75. <- paste0(res$X75., spaces)
+
+res <- data.frame(res[,1], res$X50., paste0(res$X25., " - ", res$X75.))
+names(res) <- c("", "Mean", "IQR")
+
+knitr::kable(res, format = 'pandoc', align = c("lll"),
              caption = "Mean and interquartile range of selected lake characteristics.")
 
 # ---- model_results_table ----
