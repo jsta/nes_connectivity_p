@@ -18,10 +18,10 @@ median_tau <- median_tau$median_tau
 
 k <- apply(
   posterior_samples(stan_results, pars = c("b_k_part1", "b_k_part2")), 
-  2, median)
+  2, quantile)
 
-R1 <- round((1 - (1/(1 + k[1] * (median_tau^median_x)))), 2) 
-R2 <- round(1 - (1/(1 + k[2] * (median_tau^median_x))), 2)
+R1 <- round((1 - (1/(1 + k[2:4,1] * (median_tau^median_x)))), 2) 
+R2 <- round(1 - (1/(1 + k[2:4,2] * (median_tau^median_x))), 2)
 
 paste0("At median water residence time, k, and tau lakes with shorter and 
       longer link lengths respectively had a P retention of ", 
