@@ -67,7 +67,6 @@ knitr::include_graphics("../figures/iws_nws.pdf")
 <!-- * Olin Lake has a completely undeveloped shoreline -->
 <!-- * Madison Lake is impaired according to MPCA -->
 
-
 ```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
 
 ```
