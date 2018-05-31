@@ -298,7 +298,7 @@ nes_nws_temp$p_pnt_source <-  rowSums(cbind(nes_nws_temp$p_pnt_source_muni,
                                        nes_nws_temp$p_pnt_source_industrial),
                                  na.rm = TRUE)
 nes_nws_sf    <- coordinatize(nes_nws_temp, "lat", "long")
-us_states <- st_intersects(us_states(), nes_sf)
+us_states <- st_intersects(us_states(), nes_nws_sf)
 us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
 plot_grid(

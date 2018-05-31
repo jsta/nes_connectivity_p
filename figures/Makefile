@@ -1,7 +1,9 @@
-.PHONY: all
+.PHONY: all png
 
 all: iws_nws.pdf conny_metric_key.pdf 04_global_vollenweider-1.pdf 05_partition_vollenweider-1.pdf 06_k-1.pdf 07_cor_mat_hmap-1.pdf 08_maps-1.pdf
-	mogrify -density 300 -format png *.pdf
+
+png:
+	-mogrify -density 300 -format png *.pdf
 	echo done
 
 iws_nws.pdf: iws_nws.tex beamer-lake-fig/beamer-lake-fig.tex
