@@ -6,11 +6,11 @@ Code and data for:
 
 ## Products
 
-Figures: [scripts/analysis.pdf](scripts/analysis.pdf)
+Figures: [manuscript/figures.pdf](manuscript/figures.pdf)
 
-Appendix: [scripts/appendix.pdf](scripts/appendix.pdf)
+Appendix: [manuscript/appendix.pdf](manuscript/appendix.pdf)
 
-Manuscript: [draft.pdf](draft.pdf)
+Manuscript: [manuscript/draft.pdf](manuscript/draft.pdf)
 
 ## Reproducibility
 
