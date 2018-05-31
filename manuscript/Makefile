@@ -13,6 +13,8 @@ figures.pdf: figures.Rmd
 	
 appendix.pdf: appendix.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
+	-pdftk appendix.pdf cat 2-end output appendix2.pdf
+	-mv appendix2.pdf appendix.pdf
 	
 tables.pdf: ../tables/01_lake_characteristics_table.pdf ../tables/02_model_results_table.pdf
 	pdftk $^ cat output tables.pdf
