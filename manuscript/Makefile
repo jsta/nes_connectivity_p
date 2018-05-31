@@ -8,6 +8,8 @@ draft.pdf: all draft.md
 
 figures.pdf: figures.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
+	-pdftk figures.pdf cat 2-end output figures2.pdf
+	-mv figures2.pdf figures.pdf
 	
 appendix.pdf: appendix.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
