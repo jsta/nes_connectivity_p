@@ -1,0 +1,27 @@
+---
+title: "Figures"
+output:
+  pdf_document:
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
+```
+
+```{r read_chunks, cache=FALSE, echo=FALSE}
+knitr::read_chunk("../scripts/03_viz.R")
+knitr::read_chunk("../scripts/99_utils.R")
+```
+
+```{r source_utils, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+
+```
+
+```{r load_data, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+  source("../scripts/01.5_loaddata.R")
+```
+
+```{r 05_partition_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and hierarchical model fits to the data where the solid lines and shaded intervals represent the median and central 95% model  estimates respectively. The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
+
+```

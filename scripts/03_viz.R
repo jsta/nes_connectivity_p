@@ -2,7 +2,7 @@
 # source("99_utils.R")
 # source("01_prepdata.R")
 
-# ---- global_vollenweider_viz ----
+# ---- 04_global_vollenweider ----
 
 full_pred_plot(nes_iws, readRDS("../data/global_vollenweider.rds"))
 
@@ -42,7 +42,7 @@ plot_tree(gettree(readRDS("../data/iws/wetland-cover_forest.rds")),
 plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")), 
           title = "Stream Density")
 
-# ---- partition_vollenweider_viz ----
+# ---- 05_partition_vollenweider ----
 
 plot_grid(
   plot_grid(
@@ -60,7 +60,7 @@ plot_grid(
     rel_widths = c(1, 0.93)), 
   rel_heights = c(1, 0.05, 1), ncol = 1)
 
-# ---- k_viz ----
+# ---- 06_k ----
 
 fit_df_iws <- rbind(
   extract_coefs(readRDS("../data/global_vollenweider.rds"), "k"), 
@@ -363,7 +363,7 @@ plot_grid(
     xlab("Network Watershed Area (ha)"), 
   ncol = 2)
 
-# ---- maps ----
+# ---- 08_maps ----
 
 partition_splits <- read.csv("../figures/table_1.csv")
 partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
@@ -460,7 +460,7 @@ plot_grid(
     ncol = 1, rel_heights = c(1, 0.1, 1)), 
 rel_widths = c(0.2, 1), ncol = 2)
 
-# ---- cor_mat_hmap ----
+# ---- 07_cor_mat_hmap ----
 # correlation matrix heatmap
 
 library(corrr)

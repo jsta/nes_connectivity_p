@@ -1,0 +1,27 @@
+---
+title: "Figures"
+output:
+  pdf_document:
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
+```
+
+```{r read_chunks, cache=FALSE, echo=FALSE}
+knitr::read_chunk("../scripts/03_viz.R")
+knitr::read_chunk("../scripts/99_utils.R")
+```
+
+```{r source_utils, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+
+```
+
+```{r load_data, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+  source("../scripts/01.5_loaddata.R")
+```
+
+```{r 04_global_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data where the solid line and shaded interval represents the median and central 95% interval estimates respectively.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
+
+```

@@ -1,0 +1,72 @@
+---
+title: "Figures"
+output:
+  pdf_document:
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
+```
+
+```{r read_chunks, cache=FALSE, echo=FALSE}
+knitr::read_chunk("01_prepdata.R")
+knitr::read_chunk("03_viz.R")
+knitr::read_chunk("04_tables.R")
+knitr::read_chunk("99_utils.R")
+```
+
+```{r source_utils, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+
+```
+
+```{r prep_nes_lagos, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+
+```
+
+```{r fig.cap="Major lake and watershed characteristics, factors, and processes affecting lake P retention. Shaded symbols indicate items typically considered in P retention models while open symbols indicate additional items considered in the present study.", echo=FALSE}
+knitr::include_graphics("../figures/conceptual_p-cycle.pdf")
+```
+
+```{r fig.cap="Connectivity metric definitions along with examples of high and low connectivity lakes.", echo=FALSE}
+knitr::include_graphics("../figures/conny_metric_key_crop.pdf")
+```
+
+```{r fig.cap="Diagram showing the lake watershed (LWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the LWS of lake 2 because of it is smaller than 10 ha small size but it does not encompass the LWS of lake 1 because it has an area of at least 10 ha.  In contrast to the LWS boundaries, the NWS boundaries extend to the headwaters of the lake chain.", echo=FALSE}
+knitr::include_graphics("../figures/iws_nws.pdf")
+```
+
+<!-- * Olin Lake has a completely undeveloped shoreline -->
+<!-- * Madison Lake is impaired according to MPCA -->
+
+```{r recursive_partitioning_viz, echo=FALSE, eval=FALSE}
+
+```
+
+```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8.4, fig.cap="Exploratory plots"}
+
+```
+
+```{r graphical_exploratory_analysis_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6.3, fig.cap="Exploratory plots cont"}
+
+```
+
+```{r graphical_exploratory_analysis_cont_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6.3, fig.cap="Exploratory plots cont x 2"}
+
+```
+
+```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing.", eval=FALSE}
+dt <- data.frame(
+  rbind(
+    c("closest lake distance", "lower", "higher", "lower", "higher", "lake-stream", "long"), 
+    c("average link length", "lower", "higher", "lower", "higher", "stream", "long"), 
+    c("lakeconnection", "DR_Stream", "higher", "lower", "higher", "lake", "long"), 
+    c("upstream lake area", "lower", "higher", "lower", "higher", "lake", "lat"), 
+    c("stream density", "higher", "higher", "lower", "higher", "stream", "lat"),
+    c("baseflow", "higher", "higher", "lower", "higher", "stream", "lat"), 
+    c("stream order ratio", "higher", "higher", "lower", "higher", "stream", "long")))
+
+names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing", "axis", "connectivity type")
+
+knitr::kable(dt)
+```

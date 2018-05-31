@@ -29,6 +29,10 @@ summary_names <- c("tp", "chl", "secchi",
                    "p_percent_retention", "retention_time_yr",
                    "surface_area", "maxdepth", "percent_ag", "iws_ha", "nws_ha")
 
+# range(nes_nws$p_percent_retention)
+# range(nes_nws$retention_time_yr)
+# 0.02 * 365
+
 res           <- lapply(summary_names, qs)
 res           <- round(data.frame(do.call("rbind", res)), 2)
 res$property  <- summary_names
@@ -67,7 +71,7 @@ knitr::kable(res, format = 'pandoc', align = c("lll"),
 # ---- model_results_table ----
 # table showing model results
 
-res <- read.csv("table_1.csv", stringsAsFactors = FALSE)
+res <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
 res <- res[, c("parameter", "scale", "conny_type", "splits", "d_k")]
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 

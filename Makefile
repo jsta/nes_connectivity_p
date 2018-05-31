@@ -1,4 +1,4 @@
-.PHONY: figures analysis data
+.PHONY: figures analysis data tables
 
 data: 
 	cd data && make all
@@ -15,6 +15,9 @@ analysis.pdf: scripts/analysis.Rmd scripts/table_1.csv
 
 figures:  
 	cd figures && make all
+
+tables:
+	cd tables && make all
 
 scripts/table_1.csv: scripts/table_1.R
 	Rscript scripts/table_1.R
