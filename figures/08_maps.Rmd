@@ -25,7 +25,6 @@ knitr::read_chunk("../scripts/99_utils.R")
 ```{r 08_maps, echo=FALSE, fig.cap="Maps showing the locations of lake connectivity partitions. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", warning=FALSE, message=FALSE}
 
 # ---- 08_maps ----
-
 partition_splits <- read.csv("../figures/table_1.csv")
 partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
                                   scale %in% c("nws", "iws"))

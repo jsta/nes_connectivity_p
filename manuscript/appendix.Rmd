@@ -280,3 +280,129 @@ names(dt) <- c("metric", "direction", "k", "connectivity", "in_lake_processing",
 
 knitr::kable(dt)
 ```
+
+```{r read_metric_chunks, cache=FALSE, echo=FALSE}
+knitr::read_chunk("../data/connectivity_metrics.R")
+```
+
+```{r load_packages}
+
+```
+
+```{r source_functions}
+
+```
+
+```{r iws_vs_nws-gis, cache = TRUE}
+lagoslakeid <- 6302
+iws <- pull_iws(lagoslakeid, maxsteps = Inf)
+nws <- pull_nws(lagoslakeid, maxsteps = Inf)
+
+library(rayshader)
+library(elevatr)
+library(raster)
+
+test <- elevatr::get_elev_raster(as_Spatial(iws), z = 1)
+
+
+
+
+```
+
+```{r best_partition_maps}
+partition_splits <- read.csv("../figures/table_1.csv")
+partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
+                                  scale %in% c("nws", "iws"))
+partition_splits <- droplevels(partition_splits)
+partition_splits$pnames2 <- factor(partition_splits$pnames2, 
+                              levels = c("cd", "ll", "la", "sd", "bf", "sr"))
+
+nes_sf    <- coordinatize(nes_nws, "lat", "long")
+us_states <- st_intersects(us_states(), nes_sf)
+us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
+
+# pull the lower partition group as an sf object
+get_sub <- function(dt, col_name, split_value){
+  coordinatize(
+    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
+    "lat", "long")
+}
+
+lower_iws_maps <- lapply(which(partition_splits$scale == "iws"), 
+                         function(x) {
+                           nes_sub <- get_sub(nes_iws, 
+                                            partition_splits[x, "iws_names"],
+                                            partition_splits[x, "splits"])
+                           
+                           ggplot() + 
+                             geom_sf(data = us_states) +
+                             geom_sf(data = nes_sf, 
+                                     color = viridis::viridis(1, begin = 0),
+                                     size = 0.6) + 
+                             geom_sf(data = nes_sub, 
+                                color = viridis::viridis(1, begin = 0.5), 
+                                size = 0.6) + 
+                             coord_sf(datum = NA) + 
+                             ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
+                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"),
+                               plot.title = element_text(face = "plain", size = 12))
+                         })
+
+lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
+                         function(x) {
+                           nes_sub <- get_sub(nes_nws, 
+                                              partition_splits[x, "nws_names"],
+                                              partition_splits[x, "splits"])
+                           
+                           nes_sf_temp <- nes_sf
+                           st_geometry(nes_sf_temp) <- NULL
+                           na_rows <- !is.na(
+                    nes_sf_temp[,as.character(partition_splits[x, "nws_names"])])
+                           
+                           ggplot() + 
+                             geom_sf(data = us_states) +
+                             geom_sf(data = nes_sf, 
+                                     color = viridis::viridis(1, begin = 0),
+                                     size = 0.6) + 
+                             geom_sf(data = nes_sub,
+                                     color = viridis::viridis(1, begin = 0.5), 
+                                     size = 0.6) + 
+                             coord_sf(datum = NA) + 
+                             ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
+                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"), 
+                               plot.title = element_text(face = "plain", size  = 12))
+                         })
+
+lower_iws_maps <- lower_iws_maps[
+  match(levels(partition_splits$pnames2), 
+        partition_splits$pnames2[which(partition_splits$scale == "iws")])
+  ]
+
+# lower_iws_maps[1][[1]] <- lower_iws_maps[1][[1]] + 
+#   theme(plot.margin = unit(c(1,0,0,0), "lines"))
+
+lower_nws_maps <- lower_nws_maps[
+  match(levels(partition_splits$pnames2), 
+        partition_splits$pnames2[which(partition_splits$scale == "nws")])
+  ]
+
+plot_grid(
+  plot_grid(NULL,
+            NULL, 
+            NULL,
+            NULL,
+            NULL, 
+            nrow = 4, ncol = 1,
+            labels = c("A. LWS", "", "B. NWS", "", ""), 
+            label_colour = "black", vjust = c(1.2, 0, 2, 0, 0), 
+            hjust = c(-0.1, 0, -0.12, 0, 0)),
+  plot_grid(
+    plot_grid(plotlist = lower_iws_maps, 
+                   ncol = 3, nrow = 2, align = "v"),
+    plot_grid(ggplot() + geom_blank()),
+    plot_grid(plotlist = lower_nws_maps,
+                   ncol = 3, nrow = 2, align = "v"), 
+    ncol = 1, rel_heights = c(1, 0.1, 1)), 
+rel_widths = c(0.2, 1), ncol = 2)
+
+```

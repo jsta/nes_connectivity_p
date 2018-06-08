@@ -1,6 +1,6 @@
 cmdargs <- commandArgs(trailingOnly = TRUE)
 
-# ---- prep_network ----
+# ---- load_packages ----
 
 # cran
 library(concaveman)
@@ -15,6 +15,8 @@ library(vapour)
 library(nhdR)
 library(LAGOSNE)
 library(streamnet)
+
+# ---- source_functions ----
 
 pull_iws <- function(lagoslakeid, maxsteps = 15){
   gdb_path <- path.expand("~/.local/share/LAGOS-GIS/lagos-ne_gis.gpkg")
@@ -56,7 +58,7 @@ pull_nws <- function(lagoslakeid, map = FALSE, maxsteps = 15, buffer_dist = 0.01
     print(lagoslakeid)
     lg        <- lagosne_load("1.087.1")
     wb_coords <- as.numeric(
-      lake_info(lg, lagoslakeid = lagoslakeid)[,c("nhd_long", "nhd_lat")])
+      LAGOSNE::lake_info(lg, lagoslakeid = lagoslakeid)[,c("nhd_long", "nhd_lat")])
     
     extract_network(wb_coords[1], wb_coords[2], maxsteps = maxsteps, 
                     buffer_dist = buffer_dist, approve_all_dl = TRUE)
