@@ -297,6 +297,8 @@ knitr::read_chunk("../data/connectivity_metrics.R")
 # lagoslakeid <- 6302
 # iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 # nws <- pull_nws(lagoslakeid, maxsteps = Inf)
+# focal_lake <- 
+# upstream_lakes <- 
 # saveRDS(iws, "../data/iws_extent.rds")
 # saveRDS(nws, "../data/nws_extent.rds")
 
@@ -307,10 +309,12 @@ iws_outline <- concaveman(st_cast(iws, "POINT"))
 nws_outline <- concaveman(st_cast(nws, "POINT"))
 
 ggplot() + 
+  geom_sf(data = nws_outline, color = "cyan", size = 2) + 
+  geom_sf(data = iws_outline, color = "cyan", size = 1, linetype = "dashed") + 
   geom_sf(data = nws) +
-  geom_sf(data = iws) + 
-  geom_sf(data = nws_outline) + 
-  geom_sf(data = iws_outline)
+  # geom_sf(data = iws) + 
+  theme_void()
+
 ```
 
 ```{r best_partition_maps, cache=TRUE}
