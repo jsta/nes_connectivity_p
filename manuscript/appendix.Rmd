@@ -298,48 +298,18 @@ lagoslakeid <- 6302
 iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 nws <- pull_nws(lagoslakeid, maxsteps = Inf)
 
-library(rayshader)
-library(elevatr)
-library(raster)
-
-test <- elevatr::get_elev_raster(as_Spatial(iws), z = 8)
-test2 <- crop(test, nws)
-
-plot(test2)
-plot(iws$geometry, add = TRUE)
-plot(nws$geometry, add = TRUE)
-
-test3 <- as.matrix(test2)
-test4 <- rayshader::rayshade(test3, 
-   anglebreaks = seq(55,65,10), 
-   sunangle = 315, 
-   maxsearch = 100)
-
-
-
-ggplot(data = reshape2::melt(test4)) + 
-  geom_tile(aes(x = Var1, y = Var2, fill = value)) +
-  scale_fill_viridis_c() + 
-  theme(legend.position = "none") + 
-  theme_void()
-
-image(test4)
-
-test4 <- raster(test4)
-crs(test4) <- crs(test2)
-
-plot(test4)
-plot(iws$geometry, add = TRUE)
-
 ```
 
-```{r best_partition_maps}
+```{r best_partition_maps, cache=TRUE}
+# setwd("manuscript")
+
 partition_splits <- read.csv("../figures/table_1.csv")
 partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
                                   scale %in% c("nws", "iws"))
 partition_splits <- droplevels(partition_splits)
 partition_splits$pnames2 <- factor(partition_splits$pnames2, 
                               levels = c("cd", "ll", "la", "sd", "bf", "sr"))
+partition_splits <- dplyr::filter(partition_splits, d_k > 0.2)
 
 nes_sf    <- coordinatize(nes_nws, "lat", "long")
 us_states <- st_intersects(us_states(), nes_sf)
@@ -351,26 +321,6 @@ get_sub <- function(dt, col_name, split_value){
     dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
     "lat", "long")
 }
-
-lower_iws_maps <- lapply(which(partition_splits$scale == "iws"), 
-                         function(x) {
-                           nes_sub <- get_sub(nes_iws, 
-                                            partition_splits[x, "iws_names"],
-                                            partition_splits[x, "splits"])
-                           
-                           ggplot() + 
-                             geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf, 
-                                     color = viridis::viridis(1, begin = 0),
-                                     size = 0.6) + 
-                             geom_sf(data = nes_sub, 
-                                color = viridis::viridis(1, begin = 0.5), 
-                                size = 0.6) + 
-                             coord_sf(datum = NA) + 
-                             ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
-                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"),
-                               plot.title = element_text(face = "plain", size = 12))
-                         })
 
 lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
                          function(x) {
@@ -397,36 +347,12 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                                plot.title = element_text(face = "plain", size  = 12))
                          })
 
-lower_iws_maps <- lower_iws_maps[
-  match(levels(partition_splits$pnames2), 
-        partition_splits$pnames2[which(partition_splits$scale == "iws")])
-  ]
-
-# lower_iws_maps[1][[1]] <- lower_iws_maps[1][[1]] + 
-#   theme(plot.margin = unit(c(1,0,0,0), "lines"))
-
 lower_nws_maps <- lower_nws_maps[
   match(levels(partition_splits$pnames2), 
         partition_splits$pnames2[which(partition_splits$scale == "nws")])
   ]
 
-plot_grid(
-  plot_grid(NULL,
-            NULL, 
-            NULL,
-            NULL,
-            NULL, 
-            nrow = 4, ncol = 1,
-            labels = c("A. LWS", "", "B. NWS", "", ""), 
-            label_colour = "black", vjust = c(1.2, 0, 2, 0, 0), 
-            hjust = c(-0.1, 0, -0.12, 0, 0)),
-  plot_grid(
-    plot_grid(plotlist = lower_iws_maps, 
-                   ncol = 3, nrow = 2, align = "v"),
-    plot_grid(ggplot() + geom_blank()),
-    plot_grid(plotlist = lower_nws_maps,
-                   ncol = 3, nrow = 2, align = "v"), 
-    ncol = 1, rel_heights = c(1, 0.1, 1)), 
-rel_widths = c(0.2, 1), ncol = 2)
-
+plot_grid(plotlist = lower_nws_maps[2],
+         ncol = 1, nrow = 1, align = "v")
+    
 ```
