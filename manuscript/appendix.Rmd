@@ -302,10 +302,34 @@ library(rayshader)
 library(elevatr)
 library(raster)
 
-test <- elevatr::get_elev_raster(as_Spatial(iws), z = 1)
+test <- elevatr::get_elev_raster(as_Spatial(iws), z = 8)
+test2 <- crop(test, nws)
+
+plot(test2)
+plot(iws$geometry, add = TRUE)
+plot(nws$geometry, add = TRUE)
+
+test3 <- as.matrix(test2)
+test4 <- rayshader::rayshade(test3, 
+   anglebreaks = seq(55,65,10), 
+   sunangle = 315, 
+   maxsearch = 100)
 
 
 
+ggplot(data = reshape2::melt(test4)) + 
+  geom_tile(aes(x = Var1, y = Var2, fill = value)) +
+  scale_fill_viridis_c() + 
+  theme(legend.position = "none") + 
+  theme_void()
+
+image(test4)
+
+test4 <- raster(test4)
+crs(test4) <- crs(test2)
+
+plot(test4)
+plot(iws$geometry, add = TRUE)
 
 ```
 
