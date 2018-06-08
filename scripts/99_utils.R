@@ -18,6 +18,7 @@ library(tidyr)
 library(ggridges)
 library(USAboundaries)
 library(sf)
+library(magrittr)
 
 prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALSE){
   

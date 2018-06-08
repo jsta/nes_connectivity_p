@@ -238,27 +238,31 @@ plot_grid(
 ```
 
 ```{r stream_density-vs-link_length}
-library(magrittr)
-
-dplyr::select(nes_nws, 
+test <- dplyr::select(nes_nws, 
               avg_link_length, 
               stream_density, 
               closest_lake_distance) %>%
 dplyr::rename("Average Link Length" = avg_link_length,
               "Stream Density" = stream_density,
               "Closest Lake Distance" = closest_lake_distance) %>%
-GGally::ggpairs(columns = c("Average Link Length", 
-                            "Closest Lake Distance", 
-                            "Stream Density"),
-#                axisLabels = "none", 
-                upper = list(continuous = "blank"),
-                diag = list(continuous = "blank"),
-                lower = list(continuous = "points")) +
-  theme(strip.background = element_blank())
+dplyr::mutate(`Closest Lake Distance` = `Closest Lake Distance` / 100, 
+              `Average Link Length` = `Average Link Length` / 100)
 
-ggplot(data = nes_nws) + 
-  geom_point(aes(x = avg_link_length, y = stream_density)) + 
-  ylab("Stream density") + xlab("Average Link Length")
+pair_opts <- theme(axis.text = element_blank(), 
+      axis.ticks = element_blank())
+
+cowplot::plot_grid(
+  ggplot(data = test) + 
+    geom_point(aes(y = `Average Link Length`, x = `Stream Density`)) + 
+    pair_opts,
+  ggplot(data = test) + 
+    geom_point(aes(y = `Average Link Length`, x = `Closest Lake Distance`)) + 
+    ylab("") + pair_opts, 
+  ggplot(data = test) + 
+    geom_point(aes(y = `Closest Lake Distance`, x = `Stream Density`)) +
+    pair_opts,
+  ggplot() + geom_blank(),
+  nrow = 2, ncol = 2)
 ```
 
 ```{r conceptual_summary, echo=FALSE, fig.cap="Connectivity metric effects on lake processing.", eval=FALSE}
