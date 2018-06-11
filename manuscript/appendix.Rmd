@@ -14,7 +14,8 @@ knitr::read_chunk("../scripts/99_utils.R")
 ```
 
 ```{r source_utils, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
-
+# setwd("scripts")
+# source("99_utils.R")
 ```
 
 ```{r load_data, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
@@ -289,11 +290,11 @@ knitr::read_chunk("../data/connectivity_metrics.R")
 
 ```
 
-```{r source_functions, echo=FALSE}
+```{r source_functions, echo=FALSE, warning=FALSE, message=FALSE}
 
 ```
 
-```{r iws_vs_nws-gis, cache=TRUE, echo=FALSE, warning=FALSE}
+```{r iws_vs_nws-gis, cache=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
 # lagoslakeid <- 6302
 # iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 # nws <- pull_nws(lagoslakeid, maxsteps = Inf)
@@ -318,59 +319,73 @@ ggplot() +
 
 ```
 
-```{r best_partition_maps, cache=TRUE, echo=FALSE}
-# setwd("manuscript")
+```{r best_partition_maps, cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+library(tmap)
+library(sf)
+library(LAGOSNE)
+library(USAboundaries)
+library(dplyr)
 
-partition_splits <- read.csv("../figures/table_1.csv")
-partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
-                                  scale %in% c("nws", "iws"))
-partition_splits <- droplevels(partition_splits)
-partition_splits$pnames2 <- factor(partition_splits$pnames2, 
-                              levels = c("cd", "ll", "la", "sd", "bf", "sr"))
-partition_splits <- dplyr::filter(partition_splits, d_k > 0.2)
+results_table <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
+ll_split <- dplyr::filter(results_table, 
+                          nws_names == "avg_link_length" & 
+                          scale == "nws")$splits
+
+nes_nws <- mutate(nes_nws, grp = ifelse(avg_link_length > ll_split, 
+                                  "High", "Low"))
 
 nes_sf    <- coordinatize(nes_nws, "lat", "long")
 us_states <- st_intersects(us_states(), nes_sf)
 us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
-# pull the lower partition group as an sf object
-get_sub <- function(dt, col_name, split_value){
-  coordinatize(
-    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
-    "lat", "long")
-}
+us <- USAboundaries::us_boundaries()
+us <- us[unlist(lapply(st_intersects(us, nes_sf), function(x) length(x) > 0)),]
+us <- filter(us, stusps != "AR")
 
-lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
-                         function(x) {
-                           nes_sub <- get_sub(nes_nws, 
-                                              partition_splits[x, "nws_names"],
-                                              partition_splits[x, "splits"])
-                           
-                           nes_sf_temp <- nes_sf
-                           st_geometry(nes_sf_temp) <- NULL
-                           na_rows <- !is.na(
-                    nes_sf_temp[,as.character(partition_splits[x, "nws_names"])])
-                           
-                           ggplot() + 
-                             geom_sf(data = us_states) +
-                             geom_sf(data = nes_sf, 
-                                     color = viridis::viridis(1, begin = 0),
-                                     size = 1.4) + 
-                             geom_sf(data = nes_sub,
-                                     color = viridis::viridis(1, begin = 0.5), 
-                                     size = 1) + 
-                             coord_sf(datum = NA) + 
-                             ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
-                             theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"), 
-                               plot.title = element_text(face = "plain", size  = 12))
-                         })
+nes_extent <- group_by(us, jurisdiction_type)
+nes_extent <- st_union(nes_extent)
+nes_extent <- as_Spatial(nes_extent)
 
-lower_nws_maps <- lower_nws_maps[
-  match(levels(partition_splits$pnames2), 
-        partition_splits$pnames2[which(partition_splits$scale == "nws")])
-  ]
+palette <- c(viridis::viridis(1, begin = 0),
+             viridis::viridis(1, begin = 0.5))
 
-plot_grid(plotlist = lower_nws_maps[2],
-         ncol = 1, nrow = 1, align = "v")
-    
+# palette <- c("black",
+#               "black")
+
+(m_nes <- tm_shape(us) + tm_polygons() +
+          tm_shape(nes_extent) + tm_borders(lwd = 2) +
+          tm_shape(dplyr::filter(nes_sf, !is.na(grp))) + tm_dots("grp", palette = palette,
+                                 size = 0.15, legend.show = TRUE, 
+                                 title = "Average Link Length")) +
+          # tm_credits("National Eutrophication Survey") +
+          tm_layout(frame = FALSE,
+                    legend.outside = FALSE,
+                    legend.stack = "horizontal")
+```
+
+```{r plot_tree_example, echo=FALSE, fig.width=2, fig.height=3}
+plot_tree(gettree(readRDS("../data/nws/linklength_forest.rds")), 
+          title = "Link Length")
+```
+
+```{r partition_example_scatter, fig.height=2, fig.width=2.2}
+results_table <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
+ll_split <- dplyr::filter(results_table, 
+                          nws_names == "avg_link_length" & 
+                          scale == "nws")$splits
+
+nes_nws <- mutate(nes_nws, grp = ifelse(avg_link_length > ll_split, 
+                                  "Higher", "Lower"))
+
+ggplot(data = dplyr::filter(nes_nws, 
+                     !is.na(avg_link_length))) + 
+         geom_point(aes(x = avg_link_length, 
+                                        y = p_percent_retention, 
+                                        color = grp), 
+                                    size = 2) + 
+  scale_color_manual(values = c(viridis::viridis(1, begin = 0), 
+                     viridis::viridis(1, begin = 0.5))) +
+  ylab("P Retention") + xlab("Avg. Link Length") + 
+  geom_vline(xintercept = ll_split) + 
+  theme(legend.position = "none") 
 ```
