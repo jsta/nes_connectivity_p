@@ -285,15 +285,15 @@ knitr::kable(dt)
 knitr::read_chunk("../data/connectivity_metrics.R")
 ```
 
-```{r load_packages}
+```{r load_packages, echo=FALSE}
 
 ```
 
-```{r source_functions}
+```{r source_functions, echo=FALSE}
 
 ```
 
-```{r iws_vs_nws-gis, cache = TRUE, echo=FALSE}
+```{r iws_vs_nws-gis, cache=TRUE, echo=FALSE, warning=FALSE}
 # lagoslakeid <- 6302
 # iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 # nws <- pull_nws(lagoslakeid, maxsteps = Inf)
@@ -309,9 +309,10 @@ iws_outline <- concaveman(st_cast(iws, "POINT"))
 nws_outline <- concaveman(st_cast(nws, "POINT"))
 
 ggplot() + 
-  geom_sf(data = nws_outline, color = "cyan", size = 2) + 
-  geom_sf(data = iws_outline, color = "cyan", size = 1, linetype = "dashed") + 
+  geom_sf(data = nws_outline, color = "yellow", size = 2) + 
+  geom_sf(data = iws_outline, color = "cyan", size = 2) + 
   geom_sf(data = nws) +
+  coord_sf(crs = st_crs(nws), datum = NA) + 
   # geom_sf(data = iws) + 
   theme_void()
 
@@ -354,7 +355,7 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                              geom_sf(data = us_states) +
                              geom_sf(data = nes_sf, 
                                      color = viridis::viridis(1, begin = 0),
-                                     size = 1) + 
+                                     size = 1.4) + 
                              geom_sf(data = nes_sub,
                                      color = viridis::viridis(1, begin = 0.5), 
                                      size = 1) + 
