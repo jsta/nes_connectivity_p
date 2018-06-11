@@ -33,7 +33,7 @@ knitr::include_graphics("../figures/05_partition_vollenweider-1.pdf")
 ```
 
 ```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider's equation in low and high connectivity partitions at the (A) LWS and (B) NWS scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=5, fig.height=3.8, warning=FALSE}
-knitr::include_graphics("../figures/06_k-1.pdf")
+knitr::include_graphics("../figures/06_k-3.pdf")
 ```
 
 ```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.width=3.5, fig.height=3.2, fig.cap="Correlation between connectivity metrics and selected lake characteristics.", message=FALSE}

@@ -293,7 +293,7 @@ knitr::read_chunk("../data/connectivity_metrics.R")
 
 ```
 
-```{r iws_vs_nws-gis, cache = TRUE}
+```{r iws_vs_nws-gis, cache = TRUE, echo=FALSE}
 # lagoslakeid <- 6302
 # iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 # nws <- pull_nws(lagoslakeid, maxsteps = Inf)
@@ -317,7 +317,7 @@ ggplot() +
 
 ```
 
-```{r best_partition_maps, cache=TRUE}
+```{r best_partition_maps, cache=TRUE, echo=FALSE}
 # setwd("manuscript")
 
 partition_splits <- read.csv("../figures/table_1.csv")
@@ -354,10 +354,10 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                              geom_sf(data = us_states) +
                              geom_sf(data = nes_sf, 
                                      color = viridis::viridis(1, begin = 0),
-                                     size = 0.6) + 
+                                     size = 1) + 
                              geom_sf(data = nes_sub,
                                      color = viridis::viridis(1, begin = 0.5), 
-                                     size = 0.6) + 
+                                     size = 1) + 
                              coord_sf(datum = NA) + 
                              ggtitle(break_word(partition_splits[x, "abb"], 12)) + 
                              theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"), 
