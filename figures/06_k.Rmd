@@ -56,14 +56,16 @@ fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
 k_viz_iws <- ggplot(
   fit_df_iws, 
   aes(x = coef, y = key, fill = key, color = key)) + 
-    geom_density_ridges(size = 0.1, scale = 1) + 
+    geom_density_ridges(size = 0.1, scale = 0.7, rel_min_height = 0.01) + 
+    geom_hline(yintercept = seq(1.8, 14.8, by = 2)) +
     scale_fill_manual(values = c("grey", 
                             rep(c(viridis::viridis(1, begin = 0.5), 
                                   viridis::viridis(1, begin = 0)), 7))) +
     scale_color_manual(values = c("grey", 
                                rep(c(viridis::viridis(1, begin = 0.5), 
                                      viridis::viridis(1, begin = 0)), 7))) +
-    cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
+    cowplot::theme_cowplot() + theme(panel.grid.major.y = element_blank(),
+                                     axis.text = element_text(size = 10),
                                      axis.title = element_text(size = 12),
                                plot.title = element_text(size = 12, face = "plain", hjust = 0),
                                      axis.line.x = element_line(size = 1, 
@@ -121,7 +123,8 @@ fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
 k_viz_nws <- ggplot(
   fit_df_nws, 
   aes(x = coef, y = key, fill = key, color = key)) + 
-  geom_density_ridges(size = 0.1, scale = 1) + 
+  geom_density_ridges(size = 0.1, scale = 0.7, rel_min_height = 0.01) + 
+  geom_hline(yintercept = seq(1.8, 14.8, by = 2)) +
   scale_fill_manual(values = c("grey",
                                rep(c(viridis::viridis(1, begin = 0.5),
                                      viridis::viridis(1, begin = 0)), 8))) +
@@ -152,8 +155,8 @@ k_viz_nws <- ggplot(
 k_viz_nws
 
 plot_grid(
-  k_viz_iws + ggtitle("A. LWS scale") + xlim(0.8, 1.6),
-  k_viz_nws + ggtitle("B. NWS scale") + xlim(0.8, 1.6), 
+  k_viz_iws + ggtitle("Lake Watershed") + xlim(0.8, 1.6),
+  k_viz_nws + ggtitle("Network Watershed") + xlim(0.8, 1.6), 
   ncol = 2, align = "v", rel_widths = c(1, 1)) + 
   theme(plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"))
 

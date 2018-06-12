@@ -21,7 +21,7 @@ manuscript/figures.pdf: manuscript/figures.Rmd figures/iws_nws.pdf figures/conny
 	-mv manuscript/figures2.pdf manuscript/figures.pdf
 
 figures/iws_nws.pdf: figures/iws_nws.tex figures/beamer-lake-fig/beamer-lake-fig.tex
-	pdflatex figures/iws_nws.tex
+	cd figures && pdflatex iws_nws.tex
 	pdfcrop figures/iws_nws.pdf figures/iws_nws.pdf
 	
 figures/conny_metric_key.pdf: figures/conny_metric_key.tex

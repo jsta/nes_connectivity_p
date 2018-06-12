@@ -310,16 +310,17 @@ nws_lakes <- readRDS("../data/nws_lakes.rds")
 nws_lakes <- nws_lakes[order(st_area(nws_lakes), decreasing = TRUE),]
 nws_lakes <- nws_lakes[1:2,]
 
-
 iws_outline <- concaveman(st_cast(iws, "POINT"))
 nws_outline <- concaveman(st_cast(nws, "POINT"))
+lake_1_outline <- concaveman(st_cast(nws_lakes[1,], "POINT"))
+lake_2_outline <- concaveman(st_cast(nws_lakes[2,], "POINT"))
 
 ggplot() + 
   geom_sf(data = nws_outline, color = "yellow", size = 2) + 
   geom_sf(data = iws_outline, color = "cyan", size = 2) + 
   geom_sf(data = nws) +
-  geom_sf(data = nws_lakes[1,], color = "cyan") +
-  geom_sf(data = nws_lakes[2,], color = "yellow") +
+  geom_sf(data = lake_1_outline, color = "cyan") +
+  geom_sf(data = lake_2_outline, color = "yellow") +
   coord_sf(crs = st_crs(nws), datum = NA) + 
   # geom_sf(data = iws) + 
   theme_void()
@@ -353,11 +354,27 @@ nes_extent <- group_by(us, jurisdiction_type)
 nes_extent <- st_union(nes_extent)
 nes_extent <- as_Spatial(nes_extent)
 
+palette <- c("black",
+              "black")
+
+m_nes <-  tm_shape(us) + tm_polygons() +
+          tm_shape(nes_extent) + tm_borders(lwd = 3) +
+          tm_shape(dplyr::filter(nes_sf, !is.na(grp))) + tm_dots("grp", palette = palette,
+                                 size = 0.2, legend.show = FALSE, 
+                                 title = "Average Link Length") +
+          # tm_credits("National Eutrophication Survey") +
+          tm_layout(frame = FALSE,
+                    legend.outside = FALSE,
+                    legend.stack = "horizontal")
+
+save_tmap(m_nes, "../figures/best_partition_maps-1.png",
+          scale = 0.7, width = 3.125)
+
+# # # # #
+
 palette <- c(viridis::viridis(1, begin = 0),
              viridis::viridis(1, begin = 0.5))
 
-# palette <- c("black",
-#               "black")
 
 m_nes <- tm_shape(us) + tm_polygons() +
           tm_shape(nes_extent) + tm_borders(lwd = 3) +
@@ -369,7 +386,7 @@ m_nes <- tm_shape(us) + tm_polygons() +
                     legend.outside = FALSE,
                     legend.stack = "horizontal")
 
-save_tmap(m_nes, "../figures/best_partition_maps-1.png",
+save_tmap(m_nes, "../figures/best_partition_maps-2.png",
           scale = 0.7, width = 3.125)
 ```
 
