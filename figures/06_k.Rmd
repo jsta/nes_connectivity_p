@@ -31,6 +31,8 @@ fit_df_iws <- rbind(
                  c("k1_lc", "k2_lc")),
   extract_coefs2(readRDS("../data/md_vollenweider.rds"), 
                  c("k1_md", "k2_md")),
+  extract_coefs2(readRDS("../data/iws/la_vollenweider.rds"),
+                 c("k1_la", "k2_la")),
   extract_coefs2(readRDS("../data/iws/cd_vollenweider.rds"),
                  c("k1_cd", "k2_cd")),
   extract_coefs2(readRDS("../data/iws/ll_vollenweider.rds"),
@@ -51,7 +53,8 @@ fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
                                                     "k1_lc", "k2_lc",
                                                     "k1_sd", "k2_sd",
                                                     "k1_cd", "k2_cd",
-                                                    "k1_ll", "k2_ll"))
+                                                    "k1_ll", "k2_ll", 
+                                                    "k1_la", "k2_la"))
 
 k_viz_iws <- ggplot(
   fit_df_iws, 
@@ -60,10 +63,10 @@ k_viz_iws <- ggplot(
     geom_hline(yintercept = seq(1.8, 14.8, by = 2)) +
     scale_fill_manual(values = c("grey", 
                             rep(c(viridis::viridis(1, begin = 0.5), 
-                                  viridis::viridis(1, begin = 0)), 7))) +
+                                  viridis::viridis(1, begin = 0)), 8))) +
     scale_color_manual(values = c("grey", 
                                rep(c(viridis::viridis(1, begin = 0.5), 
-                                     viridis::viridis(1, begin = 0)), 7))) +
+                                     viridis::viridis(1, begin = 0)), 8))) +
     cowplot::theme_cowplot() + theme(panel.grid.major.y = element_blank(),
                                      axis.text = element_text(size = 10),
                                      axis.title = element_text(size = 12),
@@ -81,6 +84,7 @@ k_viz_iws <- ggplot(
                    "Closest lake distance",
                    "Stream density",
                    "Lake connection", 
+                   "Upstream lake area",
                    "Max depth",
                    "Baseflow",
                    "Stream order ratio",
@@ -96,6 +100,8 @@ fit_df_nws <- rbind(
                  c("k1_cd", "k2_cd")),
   extract_coefs2(readRDS("../data/nws/ll_vollenweider.rds"), 
                  c("k1_ll", "k2_ll")),
+  extract_coefs2(readRDS("../data/nws/la_vollenweider.rds"), 
+                 c("k1_la", "k2_la")),
   extract_coefs2(readRDS("../data/nws/la_vollenweider.rds"), 
                  c("k1_la", "k2_la")),
   extract_coefs2(readRDS("../data/md_vollenweider.rds"), 
@@ -117,7 +123,8 @@ fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
                                                     "k1_lc", "k2_lc",
                                                     "k1_sd", "k2_sd",
                                                     "k1_cd", "k2_cd",
-                                                    "k1_ll", "k2_ll"))
+                                                    "k1_ll", "k2_ll", 
+                                                    "k1_la", "k2_la"))
 
 
 k_viz_nws <- ggplot(
@@ -147,6 +154,7 @@ k_viz_nws <- ggplot(
                    "Closest lake distance",
                    "Stream density",
                    "Lake connection", 
+                   "Upstream lake area",
                    "Max depth",
                    "Baseflow",
                    "Stream order ratio",

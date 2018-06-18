@@ -21,7 +21,7 @@ name_key <- function(){
                   "avg_link_length", "upstream_lakes_4ha_area_ha", "baseflow", NA, 
                   "stream_density", "lakeconnection"),
     iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
-                  "link_length", NA, "hu12_baseflowindex_mean", NA, 
+                  "link_length", "upstream_lakes_4ha_area_ha", "hu12_baseflowindex_mean", NA, 
                   "iws_streamdensity_streams_density_mperha", "lakeconnection"),
     conny_type = c(NA, "long", "long", "long", "long", "lat", "lat", "lat", "long")
   )
@@ -65,6 +65,7 @@ d_k <- lapply(list("data/lc_vollenweider.rds",
                    "data/iws/sd_vollenweider.rds",
                    "data/iws/bf_vollenweider.rds",
                    "data/iws/ll_vollenweider.rds",
+                   "data/iws/la_vollenweider.rds",
                    "data/iws/sr_vollenweider.rds", 
                    "data/nws/cd_vollenweider.rds", 
                    "data/nws/ll_vollenweider.rds", 
@@ -74,7 +75,7 @@ d_k <- lapply(list("data/lc_vollenweider.rds",
                    "data/nws/sr_vollenweider.rds"), delta_k)
 
 d_k <- do.call("rbind", d_k)
-d_k$scale <- c("focal", "focal", rep("lws", 5), rep("nws", 6))
+d_k$scale <- c("focal", "focal", rep("lws", 6), rep("nws", 6))
 
 res <- merge(res, d_k)
 res <- res[order(res$d_k, decreasing = TRUE),]

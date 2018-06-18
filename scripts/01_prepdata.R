@@ -2,7 +2,11 @@
 if(file.exists("99_utils.R")){
   source("99_utils.R")
 }else{
-  source("../scripts/99_utils.R")
+  if(file.exists("../scripts/99_utils.R")){
+    source("../scripts/99_utils.R")  
+  }else{
+    source("scripts/99_utils.R")  
+  }
 }
 
 # ---- prep_nes_lagos ----
