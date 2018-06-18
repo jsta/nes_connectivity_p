@@ -24,8 +24,8 @@ figures/iws_nws.pdf: figures/iws_nws.tex figures/beamer-lake-fig/beamer-lake-fig
 	cd figures && pdflatex iws_nws.tex
 	pdfcrop figures/iws_nws.pdf figures/iws_nws.pdf
 	
-figures/conny_metric_key.pdf: figures/conny_metric_key.tex
-	pdflatex figures/conny_metric_key.tex
+figures/conny_metric_key.pdf: figures/conny_metric_key.tex figures/beamer-lake-fig/beamer-lake-fig.tex
+	cd figures && pdflatex conny_metric_key.tex
 	pdfcrop figures/conny_metric_key.pdf figures/conny_metric_key_crop.pdf
 	
 figures/04_global_vollenweider-1.pdf: figures/04_global_vollenweider.Rmd
