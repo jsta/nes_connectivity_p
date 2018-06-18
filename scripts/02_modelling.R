@@ -48,7 +48,7 @@ library(akima)
 # inv_inv_closest(-1.51, nes_rf_iws) # 3773.614
 # inv_inv_closest(-1.448, nes_rf_nws) # 2681.288
 
-# stream order ratio
+# iws stream order ratio
 # tree3 <- cforest(nes_rf$p_perce ~ ., 
 #         data = dplyr::select(nes_rf, 
 #                              stream_), 
@@ -62,7 +62,7 @@ library(akima)
 # plot(gettree(tree3))
 # saveRDS(tree3, "../data/nws/sr_forest.rds")
 
-# average link length
+# iws average link length
 # tree3 <- cforest(nes_rf$p_perce ~ .,
 #                  data = dplyr::select(nes_rf,
 #                                       link_le),
@@ -76,13 +76,15 @@ library(akima)
 # plot(gettree(tree3))
 # saveRDS(tree3, "../data/nws/linklength_forest.rds")
 
-# upstream lake area
-# tree3 <- cforest(nes_rf$p_perce ~ .,
+# iws upstream lake area
+# tree3 <- cforest(nes_rf_iws$p_perce ~ .,
 #                  data = dplyr::select(nes_rf_iws,
 #                                                 upstrea),
 #                  control = ctree_control(mincriterion = 0.7))
-# saveRDS(tree3, "01_Chapter/data/iws/uplakearea_forest.rds")
-# 
+# plot(gettree(tree3))
+# saveRDS(tree3, "../data/iws/uplakearea_forest.rds")
+
+# nws upstream lake area
 # tree3 <- cforest(nes_rf_nws$p_perce ~ .,
 #                  data = dplyr::select(nes_rf_nws,
 #                                                 upstrea),
@@ -175,6 +177,8 @@ m <- readRDS("../data/global_vollenweider.rds")
 #                                 "2" = "1")
 
 # Upstream lake area
+# fit <- part_model(nes_iws, "upstream_lakes_4ha_area_ha", 0, 279, Inf, na_var = 1)
+# saveRDS(fit, "../data/iws/la_vollenweider.rds")
 # fit <- part_model(nes_nws, "upstream_lakes_4ha_area_ha", 0, 153.5, Inf, na_var = 1)
 # saveRDS(fit, "../data/nws/la_vollenweider.rds")
 
