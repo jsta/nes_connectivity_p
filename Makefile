@@ -57,7 +57,7 @@ manuscript/tables.pdf: tables/01_lake_characteristics_table.pdf tables/02_model_
 tables/01_lake_characteristics_table.pdf: tables/01_lake_characteristics_table.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	
-tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd
+tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd scripts/table_1.csv
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	
 scripts/table_1.csv: scripts/table_1.R
