@@ -88,3 +88,7 @@ figures/k_viz-1.png
 figures/maps-1.png
 figures/nls_coefs.png
 figures/p_retention_boxplot.png
+tables/01_lake_characteristics_table.tex
+tables/02_model_results_table.tex
+manuscript/appendix_cache/
+manuscript/author-instructions_lno.md
