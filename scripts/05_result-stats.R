@@ -26,3 +26,16 @@ R2 <- round(1 - (1/(1 + k[2:4,2] * (median_tau^median_x))), 2)
 paste0("At median water residence time, k, and tau lakes with shorter and 
       longer link lengths respectively had a P retention of ", 
        R1, " and ", R2, ".")
+
+# ---- number_of_study_lakes ----
+
+if(file.exists("../data")){
+  pre_path <- "../data"
+}else{
+  pre_path <- "data"
+}
+
+dt <- read.csv(file.path(pre_path, "nes_x_lagos-ne.csv"), stringsAsFactors = FALSE)
+
+paste("We measured connectivity in", nrow(nes_iws), 
+      "out of", nrow(dt), "lakes")
