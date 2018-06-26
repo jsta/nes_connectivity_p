@@ -2,4 +2,5 @@
 
 png:
 	-mogrify -density 300 -format png *.pdf
+	-rm *~
 	echo done
