@@ -81,13 +81,11 @@ View(st_read(test_gdb, "NHDMetadata"))
 
 # ---- bayesian_r2 ----
 
-ll_results <- readRDS("../data/nws/ll_vollenweider.rds")
-global_results <- readRDS("../data/global_vollenweider.rds")
+global_results <- brms::bayes_R2(readRDS("../data/global_vollenweider.rds"))
+hier_results <- lapply(c("../data/nws/ll_vollenweider.rds", 
+                         "../data/nws/cd_vollenweider.rds", 
+                         "../data/lc_vollenweider.rds", 
+                         "../data/md_vollenweider.rds"), 
+                       function(x) brms::bayes_R2(readRDS(x)))
 
-lapply(list(ll_results, global_results), brms::bayes_R2)
-
-lapply(
-  dir("../data/nws/", full.names = TRUE, include.dirs = TRUE, pattern = "vollenweider.rds"), function(x) brms::bayes_R2(readRDS(x)))
-
-lapply(
-  dir("../data/iws/", full.names = TRUE, include.dirs = TRUE, pattern = "vollenweider.rds"), function(x) brms::bayes_R2(readRDS(x)))
+range(do.call("rbind", hier_results)[,1])
