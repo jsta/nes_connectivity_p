@@ -47,17 +47,19 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
 plot_grid(
   plot_grid(
     part_pred_plot(nes_iws, readRDS("../data/lc_vollenweider.rds"), 
-                   9, "A. Effect of lake connection", xl = TRUE),
+                   9, "A. Effect of lake connection", xl = TRUE, rev_legend = TRUE),
     part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
                    8, "B. Effect of link length \n (NWS)", xl = TRUE, yl = FALSE), 
-    rel_widths = c(1, 0.93)),
+    rel_widths = c(1, 0.9), 
+    rel_heights = c(0.6, 1)),
   NULL,
   plot_grid(
     part_pred_plot(nes_iws, readRDS("../data/md_vollenweider.rds"), 
-                 8, "C. Effect of max depth", xl = TRUE),
+                 8, "C. Effect of max depth", xl = TRUE, legend_title = "depth"),
     part_pred_plot(nes_nws, readRDS("../data/nws/cd_vollenweider.rds"),
                  9, "D. Effect of distance to \n closest lake (NWS)", xl = TRUE, yl = FALSE), 
-    rel_widths = c(1, 0.93)), 
+    rel_widths = c(1, 0.9), 
+    rel_heights = c(0.6, 1)), 
   rel_heights = c(1, 0.05, 1), ncol = 1)
 
 # ---- graphical_exploratory_analysis ----

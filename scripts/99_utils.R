@@ -150,7 +150,8 @@ part_model <- function(nes, part_var = NA, lower = NA, mid = NA,
   res
 }
 
-part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
+part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legend = TRUE, 
+                           rev_legend = FALSE, legend_title = "connectivity"){
   nes$part <- fit$part
   test     <- data_grid(nes, part, 
                      retention_time_yr = seq_range(retention_time_yr, n = 100))
@@ -161,10 +162,11 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   
   gg_format <- function(gg){
     gg <- gg + 
-      theme(legend.position = "none", 
-            plot.title = element_text(size = 10, face = "bold", color = "black", hjust = 0), 
-            axis.title = element_text(size = 12), 
-            axis.text = element_text(size = 10)) + 
+      theme(
+        legend.position = "none", 
+        plot.title = element_text(size = 10, face = "bold", color = "black", hjust = 0), 
+        axis.title = element_text(size = 12), 
+        axis.text = element_text(size = 10)) + 
       ylim(0, 1) + scale_x_log10() + ggtitle(title) +
       ylab("P retention") + xlab("Residence time (yr)")
     
@@ -211,6 +213,30 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   gg_1 <- gg_format(gg_1)
   gg_2 <- gg_format(gg_2)
   
+  # create dummy plot to pull legend
+  if(add_legend){
+    dummy_df <- data.frame(connectivity = c("low", "high"), 
+                           foobar = c(1,2), stringsAsFactors = FALSE)
+    if(rev_legend){
+      dummy_df <- data.frame(connectivity = c("high", "low"), 
+                             foobar = c(1,2), stringsAsFactors = FALSE)
+    }
+    
+    dummy_legend <- ggplot(dummy_df) + 
+      geom_line(aes(x = connectivity, y = foobar, color = connectivity)) + 
+      scale_color_manual(values = c(viridis::viridis(1, begin = 0), 
+                                    viridis::viridis(1, begin = 0.5))) + 
+      theme(legend.position = c(0.75, 0.8), 
+            legend.title = element_text(size = 7, face = "bold"), 
+            legend.text = element_text(size = 7)) + 
+      labs(color = legend_title)
+    dl <- ggplotGrob(dummy_legend)
+    legend <- gtable::gtable_filter(dl, "guide-box")
+    gg_1 <- gg_1 + annotation_custom(grob = legend, 
+                                     ymax = 0.3, 
+                                     xmax = 0.5)
+  }
+  
   g1 <- ggplotGrob(gg_1)
   g2 <- ggplotGrob(gg_2)
   # gtable::gtable_show_layout(g1)
@@ -221,6 +247,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE){
   
   # grid::grid.newpage()
   # grid::grid.draw(gg)
+  
   gg
 }
 
