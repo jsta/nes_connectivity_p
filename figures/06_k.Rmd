@@ -77,7 +77,7 @@ k_viz_iws <- ggplot(
                                                        colour = "black"), 
                                      legend.position = "none", 
                                      plot.margin = margin(0.5,0,0,0, "cm")) + 
-  xlab("Coefficient Value") + ylab("") + 
+  xlab("k Value") + ylab("") + 
   scale_y_discrete(breaks = levels(fit_df_iws$key)[
     c(1, seq(3, length(levels(fit_df_iws$key)), by = 2))], 
                    labels = rev(c("Link length",
@@ -147,7 +147,7 @@ k_viz_nws <- ggplot(
                                                   colour = "black"), 
                                    legend.position = "none", 
                                    plot.margin = margin(0.5,0,0,-0.7, "cm")) + 
-  xlab("Coefficient Value") +  ylab("") +
+  xlab("k Value") +  ylab("") +
   scale_y_discrete(breaks = levels(fit_df_nws$key)[
     c(1, seq(3, length(levels(fit_df_nws$key)), by = 2))], 
     labels = rev(c("Link length",
