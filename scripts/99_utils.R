@@ -1,6 +1,7 @@
 
 # ---- source_utils ----
 
+library(nlaR)
 library(pheatmap)
 library(superheat)
 library(corrr)
@@ -19,6 +20,7 @@ library(ggridges)
 library(USAboundaries)
 library(sf)
 library(magrittr)
+library(purrr)
 
 prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALSE){
   

@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
+knitr::opts_chunk$set(echo = FALSE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
 ```
 
 ```{r read_chunks, cache=FALSE, echo=FALSE}
@@ -390,12 +390,12 @@ save_tmap(m_nes, "../figures/best_partition_maps-2.png",
           scale = 0.7, width = 3.125)
 ```
 
-```{r plot_tree_example, echo=FALSE, fig.width=2, fig.height=3}
+```{r plot_tree_example, echo=FALSE, fig.width=2, fig.height=3, eval=FALSE}
 plot_tree(gettree(readRDS("../data/nws/linklength_forest.rds")), 
           title = "Link Length")
 ```
 
-```{r partition_example_scatter, fig.height=2, fig.width=2.2}
+```{r partition_example_scatter, fig.height=4, fig.width=4.2, warning=FALSE}
 results_table <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
 ll_split <- dplyr::filter(results_table, 
                           nws_names == "avg_link_length" & 
@@ -416,3 +416,48 @@ ggplot(data = dplyr::filter(nes_nws,
   geom_vline(xintercept = ll_split) + 
   theme(legend.position = "none") 
 ```
+
+```{r nes_vs_nla, message=FALSE, warning=FALSE}
+nla <- nla_load(2012)
+
+tp <- select(nla$waterchem_wide, PTL_RESULT, UID) %>%
+      left_join(select(nla$wide_siteinfo, AREA_HA, SITE_ID, UID)) %>%
+      group_by(SITE_ID) %>%
+      summarize(tp = median(PTL_RESULT), area = median(AREA_HA) / 100)
+
+chl  <- select(nla$chla_wide, CHLX_RESULT, UID)  %>%
+        left_join(select(nla$wide_siteinfo, SITE_ID, UID)) %>%
+        group_by(SITE_ID) %>%
+        summarize(chl = median(CHLX_RESULT))
+
+secchi  <- select(nla$secchi, SECCHI, SITE_ID)  %>%
+           group_by(SITE_ID) %>%
+           summarize(secchi = median(SECCHI))
+
+depth <- select(nla$wide_phab, DEPTH_AT_STATION, SITE_ID)  %>%
+           group_by(SITE_ID) %>%
+           summarize(depth = median(DEPTH_AT_STATION))
+
+nla <- reduce(list(tp, chl, secchi, depth), left_join)
+# skimr::skim(res)
+nla <- gather(select(nla, -SITE_ID), variable, value)
+nla$id <- "nla"
+
+nes <- select(nes_iws, tp, area = surface_area, chl, secchi, depth = maxdepth)
+nes$tp <- 1000 * nes$tp # mg to ug
+nes <- gather(nes, variable, value)
+nes$id <- "nes"
+
+res <- rbind(nla, nes)
+
+# ggplot(data = dplyr::filter(res, variable == "chl"), aes(y = id, x = value + 0.1)) + 
+#   geom_density_ridges() + 
+#   scale_x_log10()
+
+ggplot(data = res, aes(y = id, x = value + 0.1)) + 
+  geom_density_ridges() + 
+  scale_x_log10() + 
+  facet_wrap(~variable) + 
+  theme(axis.title = element_blank())
+```
+
