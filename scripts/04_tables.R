@@ -72,13 +72,13 @@ knitr::kable(res, format = 'pandoc', align = c("lll"),
 # table showing model results
 
 res <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
-res <- res[, c("parameter", "scale", "conny_type", "splits", "d_k")]
+res <- res[, c("parameter", "units", "scale", "conny_type", "splits", "d_k")]
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 
                    conny_full = c("Longitudinal", "Lateral", "-"))
 res <- merge(res, key2, sort = FALSE)
 res <- res[order(res$d_k, decreasing = TRUE),]
-res <- res[,c(2, 3, 6, 4, 5)]
+res <- res[,c(2, 3, 4, 5, 6)]
 
 # splits
 # res <- dplyr::select(res, -splits)
@@ -90,7 +90,6 @@ res$splits[!is.na(res$splits)] <- sapply(res$splits[!is.na(res$splits)],
 options(knitr.kable.NA = "-")
 knitr::kable(res, 
              digits = 2, row.names = FALSE, 
-             col.names = c("Metric", "Scale",
-                           "Connectivity Type", "Split Value", "Delta k"), 
+             col.names = c("Metric", "Units", "Scale", "Split Value", "Delta k"), 
              align = c("lllcc"),
              caption = "Classification and ranking of connectivity metrics, lake depth, and their partition split values according to median effect size.")

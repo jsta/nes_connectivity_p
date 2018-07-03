@@ -3,14 +3,14 @@ source("scripts/01_prepdata.R")
 
 name_key <- function(){
   data.frame(
-    parameter  = c("Max Depth", "Closest lake distance", 
-                   "Stream order ratio", "Average Link Length", 
+    parameter  = c("Max depth", "Closest lake distance", 
+                   "Stream order ratio", "Average link length", 
                    "Upstream lake area", "Baseflow", 
                    "Wetland Cover",
-                   "Stream density", "Lake Connection"),
+                   "Stream density", "Lake connection"),
     abb        = c("Max depth", "Closest lake distance", "Stream order ratio", 
                    "Average link length", "Upstream lake area", "Baseflow", 
-                   "Wetland Cover", "Stream density", "Lake Connection"), 
+                   "Wetland Cover", "Stream density", "Lake connection"), 
     pnames     = c("maxdepth", "cd", 
                    "sr", "linklength", 
                    "uplakearea", "baseflow", 
@@ -23,7 +23,8 @@ name_key <- function(){
     iws_names = c("maxdepth", "closest_lake_distance", "stream_order_ratio", 
                   "link_length", "upstream_lakes_4ha_area_ha", "hu12_baseflowindex_mean", NA, 
                   "iws_streamdensity_streams_density_mperha", "lakeconnection"),
-    conny_type = c(NA, "long", "long", "long", "long", "lat", "lat", "lat", "long")
+    conny_type = c(NA, "long", "long", "long", "long", "lat", "lat", "lat", "long"), 
+    units = c("m", "m", "-", "m", "ha", "-", "-", "-", "-")
   )
 }
 
@@ -80,5 +81,5 @@ d_k$scale <- c("focal", "focal", rep("lws", 6), rep("nws", 6))
 res <- merge(res, d_k)
 res <- res[order(res$d_k, decreasing = TRUE),]
 
-write.csv(res[, c(1,2,4,5,6,7,8,9,10)], 
+write.csv(res[, c(1,2,4,5,6,7,8,9,10,11)], 
           "scripts/table_1.csv", row.names = FALSE)
