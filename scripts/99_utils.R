@@ -220,6 +220,7 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
     if(rev_legend){
       dummy_df <- data.frame(connectivity = c("high", "low"), 
                              foobar = c(1,2), stringsAsFactors = FALSE)
+      dummy_df$connectivity <- factor(dummy_df$connectivity, levels = c("low", "high"))
     }
     
     dummy_legend <- ggplot(dummy_df) + 
