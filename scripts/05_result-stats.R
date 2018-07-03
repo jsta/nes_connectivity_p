@@ -39,3 +39,14 @@ dt <- read.csv(file.path(pre_path, "nes_x_lagos-ne.csv"), stringsAsFactors = FAL
 
 paste("We measured connectivity in", nrow(nes_iws), 
       "out of", nrow(dt), "lakes")
+
+# ---- nhd_version ----
+
+library(sf)
+
+test_gdb <- "~/.local/share/nhdR/NHDH_DC.gdb"
+# st_layers(test_gdb)
+View(st_read(test_gdb, "NHDSourceCitation"))
+View(st_read(test_gdb, "NHDStatus"))
+View(st_read(test_gdb, "NHDMetadata"))
+
