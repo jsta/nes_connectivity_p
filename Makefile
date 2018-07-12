@@ -48,6 +48,8 @@ figures/06_k-1.pdf: figures/06_k.Rmd
 figures/07_cor_mat_hmap-1.pdf: figures/07_cor_mat_hmap.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	rm figures/07_cor_mat_hmap.pdf
+	
+figures/07_cor_mat_hmap.Rmd: scripts/03_viz.R 
 
 figures/08_maps-1.pdf: figures/08_maps.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
@@ -63,6 +65,6 @@ tables/01_lake_characteristics_table.pdf: tables/01_lake_characteristics_table.R
 	
 tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd scripts/table_1.csv
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
-	
+
 scripts/table_1.csv: scripts/table_1.R
 	Rscript scripts/table_1.R

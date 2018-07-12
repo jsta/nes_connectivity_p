@@ -31,7 +31,7 @@ knitr::include_graphics("../figures/04_global_vollenweider-1.pdf")
 knitr::include_graphics("../figures/06_k-3.pdf")
 ```
 
-```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.width=3.5, fig.height=3.2, fig.cap="Correlation between connectivity metrics and selected lake characteristics.", message=FALSE}
+```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.cap="Correlation between connectivity metrics and selected lake characteristics.", message=FALSE}
 knitr::include_graphics("../figures/07_cor_mat_hmap-1.pdf")
 ```
 

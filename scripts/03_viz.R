@@ -323,10 +323,19 @@ row.names(res_f) <- res_names_r
 #   row.names(res) <- 
 #   sapply(row.names(res), function(x) paste(strwrap(x, 10), collapse="\n "))
 
+fnc = function(var, decimal.places) {
+  var = sprintf(paste0("%1.",decimal.places,"f"), var)
+  var[var=="NA"] <- ""
+  var <- gsub("-", "", var)
+  var
+}
+
 pheatmap::pheatmap(res_f, na_col = "grey", 
                    cluster_cols = FALSE, cluster_rows = FALSE, 
                    color = colorRampPalette(
-                     rev(RColorBrewer::brewer.pal(n = 7, name ="RdBu")))(100))
+                     rev(RColorBrewer::brewer.pal(n = 7, name ="RdBu")))(100), 
+                   display_numbers = apply(res_f, 2, function(x) fnc(x, 2)), 
+                   fontsize_number = 6)
 
 # test <- superheat(
 #           X = res_f, bottom.label.text.angle = 90, 
