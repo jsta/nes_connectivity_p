@@ -181,12 +181,14 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
     }
     gg
   }
-  
+  # browser()
   # https://stackoverflow.com/a/37623958/3362993
   gg_1 <- ggplot() + 
     geom_point(data = nes, aes(x = retention_time_yr, 
-                               y = p_percent_retention), 
-               size = 0.6, color = "gray") +
+                               y = p_percent_retention, color = part, shape = part), 
+               size = 0.6) +
+    scale_color_manual(values = c(viridis::viridis(1, begin = 0.5), 
+                                  viridis::viridis(1, begin = 0))) +
     stat_summary(data = test[1][[1]], geom = "ribbon", 
                  aes(x = retention_time_yr, y = estimate, 
                      fill = forcats::fct_rev(ordered(...prob..))), 
