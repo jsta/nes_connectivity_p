@@ -9,7 +9,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
 ```
 
-```{r fig.cap="Major lake and watershed characteristics, factors, and processes affecting lake P retention. Shaded symbols indicate items typically considered in P retention models while open symbols indicate additional items considered in the present study.", echo=FALSE, fig.width=1}
+```{r fig.cap="Major lake and watershed characteristics, factors, and processes affecting lake P retention. Shaded symbols indicate items typically considered in P retention models while open symbols indicate additional items considered in the present study.", echo=FALSE, fig.width=1,out.height="4in"}
 knitr::include_graphics("../figures/conceptual_p-cycle_pt2.pdf")
 ```
 
