@@ -27,11 +27,6 @@ knitr::include_graphics("../figures/iws_nws.pdf")
 knitr::include_graphics("../figures/04_global_vollenweider-1.pdf")
 ```
 
-```{r 05_partition_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and hierarchical model fits to the data where the solid lines and shaded intervals represent the median and central 95% model  estimates respectively. The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
-
-knitr::include_graphics("../figures/05_partition_vollenweider-1.pdf")
-```
-
 ```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider's equation in low and high connectivity partitions at the (A) LWS and (B) NWS scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=5, fig.height=3.8, warning=FALSE}
 knitr::include_graphics("../figures/06_k-3.pdf")
 ```

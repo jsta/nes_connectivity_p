@@ -461,3 +461,7 @@ ggplot(data = res, aes(y = id, x = value + 0.1)) +
   theme(axis.title = element_blank())
 ```
 
+```{r 05_partition_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and hierarchical model fits to the data where the solid lines and shaded intervals represent the median and central 95% model  estimates respectively. The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
+
+knitr::include_graphics("../figures/05_partition_vollenweider-1.pdf")
+```
