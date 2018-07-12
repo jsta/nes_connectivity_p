@@ -81,5 +81,26 @@ d_k$scale <- c("focal", "focal", rep("lws", 6), rep("nws", 6))
 res <- merge(res, d_k)
 res <- res[order(res$d_k, decreasing = TRUE),]
 
-write.csv(res[, c(1,2,4,5,6,7,8,9,10,11)], 
+get_sample_size <- function(x){
+  if(is.na(x$splits)){
+    sub <- get_sub2(nes_iws, as.character(x$iws_names), x$splits)
+    as.numeric(c(sub[which.min(sub)], sub[which.max(sub)]))
+  }else{
+    if(x$scale == "nws"){
+      sub <- get_sub2(nes_nws, as.character(x$nws_names), x$splits)
+      c(nrow(sub), nrow(nes_nws) - nrow(sub))
+    }else{
+      sub <- get_sub2(nes_iws, as.character(x$iws_names), x$splits)
+      c(nrow(sub), nrow(nes_iws) - nrow(sub))
+    }
+  }
+}
+
+sample_sizes <- data.frame(suppressWarnings(do.call("rbind", 
+                        lapply(seq_len(nrow(res)), 
+                               function(x) get_sample_size(res[x,])))))
+
+res[,c("n_low", "n_high")] <- sample_sizes
+
+write.csv(res[, c(1,2,4,5,6,7,8,9,10,11,12,13)], 
           "scripts/table_1.csv", row.names = FALSE)

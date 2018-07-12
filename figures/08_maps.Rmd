@@ -37,12 +37,6 @@ us_states <- st_intersects(us_states(), nes_sf)
 us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
 
 # pull the lower partition group as an sf object
-get_sub <- function(dt, col_name, split_value){
-  coordinatize(
-    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
-    "lat", "long")
-}
-
 lower_iws_maps <- lapply(which(partition_splits$scale == "iws"), 
                          function(x) {
                            nes_sub <- get_sub(nes_iws, 

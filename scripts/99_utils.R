@@ -356,3 +356,17 @@ break_word <- function(x, max.len){
   res <- paste(x_split[first_line], collapse = " ")
   paste(res, "\n", paste(x_split[second_line], collapse = " "))
 }
+
+get_sub <- function(dt, col_name, split_value){
+  coordinatize(
+    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
+    "lat", "long")
+}
+
+get_sub2 <- function(dt, col_name, split_value){
+  if(is.na(split_value)){
+    table(dt[,col_name]) 
+  }else{
+    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value)
+  }
+}

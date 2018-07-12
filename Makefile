@@ -65,6 +65,8 @@ tables/01_lake_characteristics_table.pdf: tables/01_lake_characteristics_table.R
 	
 tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd scripts/table_1.csv
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
+	pdftk $@ cat 2 output tables/02_model_results_table2.pdf
+	mv tables/02_model_results_table2.pdf $@
 
 scripts/table_1.csv: scripts/table_1.R
 	Rscript scripts/table_1.R
