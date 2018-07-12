@@ -359,10 +359,16 @@ break_word <- function(x, max.len){
   paste(res, "\n", paste(x_split[second_line], collapse = " "))
 }
 
-get_sub <- function(dt, col_name, split_value){
-  coordinatize(
-    dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
-    "lat", "long")
+get_sub <- function(dt, col_name, split_value, higher_connectivity){
+  if(higher_connectivity == "higher"){
+    coordinatize(
+      dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value), 
+      "lat", "long")
+  }else{
+    coordinatize(
+      dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) > split_value), 
+      "lat", "long")
+  }
 }
 
 get_sub2 <- function(dt, col_name, split_value){

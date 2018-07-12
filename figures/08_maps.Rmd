@@ -25,6 +25,11 @@ knitr::read_chunk("../scripts/99_utils.R")
 ```{r 08_maps, echo=FALSE, fig.cap="Maps showing the locations of lake connectivity partitions. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", warning=FALSE, message=FALSE}
 
 # ---- 08_maps ----
+
+nes_sf    <- coordinatize(nes_nws, "lat", "long")
+us_states <- st_intersects(us_states(), nes_sf)
+us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
+
 partition_splits <- read.csv("../figures/table_1.csv")
 partition_splits <- dplyr::filter(partition_splits, !is.na(splits), 
                                   scale %in% c("nws", "iws"))
@@ -32,16 +37,20 @@ partition_splits <- droplevels(partition_splits)
 partition_splits$pnames2 <- factor(partition_splits$pnames2, 
                               levels = c("cd", "ll", "la", "sd", "bf", "sr"))
 
-nes_sf    <- coordinatize(nes_nws, "lat", "long")
-us_states <- st_intersects(us_states(), nes_sf)
-us_states <- us_states()[unlist(lapply(us_states, function(x) length(x) > 0)),]
+metric_order_key <- data.frame(
+  pnames2 = c("sr", "bf", "la", "sd", "cd", "ll"), 
+  higher_connectivity = c("higher", "higher", "higher", "lower", "higher", "higher"))
+
+partition_splits <- left_join(partition_splits, metric_order_key)
 
 # pull the lower partition group as an sf object
 lower_iws_maps <- lapply(which(partition_splits$scale == "iws"), 
                          function(x) {
+                           # x <- which(partition_splits$scale == "iws")[3]
                            nes_sub <- get_sub(nes_iws, 
-                                            partition_splits[x, "iws_names"],
-                                            partition_splits[x, "splits"])
+                                          partition_splits[x, "iws_names"],
+                                          partition_splits[x, "splits"], 
+                                          partition_splits[x, "higher_connectivity"])
                            
                            ggplot() + 
                              geom_sf(data = us_states) +
@@ -59,9 +68,11 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
 
 lower_nws_maps <- lapply(which(partition_splits$scale == "nws"), 
                          function(x) {
+                           # x <- which(partition_splits$scale == "nws")[1]
                            nes_sub <- get_sub(nes_nws, 
-                                              partition_splits[x, "nws_names"],
-                                              partition_splits[x, "splits"])
+                                          partition_splits[x, "nws_names"],
+                                          partition_splits[x, "splits"], 
+                                          partition_splits[x, "higher_connectivity"])
                            
                            nes_sf_temp <- nes_sf
                            st_geometry(nes_sf_temp) <- NULL
@@ -81,6 +92,9 @@ lower_nws_maps <- lapply(which(partition_splits$scale == "nws"),
                              theme(plot.margin = unit(c(0, -0.1, 0, -0.1), "cm"), 
                                plot.title = element_text(face = "plain", size  = 12))
                          })
+
+partition_splits$pnames2 <- factor(partition_splits$pnames2, 
+                                   levels = c("ll", "cd", "sd", "la", "bf", "sr"))
 
 lower_iws_maps <- lower_iws_maps[
   match(levels(partition_splits$pnames2), 
