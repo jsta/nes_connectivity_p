@@ -60,7 +60,7 @@ tables: manuscript/tables.pdf
 manuscript/tables.pdf: tables/01_lake_characteristics_table.pdf tables/02_model_results_table.pdf
 	pdftk $^ cat output manuscript/tables.pdf
 
-tables/01_lake_characteristics_table.pdf: tables/01_lake_characteristics_table.Rmd
+tables/01_lake_characteristics_table.pdf: tables/01_lake_characteristics_table.Rmd scripts/04_tables.R
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	
 tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd scripts/table_1.csv
