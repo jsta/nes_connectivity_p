@@ -97,7 +97,7 @@ theme_pred <- function(){
   theme(legend.position = "na", 
         axis.text = element_text(size = 10), 
         axis.title = element_text(size = 12),
-        plot.title = element_text(size = 12))
+        plot.title = element_text(size = 10, face = "bold", color = "black", hjust = 0))
 }
 
 full_model <- function(nes){
@@ -118,11 +118,12 @@ full_pred_plot <- function(nes, fit){
                                  y = estimate), .prob = c(0.95), 
                     fill = "grey", color = "grey", alpha = 0.5) + 
     geom_point(data = nes, aes(x = retention_time_yr, 
-                               y = p_percent_retention)) + 
+                               y = p_percent_retention), 
+               size = 0.6, color = "grey") + 
     scale_x_log10() + ylim(0, 1) +
     scale_fill_discrete("grey") + 
     theme_pred() + 
-    ylab("P retention") + xlab("Residence time (yr)")
+    ylab("P retention") + xlab("Residence time (yr)") + ggtitle("A.")
 }
 
 # na_var: value assigned to rows with NAs
@@ -227,15 +228,15 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
       geom_line(aes(x = connectivity, y = foobar, color = connectivity)) + 
       scale_color_manual(values = c(viridis::viridis(1, begin = 0), 
                                     viridis::viridis(1, begin = 0.5))) + 
-      theme(legend.position = c(0.75, 0.8), 
+      theme(legend.position = c(0.7, 0.8), 
             legend.title = element_text(size = 7, face = "bold"), 
             legend.text = element_text(size = 7)) + 
       labs(color = legend_title)
     dl <- ggplotGrob(dummy_legend)
     legend <- gtable::gtable_filter(dl, "guide-box")
     gg_1 <- gg_1 + annotation_custom(grob = legend, 
-                                     ymax = 0.3, 
-                                     xmax = 0.5)
+                                     ymax = 0.28, 
+                                     xmax = 0.8)
   }
   
   g1 <- ggplotGrob(gg_1)

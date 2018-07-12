@@ -32,6 +32,8 @@ figures/04_global_vollenweider-1.pdf: figures/04_global_vollenweider.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	rm figures/04_global_vollenweider.pdf
 
+figures/04_global_vollenweider.Rmd: scripts/03_viz.R
+
 figures/05_partition_vollenweider-1.pdf: figures/05_partition_vollenweider.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	rm figures/05_partition_vollenweider.pdf

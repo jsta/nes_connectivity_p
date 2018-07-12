@@ -22,7 +22,7 @@ knitr::include_graphics("../figures/iws_nws.pdf")
 ```
 
 
-```{r 04_global_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data where the solid line and shaded interval represents the median and central 95% interval estimates respectively.", warning=FALSE, fig.width = 3.5, fig.height = 3.2}
+```{r 04_global_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data where the solid line and shaded interval represents the median and central 95% interval estimates respectively.", warning=FALSE}
 
 knitr::include_graphics("../figures/04_global_vollenweider-1.pdf")
 ```
