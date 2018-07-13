@@ -78,8 +78,7 @@ res$X75. <- paste0(res$X75., spaces)
 res        <- data.frame(res[,1], res$min, res$X50., res$max, paste0(res$X25., " - ", res$X75.))
 names(res) <- c("", "Min", "Median", "Max", "IQR")
 
-knitr::kable(res, format = 'pandoc', align = c("lllll"),
-             caption = "Min, median, max, and interquartile range of selected lake characteristics.")
+knitr::kable(res, format = 'pandoc', align = c("lllll"))
 
 # ---- model_results_table ----
 # table showing model results
@@ -108,7 +107,6 @@ knitr::kable(res, format = "latex", escape = FALSE, booktabs = TRUE,
              digits = 2, row.names = FALSE, 
              col.names = c("Metric", "Units", "Scale", 
                            "Delta k", "Split Value", "N", "N"), 
-             align = c("lllcccc"),
-             caption = "Classification and ranking of connectivity metrics, lake depth, and their partition split values according to median effect size.") %>% 
+             align = c("lllcccc")) %>% 
   kable_styling() %>%
   add_header_above(c(" " = 5, "Low Connectivity" = 1, "High Connectivity" = 1))

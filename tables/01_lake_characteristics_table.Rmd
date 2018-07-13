@@ -1,8 +1,8 @@
 ---
-title: "Table 1"
 output:
-  pdf_document:
-    fig_caption: yes
+  pdf_document
+header-includes: 
+  - \pagenumbering{gobble}
 ---
 
 ```{r setup, include=FALSE}
