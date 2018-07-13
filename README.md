@@ -1,10 +1,10 @@
 Code and data for:
 
-# Does Lake and Stream Connectivity Influence Phosphorus Retention in Lakes?
+## Does Lake and Stream Connectivity Influence Phosphorus Retention in Lakes?
 
 > Journal Target: Limnology and Oceanography
 
-## Products
+### Products
 
 Figures: [manuscript/figures.pdf](manuscript/figures.pdf)
 
@@ -12,14 +12,14 @@ Appendix: [manuscript/appendix.pdf](manuscript/appendix.pdf)
 
 Manuscript: [manuscript/draft.pdf](manuscript/draft.pdf)
 
-## Reproducibility
+### Reproducibility
 
-### Data requirements
+#### Data requirements
 
   * LAGOS-NE-GIS
   * nesRdata
 
-### System requirements
+#### System requirements
 
 * GRASS GIS
   * v.stream.order
