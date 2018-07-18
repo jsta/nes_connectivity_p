@@ -62,7 +62,7 @@ plot_tree(gettree(readRDS("../data/iws/streamdensity_forest.rds")),
           title = "Stream Density")
 ```
 
-```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8.4, fig.cap="Exploratory plots"}
+```{r graphical_exploratory_analysis, echo=FALSE, message=FALSE, warning=FALSE, fig.height=8.4, fig.cap="Exploratory plots", eval=FALSE}
 partition_splits <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 
 nes_iws$p_pnt_source <-  rowSums(cbind(nes_iws$p_pnt_source_muni,
@@ -164,7 +164,7 @@ plot_grid(md_v_la + theme(legend.position = "none"),
           ncol = 2)
 ```
 
-```{r graphical_exploratory_analysis_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6.3, fig.cap="Exploratory plots cont"}
+```{r graphical_exploratory_analysis_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6.3, fig.cap="Exploratory plots cont", eval=FALSE}
 lg <- lagosne_load("1.087.1")
 nes_nws_temp <- dplyr::left_join(nes_nws, select(lg$iws, lagoslakeid, iws_ha))
 nes_nws_temp$p_pnt_source <-  rowSums(cbind(nes_nws_temp$p_pnt_source_muni,
@@ -203,7 +203,7 @@ ggplot() + geom_sf(data = us_states) +
 ncol = 2)
 ```
 
-```{r graphical_exploratory_analysis_cont_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=5.3, fig.cap="Exploratory plots cont x 2"}
+```{r graphical_exploratory_analysis_cont_cont, echo=FALSE, message=FALSE, warning=FALSE, fig.height=5.3, fig.cap="Exploratory plots cont x 2", eval=FALSE}
 lg <- lagosne_load("1.087.1")
 
 nes_nws_temp <- nes_nws
@@ -238,7 +238,7 @@ plot_grid(
   ncol = 2)
 ```
 
-```{r stream_density-vs-link_length}
+```{r stream_density-vs-link_length, eval=FALSE}
 test <- dplyr::select(nes_nws, 
               avg_link_length, 
               stream_density, 
@@ -294,7 +294,7 @@ knitr::read_chunk("../data/connectivity_metrics.R")
 
 ```
 
-```{r iws_vs_nws-gis, cache=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+```{r iws_vs_nws-gis, cache=TRUE, echo=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 # lagoslakeid <- 6302
 # iws <- pull_iws(lagoslakeid, maxsteps = Inf)
 # nws <- pull_nws(lagoslakeid, maxsteps = Inf)
@@ -327,7 +327,7 @@ ggplot() +
 
 ```
 
-```{r best_partition_maps, cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+```{r best_partition_maps, cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 library(tmap)
 library(sf)
 library(LAGOSNE)
@@ -390,12 +390,12 @@ save_tmap(m_nes, "../figures/best_partition_maps-2.png",
           scale = 0.7, width = 3.125)
 ```
 
-```{r plot_tree_example, echo=FALSE, fig.width=2, fig.height=3, eval=FALSE}
+```{r plot_tree_example, echo=FALSE, fig.width=2, fig.height=3, eval=FALSE, eval=FALSE}
 plot_tree(gettree(readRDS("../data/nws/linklength_forest.rds")), 
           title = "Link Length")
 ```
 
-```{r partition_example_scatter, fig.height=4, fig.width=4.2, warning=FALSE}
+```{r partition_example_scatter, fig.height=4, fig.width=4.2, warning=FALSE, eval=FALSE}
 results_table <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
 ll_split <- dplyr::filter(results_table, 
                           nws_names == "avg_link_length" & 
