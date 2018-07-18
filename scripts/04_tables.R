@@ -21,7 +21,7 @@ name_key <- data.frame(
     "Lake Watershed Area (km2)", "Network Watershed Area (km2)"), 
   digits = c(2, 0, 2, 
              2, 2, 
-             2, 2, 2, 2, 
+             2, 1, 2, 2, 
              0, 0))
 
 qs            <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
