@@ -16,7 +16,7 @@ name_key <- data.frame(
     "iws_ha", "nws_ha"), 
   Characteristic = c(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
-    "P Retention (%)", "Residence Time (yr)",
+    "P Retention", "Residence Time (yr)",
     "Lake Area (km2)", "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
     "Lake Watershed Area (km2)", "Network Watershed Area (km2)"), 
   digits = c(2, 0, 2, 
