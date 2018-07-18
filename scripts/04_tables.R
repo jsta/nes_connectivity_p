@@ -1,6 +1,6 @@
 # setwd("scripts")
 source("99_utils.R")
-source("01_prepdata.R")
+# source("01_prepdata.R")
 
 # ---- lake_characteristics_table ----
 # table describing basic properties of lake population
@@ -19,7 +19,7 @@ name_key <- data.frame(
     "P Retention (%)", "Residence Time (yr)",
     "Lake Area (km2)", "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
     "Lake Watershed Area (km2)", "Network Watershed Area (km2)"), 
-  digits = c(2, 2, 2, 
+  digits = c(2, 0, 2, 
              2, 2, 
              2, 2, 2, 2, 
              0, 0))
