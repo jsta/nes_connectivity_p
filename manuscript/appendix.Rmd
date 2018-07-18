@@ -417,7 +417,8 @@ ggplot(data = dplyr::filter(nes_nws,
   theme(legend.position = "none") 
 ```
 
-```{r nes_vs_nla, message=FALSE, warning=FALSE}
+```{r nes_vs_nla, fig.cap="Comparison of selected lake characteristics among the stratified random sampling design of the National Lakes Assessment (nla) and the haphazard sampling of the National Eutrophication Survey (nes) lakes analyzed in the present study."}
+# , message=FALSE, warning=FALSE
 nla <- nla_load(2012)
 
 tp <- select(nla$waterchem_wide, PTL_RESULT, UID) %>%
