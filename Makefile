@@ -15,7 +15,7 @@ manuscript/appendix.pdf: manuscript/appendix.Rmd
 	-pdftk manuscript/appendix.pdf cat 2-end output manuscript/appendix2.pdf
 	-mv manuscript/appendix2.pdf manuscript/appendix.pdf
 
-manuscript/figures.pdf: manuscript/figures.Rmd figures/iws_nws.pdf figures/conny_metric_key_crop.pdf figures/04_global_vollenweider-1.pdf figures/05_partition_vollenweider-1.pdf figures/06_k-1.pdf figures/07_cor_mat_hmap-1.pdf figures/08_maps-1.pdf figures/conceptual_p-cycle_pt2.pdf
+manuscript/figures.pdf: manuscript/figures.Rmd figures/iws_nws.pdf figures/conny_metric_key_crop_small.pdf figures/04_global_vollenweider-1.pdf figures/05_partition_vollenweider-1.pdf figures/06_k-1.pdf figures/07_cor_mat_hmap-1.pdf figures/08_maps-1.pdf figures/conceptual_p-cycle_pt2.pdf
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	-pdftk manuscript/figures.pdf cat 2-end output manuscript/figures2.pdf
 	-mv manuscript/figures2.pdf manuscript/figures.pdf
@@ -27,8 +27,9 @@ figures/iws_nws.pdf: figures/iws_nws.tex figures/beamer-lake-fig/beamer-lake-fig
 figures/conny_metric_key.pdf: figures/conny_metric_key.tex figures/beamer-lake-fig/beamer-lake-fig.tex
 	cd figures && pdflatex conny_metric_key.tex
 	
-figures/conny_metric_key_crop.pdf: figures/conny_metric_key.pdf
+figures/conny_metric_key_crop_small.pdf: figures/conny_metric_key.pdf
 	pdfcrop figures/conny_metric_key.pdf figures/conny_metric_key_crop.pdf
+	convert figures/conny_metric_key_crop.pdf -units pixelsperinch -density 300 -page ArchC figures/conny_metric_key_crop_small.pdf
 	
 figures/04_global_vollenweider-1.pdf: figures/04_global_vollenweider.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
