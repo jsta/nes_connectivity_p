@@ -14,6 +14,3 @@ grayscale:
 	cp *.pdf grayscale
 	cd grayscale && make all
 	
-small: 
-	cp *.pdf small
-	cd small && make all

@@ -56,6 +56,7 @@ figures/07_cor_mat_hmap.Rmd: scripts/03_viz.R
 
 figures/08_maps-1.pdf: figures/08_maps.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
+	pdfcrop $@ $@
 	rm figures/08_maps.pdf
 
 tables: manuscript/tables.pdf
