@@ -97,3 +97,7 @@ manuscript/appendix.tex
 figures/unnamed-chunk*
 manuscript/figures.tex
 tables/crop
+figures/grayscale/*.pdf
+manuscript/*.docx
+figures/*.tiff
+figures/*.png
