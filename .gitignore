@@ -102,3 +102,4 @@ manuscript/*.docx
 figures/*.tiff
 figures/*.png
 tables/*.pdf
+manuscript/reviewer_comments/
