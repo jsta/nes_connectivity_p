@@ -50,11 +50,9 @@ names(effect_sizes) <- c("low", "medium", "high")
 knitr::kable(effect_sizes, format = "html") %>%
   kableExtra::add_header_above(c("", "", "tau", ""))
 
-paste0()
-
 paste0("At median water residence time, k, and tau lakes with shorter and 
       longer link lengths respectively had a P retention of ", 
-       R1, " and ", R2, ".")
+       upper_k_grid$p_retention[5], " and ", lower_k_grid$p_retention[5], ".")
 
 # ---- number_of_study_lakes ----
 
