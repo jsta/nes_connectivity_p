@@ -11,23 +11,23 @@ nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
 name_key <- data.frame(
   property = c(
     "tp", "chl", "secchi", # chemistry
-    "p_percent_retention", "retention_time_yr", # retention
+    "p_total", "p_percent_retention", "retention_time_yr", # retention
     "surface_area", "maxdepth", "percent_ag", "percent_urban", # features
     "iws_ha", "nws_ha"), 
   Characteristic = c(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
-    "P Retention", "Residence Time (yr)",
+    "P Loading (kg/yr)", "P Retention", "Residence Time (yr)",
     "Lake Area (km2)", "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
     "Lake Watershed Area (km2)", "Network Watershed Area (km2)"), 
   digits = c(2, 0, 2, 
-             2, 2, 
+             0, 2, 2, 
              2, 1, 2, 2, 
              0, 0))
 
 qs            <- function(x) quantile(nes_nws[,x], c(0.5, 0.25, 0.75), na.rm = TRUE)
 min_max       <- function(x) range(nes_nws[,x], na.rm = TRUE)
 summary_names <- c("tp", "chl", "secchi", 
-                   "p_percent_retention", "retention_time_yr",
+                   "p_total", "p_percent_retention", "retention_time_yr",
                    "surface_area", "maxdepth", "percent_ag", "iws_ha", "nws_ha")
 
 # range(nes_nws$p_percent_retention)
