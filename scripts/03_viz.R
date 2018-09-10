@@ -292,11 +292,11 @@ conny_cols  <- unique(splits$nws_names)[!is.na(unique(splits$nws_names))]
 conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 
 nes_nws_sub <- nes_nws_sub[,c(conny_cols, 
-                              "lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha")]
+                              "lake_area_ha", "p_total", "p_pnt_source_pct", "iws_ha", "nws_ha")]
 nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
                  splits[,c("nws_names", "abb")], sort = FALSE)
-nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha", "nws_ha"), 
-                                     abb = c("Lake Area", "Point Source P", "LWS area", "NWS area")))
+nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_total", "p_pnt_source_pct", "iws_ha", "nws_ha"), 
+                                     abb = c("Lake Area", "P Loading", "Point Source P", "LWS area", "NWS area")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb
 
