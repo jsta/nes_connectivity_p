@@ -25,6 +25,9 @@ knitr::read_chunk("../scripts/99_utils.R")
 
 ```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider equation in low and high connectivity partitions at the (A) lake watershed and (B) network watershed scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=7, fig.height=3.8, warning=FALSE}
 
+model_signif <- read.csv("../scripts/model_signif.csv", 
+                         stringsAsFactors = FALSE)
+
 fit_df_iws <- rbind(
   extract_coefs(readRDS("../data/global_vollenweider.rds"), "k"), 
   extract_coefs2(readRDS("../data/lc_vollenweider.rds"), 
@@ -58,6 +61,48 @@ fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
 # k2  = higher metric value
 # right = higher connectivity, purple
 
+iws_labels_raw <- data.frame(parameter = rev(c(
+                   "Link length",
+                   "Closest lake distance",
+                   "Stream density",
+                   "Lake connection", 
+                   "Upstream lake area",
+                   "Max depth",
+                   "Baseflow",
+                   "Stream order ratio",
+                   "Global")), stringsAsFactors = FALSE) %>%
+  mutate(parameter_alt = parameter)
+iws_labels_raw$parameter_alt[iws_labels_raw$parameter == "Link length"] <- 
+  "Average link length"
+
+signif_star <- function(x){
+  if(!is.na(x)){
+    if(x){
+      "*"
+    }else{
+      ""
+    }
+  }else{
+    ""
+  }
+}
+
+iws_labels <- left_join(iws_labels_raw, model_signif, 
+                        by = c("parameter_alt" = "parameter")) %>%
+  filter(scale == "iws" | is.na(scale)) %>%
+  arrange(match(parameter, iws_labels_raw$parameter)) %>%
+  mutate(signif = sapply(signif, signif_star)) %>%
+  mutate(parameter = paste0(parameter, signif)) %>%
+  select(parameter)
+
+nws_labels <- left_join(iws_labels_raw, model_signif, 
+                        by = c("parameter_alt" = "parameter")) %>%
+  filter(scale == "nws" | is.na(scale)) %>%
+  arrange(match(parameter, iws_labels_raw$parameter)) %>%
+  mutate(signif = sapply(signif, signif_star)) %>%
+  mutate(parameter = paste0(parameter, signif)) %>%
+  select(parameter)
+
 k_viz_iws <- ggplot(
   fit_df_iws, 
   aes(x = coef, y = key, fill = key, color = key)) + 
@@ -82,15 +127,7 @@ k_viz_iws <- ggplot(
   xlab("k Value") + ylab("") + 
   scale_y_discrete(breaks = levels(fit_df_iws$key)[
     c(1, seq(3, length(levels(fit_df_iws$key)), by = 2))], 
-                   labels = rev(c("Link length",
-                   "Closest lake distance",
-                   "Stream density",
-                   "Lake connection", 
-                   "Upstream lake area",
-                   "Max depth",
-                   "Baseflow",
-                   "Stream order ratio",
-                   "Global")))
+                   labels = iws_labels$parameter)
 
 k_viz_iws
 
@@ -153,15 +190,7 @@ k_viz_nws <- ggplot(
   xlab("k Value") +  ylab("") +
   scale_y_discrete(breaks = levels(fit_df_nws$key)[
     c(1, seq(3, length(levels(fit_df_nws$key)), by = 2))], 
-    labels = rev(c("Link length",
-                   "Closest lake distance",
-                   "Stream density",
-                   "Lake connection", 
-                   "Upstream lake area",
-                   "Max depth",
-                   "Baseflow",
-                   "Stream order ratio",
-                   "Global")))
+    labels = nws_labels$parameter)
 
 k_viz_nws
 

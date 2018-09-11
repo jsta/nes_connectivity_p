@@ -6,6 +6,7 @@ source("01_prepdata.R")
 library(dplyr)
 library(magrittr)
 
+# setwd("scripts")
 dt           <- read.csv("../figures/table_1.csv")
 
 p_retention_by_grp <- function(rds_path){
@@ -70,13 +71,33 @@ rds_paths <- list("../data/lc_vollenweider.rds", #1
                   "../data/nws/sd_vollenweider.rds", 
                   "../data/nws/sr_vollenweider.rds")
 
-res <- lapply(rds_paths, p_retention_by_grp)
+stringr::str_extract("../data/nws/sr_vollenweider.rds", 
+                     "(?<=data/)(.+)(?=/.)")
+
+res        <- lapply(rds_paths, p_retention_by_grp)
 names(res) <- make.names(rds_paths)
-lapply(res, function(x) any(abs(x$effect_sizes) < 0.009))
 
 paste0("At median water residence time, k, and tau lakes with shorter and 
       longer link lengths respectively had a P retention of ", 
        res$...data.nws.ll_vollenweider.rds$p_retention[1], " and ", res$...data.nws.ll_vollenweider.rds$p_retention[2], ".")
+
+res_signif  <- data.frame(path = unlist(rds_paths), stringsAsFactors = FALSE) %>%
+  mutate(scale = stringr::str_extract(path, "(?<=data/)(.+)(?=/.)"), 
+         metric = stringr::str_extract(path, "(.{2})(?=_)"), 
+         signif = unlist(lapply(res, function(x){
+           !any(abs(x$effect_sizes) < 0.009)})))
+
+variable_key <- read.csv("../scripts/table_1.csv", 
+                         stringsAsFactors = FALSE)
+
+res_signif <- left_join(res_signif, 
+                        distinct(dplyr::select(variable_key, 
+                                               pnames2, parameter), 
+                                 pnames2, .keep_all = TRUE), 
+                             by = c("metric" = "pnames2"))
+
+write.csv(dplyr::select(res_signif, parameter, scale, signif), 
+          "model_signif.csv", row.names = FALSE)
 
 # ---- number_of_study_lakes ----
 
