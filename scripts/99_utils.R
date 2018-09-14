@@ -181,7 +181,6 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
     }
     gg
   }
-  # browser()
   # https://stackoverflow.com/a/37623958/3362993
   gg_1 <- ggplot() + 
     geom_point(data = nes, aes(x = retention_time_yr, 
@@ -192,9 +191,11 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
     stat_summary(data = test[1][[1]], geom = "ribbon", 
                  aes(x = retention_time_yr, y = estimate, 
                      fill = forcats::fct_rev(ordered(...prob..))), 
-                 fun.data = median_qi, fun.args = list(.prob = 0.95), alpha = 0.25) +
+                 fun.data = median_qi, fun.args = list(.prob = 0.95), 
+                 alpha = 0.25) +
     stat_summary(data = test[1][[1]], aes(x = retention_time_yr, y = estimate),
-                 fun.y = median, geom = "line", color = viridis::viridis(1, begin = 0.5),
+                 fun.y = median, geom = "line", 
+                 color = viridis::viridis(1, begin = 0.5),
                  size = 0.5) +
     scale_fill_viridis_d(begin = 0.5)
   
