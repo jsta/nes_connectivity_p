@@ -49,10 +49,32 @@ p_retention_by_grp <- function(rds_path){
   # print(effect_sizes)
   # knitr::kable(effect_sizes, format = "html") %>%
   #   kableExtra::add_header_above(c("", "", "tau", ""))
+  grp_eq <- data.frame(eq = c(
+    paste0("Rp = 1 - (1 / (1 + ", 
+           round(lower_k_grid$k["50%"], 2), 
+           "+-", 
+           round((
+             round(lower_k_grid$k["75%"], 6) - 
+               round(lower_k_grid$k["25%"], 6)) / 2, 2),
+           "t^", 
+           round(median_x, 2), 
+           "))"), 
+  ####
+  paste0("Rp = 1 - (1 / (1 + ", 
+         round(upper_k_grid$k["50%"], 2), 
+         "+-", 
+         round((
+           round(upper_k_grid$k["75%"], 6) - 
+           round(upper_k_grid$k["25%"], 6)) / 2, 2),
+         "t^", 
+         round(median_x, 2), 
+         "))")
+  ), stringsAsFactors = FALSE)
   
   data.frame(
     effect_sizes = c(effect_sizes$medium[3], effect_sizes$medium[1]),
-    p_retention = c(upper_k_grid$p_retention[5], lower_k_grid$p_retention[5]), 
+    p_retention = c(upper_k_grid$p_retention[5], lower_k_grid$p_retention[5]),
+    grp_eq = grp_eq,
     stringsAsFactors = FALSE)
 }
 
@@ -80,6 +102,8 @@ names(res) <- make.names(rds_paths)
 paste0("At median water residence time, k, and tau lakes with shorter and 
       longer link lengths respectively had a P retention of ", 
        res$...data.nws.ll_vollenweider.rds$p_retention[1], " and ", res$...data.nws.ll_vollenweider.rds$p_retention[2], ".")
+
+p_retention_by_grp("../data/nws/ll_vollenweider.rds")$eq
 
 res_signif  <- data.frame(path = unlist(rds_paths), stringsAsFactors = FALSE) %>%
   mutate(scale = stringr::str_extract(path, "(?<=data/)(.+)(?=/.)"), 
