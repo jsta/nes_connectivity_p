@@ -87,6 +87,17 @@ signif_star <- function(x){
   }
 }
 
+colorado <- function(src) {
+  # https://stackoverflow.com/a/39695859/3362993
+  src_levels <- src                                 # retrieve the levels in their order
+  boulder <- src_levels[grep("\\*", src_levels)]
+  brave <- seq_len(length(src_levels)) %in% grep("\\*", src_levels)                       # make sure everything we want to make bold is actually in the factor levels
+  b_pos <- purrr::map_int(boulder, ~which(.==src_levels)) # then find out where they are
+  b_vec <- rep("plain", length(src_levels))               # make'm all plain first
+  b_vec[b_pos] <- "bold"                                  # make our targets bold
+  b_vec                                                   # return the new vector
+}
+
 iws_labels <- left_join(iws_labels_raw, model_signif, 
                         by = c("parameter_alt" = "parameter")) %>%
   filter(scale == "iws" | is.na(scale)) %>%
@@ -116,6 +127,8 @@ k_viz_iws <- ggplot(
                                      viridis::viridis(1, begin = 0)), 8))) +
     cowplot::theme_cowplot() + theme(panel.grid.major.y = element_blank(),
                                      axis.text = element_text(size = 10),
+                                     axis.text.y = element_text(size = 10, 
+                                                face = colorado(iws_labels$parameter)),
                                      axis.title = element_text(size = 12),
                                plot.title = element_text(size = 12, face = "bold", hjust = 0),
                                      axis.line.x = element_line(size = 1, 
@@ -179,6 +192,8 @@ k_viz_nws <- ggplot(
                                rep(c(viridis::viridis(1, begin = 0.5), 
                                      viridis::viridis(1, begin = 0)), 8))) +
   cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
+                                   axis.text.y = element_text(size = 10, 
+                                                face = colorado(nws_labels$parameter)),
                                    axis.title = element_text(size = 12),
                                plot.title = element_text(size = 12, face = "bold", hjust = 0),
                                    axis.line.x = element_line(size = 1, 
