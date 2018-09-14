@@ -148,11 +148,23 @@ View(st_read(test_gdb, "NHDMetadata"))
 
 # ---- bayesian_r2 ----
 
+rds_paths <- list("../data/lc_vollenweider.rds", #1
+                  "../data/md_vollenweider.rds", #2
+                  "../data/iws/cd_vollenweider.rds", #3
+                  "../data/iws/sd_vollenweider.rds", #4
+                  "../data/iws/bf_vollenweider.rds", #5
+                  "../data/iws/ll_vollenweider.rds", #6
+                  "../data/iws/la_vollenweider.rds", #7
+                  "../data/iws/sr_vollenweider.rds", #8
+                  "../data/nws/cd_vollenweider.rds", #9
+                  "../data/nws/ll_vollenweider.rds", 
+                  "../data/nws/la_vollenweider.rds", #11
+                  "../data/nws/bf_vollenweider.rds", 
+                  "../data/nws/sd_vollenweider.rds", 
+                  "../data/nws/sr_vollenweider.rds")
+
 global_results <- brms::bayes_R2(readRDS("../data/global_vollenweider.rds"))
-hier_results <- lapply(c("../data/nws/ll_vollenweider.rds", 
-                         "../data/nws/cd_vollenweider.rds", 
-                         "../data/lc_vollenweider.rds", 
-                         "../data/md_vollenweider.rds"), 
+hier_results <- lapply(rds_paths, 
                        function(x) brms::bayes_R2(readRDS(x)))
 
 range(do.call("rbind", hier_results)[,1])
