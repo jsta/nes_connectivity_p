@@ -219,27 +219,34 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
   
   # create dummy plot to pull legend
   if(add_legend){
-    dummy_df <- data.frame(connectivity = c("low", "high"), 
+    dummy_df <- data.frame(connectivity = c("low (low)", "high (high)"), 
                            foobar = c(1,2), stringsAsFactors = FALSE)
     if(rev_legend){
-      dummy_df <- data.frame(connectivity = c("high", "low"), 
+      dummy_df <- data.frame(connectivity = c("high (high)", "low (low)"), 
                              foobar = c(1,2), stringsAsFactors = FALSE)
       dummy_df$connectivity <- factor(dummy_df$connectivity, levels = c("low", "high"))
     }
-    
+
     dummy_legend <- ggplot(dummy_df) + 
       geom_line(aes(x = connectivity, y = foobar, color = connectivity)) + 
       scale_color_manual(values = c(viridis::viridis(1, begin = 0), 
                                     viridis::viridis(1, begin = 0.5))) + 
-      theme(legend.position = c(0.7, 0.8), 
+      theme(legend.position = c(0.7, 0.95), 
             legend.title = element_text(size = 7, face = "bold"), 
-            legend.text = element_text(size = 7)) + 
+            legend.text = element_text(size = 7), 
+            legend.background = element_rect(fill = "white", 
+                                                 color = "white", 
+                                                 size = 0), 
+            legend.margin = margin(0.01, 0.01, 0.01, 0.01, "cm"),
+            legend.box.margin = margin(0.01, 0.01, 0.01, 0.01, "cm"), 
+            legend.spacing = unit(0.01, "cm")) + 
       labs(color = legend_title)
+    
     dl <- ggplotGrob(dummy_legend)
     legend <- gtable::gtable_filter(dl, "guide-box")
     gg_1 <- gg_1 + annotation_custom(grob = legend, 
-                                     ymax = 0.28, 
-                                     xmax = 0.8)
+                                     ymax = 0.15, 
+                                     xmax = 0.89)
   }
   
   g1 <- ggplotGrob(gg_1)
