@@ -55,6 +55,29 @@
   \end{column}
   \end{columns}
 
+  % la %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{columns}[b]
+    \begin{column}{0.4\textwidth}
+      \huge{\textbf{C. Upstream Lake Area:} Total area of upstream lakes limited to lakes that are greater than or equal to 4ha.}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+          \draw [-,ultra thick, cyan] (2.2,3.7) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 3.5cm, xshift = 2cm] plot (\x:0.5+rnd*0.2);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan!70!black!100] plot (\x:1+rnd*0.5);
+        \end{tikzpicture}
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+      \begin{tikzpicture}[scale = 2]
+          \draw [-,ultra thick, cyan] (2.2,4.1) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 3.5cm, xshift = 2cm] plot (\x:0.9+rnd*0.2);
+          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan!70!black!100] plot (\x:1+rnd*0.5);
+        \end{tikzpicture}
+    \end{column}
+    \end{columns}
+
   % ll %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns} 
     \begin{column}[b]{0.4\textwidth}
@@ -83,29 +106,6 @@
           \draw [-,ultra thick, cyan] (-2.2,4.8) to [out=90,in=180] (-1.1,1.9) to [out=270,in=90] (0,0);
           \draw [-,ultra thick, cyan] (-0.9,4) to [out=260,in=180] (-1.1,1.9) to [out=270,in=90] (0,0);
 
-          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan!70!black!100] plot (\x:1+rnd*0.5);
-        \end{tikzpicture}
-    \end{column}
-    \end{columns}
-
-  % la %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \begin{columns}[b]
-    \begin{column}{0.4\textwidth}
-      \huge{\textbf{C. Upstream Lake Area:} Total area of upstream lakes limited to lakes that are greater than or equal to 4ha.}
-    \end{column}
-
-    \begin{column}{0.25\textwidth}
-      \begin{tikzpicture}[scale = 2]
-          \draw [-,ultra thick, cyan] (2.2,3.7) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
-          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 3.5cm, xshift = 2cm] plot (\x:0.5+rnd*0.2);
-          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan!70!black!100] plot (\x:1+rnd*0.5);
-        \end{tikzpicture}
-    \end{column}
-
-    \begin{column}{0.25\textwidth}
-      \begin{tikzpicture}[scale = 2]
-          \draw [-,ultra thick, cyan] (2.2,4.1) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
-          \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 3.5cm, xshift = 2cm] plot (\x:0.9+rnd*0.2);
           \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan!70!black!100] plot (\x:1+rnd*0.5);
         \end{tikzpicture}
     \end{column}
