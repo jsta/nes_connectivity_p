@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6, dev = c("pdf"))
 ```
 
-```{r fig.cap="Major lake and watershed characteristics, factors, and processes affecting lake P retention. Shaded symbols indicate items typically considered in P retention models while open symbols indicate additional items considered in the present study.", echo=FALSE, fig.width=1,out.height="4in"}
+```{r fig.cap="Figure 1: Major lake and watershed P factors affecting lake P retention. Shaded symbols indicate tangible factors that are typically considered in P retention models while open symbols indicate additional factors specific to the present study. Dashed lines indicate inferred linkages, which cannot be tested with available data, but are otherwise discussed herein. The abbreviation ‘W. Res. Time’ is water residence time.", echo=FALSE, fig.width=1,out.height="4in"}
 knitr::include_graphics("../figures/01_conceptual_p-cycle_pt2.pdf")
 ```
 
