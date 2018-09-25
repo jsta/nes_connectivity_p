@@ -82,9 +82,16 @@ knitr::kable(res, format = 'pandoc', align = c("lllll"))
 
 # ---- model_results_table ----
 # table showing model results
+# setwd("scripts/")
+library(dplyr)
+library(kableExtra)
 
 res <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
 res <- res[, c("parameter", "units", "scale", "conny_type", "d_k", "splits", "n_low", "n_high")]
+model_signif <- read.csv("../scripts/model_signif.csv", 
+                         stringsAsFactors = FALSE)
+model_signif$scale[model_signif$scale == "iws"] <- "lws"
+model_signif$scale[is.na(model_signif$scale)] <- "focal"
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 
                    conny_full = c("Longitudinal", "Lateral", "-"))
@@ -100,7 +107,10 @@ res$splits[!is.na(res$splits)] <- sapply(res$splits[!is.na(res$splits)],
                                            as.character(round(x, 0))
                                            }else{as.character(round(x, 2))})
 
-library(kableExtra)
+res <- left_join(res, model_signif, by = c("parameter", "scale")) %>%
+  mutate(signif = sapply(signif, signif_star)) %>%
+  mutate(d_k = paste0(round(d_k, 2), signif)) %>%
+  dplyr::select(-signif)
 
 options(knitr.kable.NA = "-")
 knitr::kable(res, format = "latex", escape = FALSE, booktabs = TRUE,
@@ -110,3 +120,4 @@ knitr::kable(res, format = "latex", escape = FALSE, booktabs = TRUE,
              align = c("lllcccc")) %>% 
   kable_styling() %>%
   add_header_above(c(" " = 5, "Low Connectivity" = 1, "High Connectivity" = 1))
+  
