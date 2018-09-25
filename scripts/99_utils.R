@@ -219,10 +219,10 @@ part_pred_plot <- function(nes, fit, ind, title, xl = TRUE, yl = TRUE, add_legen
   
   # create dummy plot to pull legend
   if(add_legend){
-    dummy_df <- data.frame(connectivity = c("low (low)", "high (high)"), 
+    dummy_df <- data.frame(connectivity = c("low", "high"), 
                            foobar = c(1,2), stringsAsFactors = FALSE)
     if(rev_legend){
-      dummy_df <- data.frame(connectivity = c("high (high)", "low (low)"), 
+      dummy_df <- data.frame(connectivity = c("high", "low"), 
                              foobar = c(1,2), stringsAsFactors = FALSE)
       dummy_df$connectivity <- factor(dummy_df$connectivity, levels = c("low", "high"))
     }
