@@ -75,18 +75,6 @@ iws_labels_raw <- data.frame(parameter = rev(c(
 iws_labels_raw$parameter_alt[iws_labels_raw$parameter == "Link length"] <- 
   "Average link length"
 
-signif_star <- function(x){
-  if(!is.na(x)){
-    if(x){
-      "*"
-    }else{
-      ""
-    }
-  }else{
-    ""
-  }
-}
-
 colorado <- function(src) {
   # https://stackoverflow.com/a/39695859/3362993
   src_levels <- src                                 # retrieve the levels in their order

@@ -386,3 +386,15 @@ get_sub2 <- function(dt, col_name, split_value){
     dplyr::filter(dt, UQ(rlang::sym(as.character(col_name))) <= split_value)
   }
 }
+
+signif_star <- function(x){
+  if(!is.na(x)){
+    if(x){
+      "*"
+    }else{
+      ""
+    }
+  }else{
+    ""
+  }
+}
