@@ -35,7 +35,7 @@
 % spacer  
   \begin{columns}    
     \begin{column}[b]{0.4\textwidth}
-      \vspace{4em}
+      \vspace{2em}
     \end{column}
 
   \begin{column}[b]{0.25\textwidth}
@@ -48,8 +48,8 @@
 % lake label  
   \begin{columns}[T]    
     \begin{column}{0.4\textwidth}
-      \huge{\textbf{Lake-based Metrics}}
-      \vspace{2em}
+      {\fontsize{65}{65}\textbf{Lake-based Metrics}}
+      \vspace{3em}
     \end{column}
 
   \begin{column}{0.25\textwidth}
@@ -80,6 +80,20 @@
         \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan, yshift = 5cm, xshift = 2cm] plot (\x:0.6+rnd*0.2);
         \draw[cyan, ultra thick, domain=0:350, smooth cycle, fill=cyan!70!black!100] plot (\x:1+rnd*0.5);
       \end{tikzpicture}
+  \end{column}
+  \end{columns}
+
+% spacer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{columns}    
+    \begin{column}[b]{0.4\textwidth}
+    \vspace{2em}
+    \end{column}
+
+  \begin{column}[b]{0.25\textwidth}
+  \end{column}
+  
+  \begin{column}[b]{0.25\textwidth}
   \end{column}
   \end{columns}
 
@@ -120,7 +134,7 @@
 
 \begin{columns}    
     \begin{column}[b]{0.4\textwidth}
-      \huge{\textbf{Stream-based Metrics}}
+      {\fontsize{65}{65}\textbf{Stream-based Metrics}}
       \vspace{2em}
     \end{column}
 
@@ -134,10 +148,11 @@
   % ll %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns}[T] 
     \begin{column}{0.4\textwidth}
-      \huge{\textbf{C. Average Link Length:} Sum of the total length of stream reaches between junctions divided by the total number of reaches.}
+      \huge{\textbf{C . Average Link Length:} Sum of the total length of stream reaches between junctions divided by the total number of reaches.}
     \end{column}
 
     \begin{column}{0.25\textwidth}
+      \vspace{1em}
       \begin{tikzpicture}[scale = 2]
         %\draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
         \draw [-,ultra thick, cyan] (1.8,2.6) to [out=180,in=0] (1.1,1.9) to [out=270,in=90] (0,0);        
@@ -164,7 +179,21 @@
         \end{tikzpicture}
     \end{column}
     \end{columns}
+    
+    % spacer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+  \begin{columns}    
+    \begin{column}[b]{0.4\textwidth}
+    \vspace{2em}
+    \end{column}
+
+  \begin{column}[b]{0.25\textwidth}
+  \end{column}
+  
+  \begin{column}[b]{0.25\textwidth}
+  \end{column}
+  \end{columns}
+  
     % sd %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns}[T]  
     \begin{column}{0.4\textwidth}
@@ -198,6 +227,20 @@
 
   % \rule{0.9\textwidth}{0.8pt}
   
+  % spacer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{columns}    
+    \begin{column}[b]{0.4\textwidth}
+    \vspace{2em}
+    \end{column}
+
+  \begin{column}[b]{0.25\textwidth}
+  \end{column}
+  
+  \begin{column}[b]{0.25\textwidth}
+  \end{column}
+  \end{columns}
+  
   % sr %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \begin{columns}[T]  
     \begin{column}{0.4\textwidth}
@@ -205,6 +248,7 @@
     \end{column}
 
     \begin{column}{0.25\textwidth}
+    \vspace{1em}
       \begin{tikzpicture}[scale = 2]
         % \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
         \draw [-,ultra thick, cyan] (2,3) to [out=180,in=0] (1.1,1.9) to [out=270,in=90] (0,0);        
@@ -222,6 +266,7 @@
     \end{column}
     
     \begin{column}{0.25\textwidth}
+    \vspace{-2em}
       \begin{tikzpicture}[scale = 2]
         %   \draw[step=1cm,gray,very thin] (-4,-3) grid (4,4);
           \draw [-,ultra thick, cyan] (2.2,4.8) to [out=90,in=0] (1.1,1.9) to [out=270,in=90] (0,0);
