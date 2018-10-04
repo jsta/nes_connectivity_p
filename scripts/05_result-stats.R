@@ -168,3 +168,37 @@ hier_results <- lapply(rds_paths,
                        function(x) brms::bayes_R2(readRDS(x)))
 
 range(do.call("rbind", hier_results)[,1])
+
+# ---- milstead_2013 ----
+library(dplyr)
+library(fulltext)
+
+milstead_path <- "data/milstead_2013.csv"
+if(!file.exists(milstead_path)){
+  query <- ft_search(query = "Estimating Summer Nutrient Concentrations in
+                      Northeastern Lakes from SPARROW Load Predictions and Modeled
+                      Lake Depth and Volume", from = "plos")
+  doi <- ft_links(query)$plos$ids
+  milstead <- read.csv(ft_get_si(doi, 1))
+  write.csv(milstead, milstead_path, row.names = FALSE)
+}
+milstead <- read.csv(milstead_path, stringsAsFactors = FALSE)
+milstead$Rp <- 1 - (milstead$Poutput / milstead$Pinput)
+
+milstead <- dplyr::filter(milstead, 
+                            !is.na(NLA_ID))
+
+# quantile(milstead$hrt, c(0.3, 0.6))
+milstead$hrt_cat <- cut(milstead$hrt, c(-Inf, 0.04, 0.4, Inf), 
+                        right = FALSE, include.lowest = TRUE, 
+                        labels = c("short", "medium", "long"))
+
+summary(dplyr::filter(milstead, hrt_cat == "long"))
+
+group_by(milstead, hrt_cat) %>%
+  summarize(Rp_range = range(Rp, na.rm = TRUE)[1] - range(Rp, na.rm = TRUE)[2], 
+            Rp_75 = quantile(Rp, c(0.75)), 
+            Rp_25 = quantile(Rp, c(0.25))) %>%
+  mutate(Rp_IQR = Rp_75 - Rp_25)
+
+boxplot(Rp ~ hrt_cat, data = milstead)
