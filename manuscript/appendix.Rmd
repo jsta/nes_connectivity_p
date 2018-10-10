@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, fig.path = "../figures/", fig.width = 5, fig.height = 6)
+knitr::opts_chunk$set(echo = FALSE, fig.path = "../figures/", fig.width = 5, fig.height = 5)
 ```
 
 ```{r read_chunks, cache=FALSE, echo=FALSE}
@@ -396,6 +396,7 @@ plot_tree(gettree(readRDS("../data/nws/linklength_forest.rds")),
 ```
 
 ```{r partition_example_scatter, fig.height=4, fig.width=4.2, warning=FALSE, eval=FALSE}
+# setwd("manuscript")
 results_table <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
 ll_split <- dplyr::filter(results_table, 
                           nws_names == "avg_link_length" & 
@@ -417,7 +418,207 @@ ggplot(data = dplyr::filter(nes_nws,
   theme(legend.position = "none") 
 ```
 
-```{r nes_vs_nla, fig.cap="Comparison of selected lake characteristics among the stratified random sampling design of the National Lakes Assessment (nla) and the haphazard sampling of the National Eutrophication Survey (nes) lakes analyzed in the present study."}
+```{r 05_partition_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and hierarchical model fits to the data where the solid lines and shaded intervals represent the median and central 95% model  estimates respectively. The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE, eval=FALSE}
+
+knitr::include_graphics("../figures/05_partition_vollenweider-1.pdf")
+```
+
+```{r milstead_reanalysis}
+library(cowplot)
+library(ggplot2)
+library(sf)
+library(nhdR)
+library(LAGOSNE)
+library(maps)
+library(dplyr)
+
+## load data ####
+# setwd("scripts")
+milstead_path <- "data/milstead_2013.csv"
+
+if(!file.exists(milstead_path)){
+  library(fulltext)
+  query <- ft_search(query = "Estimating Summer Nutrient Concentrations in
+                      Northeastern Lakes from SPARROW Load Predictions and Modeled
+                      Lake Depth and Volume", from = "plos")
+  doi <- ft_links(query)$plos$ids
+  milstead <- read.csv(ft_get_si(doi, 1))
+
+
+  states <- sf::st_as_sf(map("state", plot = FALSE, fill = TRUE))
+  nhd_plus <- nhdR::nhd_plus_load(c(1,2), dsn = "NHDWaterbody")
+  nhd_plus <- st_transform(nhd_plus, st_crs(states))
+  states <- states[which(sapply(
+             sf::st_covers(states, nhd_plus),
+             function(x) length(x)) > 0),]
+ 
+  nhd <- nhdR::nhd_load(state.abb[tolower(state.name) %in% states$ID], "NHDWaterbody")
+  nhd$GNIS_ID <- sapply(as.character(nhd$GNIS_ID), function(x) substring(x, 3, nchar(x)))
+  nhd <- nhd[!is.na(nhd$ReachCode),]
+  lg <- lagosne_load("1.087.1")
+  
+  milstead_j       <- dplyr::left_join(milstead, nhd_plus, by = c("WB_ID" = "COMID")) %>%
+    dplyr::left_join(nhd, by = c("REACHCODE" = "ReachCode")) %>%
+    dplyr::left_join(lg$iws.conn, by = c("Permanent_Identifier" = "iws_nhdid")) %>%
+    dplyr::left_join(lg$locus, by = c("Permanent_Identifier" = "nhdid"))
+  milstead_j <- milstead_j[complete.cases(milstead_j[,c("nhd_lat", "nhd_long")]),]
+  milstead_j    <- milstead_j[,nchar(names(milstead_j)) < 30] 
+
+  write.csv(milstead, milstead_path, row.names = FALSE)
+}
+
+milstead    <- read.csv(milstead_path, stringsAsFactors = FALSE)
+milstead$Rp <- 1 - (milstead$Poutput / milstead$Pinput)
+milstead <- milstead[milstead$hrt > 0,] 
+milstead <- milstead[milstead$Area > 0.04,] # rm less than 4 ha
+
+
+# library(magrittr)
+# glm.fit <- milstead %>% dplyr::group_by(lakeconnectivity) %>% dplyr::do(fit = glm(Rp ~ hrt, family = "binomial", data = .))
+# 
+# broom::tidy(glm.fit, fit)
+# glm.stats <- as.data.frame(broom::glance(glm.fit, fit))
+# # https://ww2.coastal.edu/kingw/statistics/R-tutorials/logistic.html
+# 1 - pchisq(glm.stats$null.deviance - glm.stats$deviance, 1)
+
+# ggplot(data = milstead[!is.na(milstead$lakeconnectivity),], aes(x = lakeconnectivity, y = hrt)) + geom_boxplot(notch = TRUE) + scale_y_log10()
+
+yr_labels <- c("1e-07", "1e-05", 
+               as.character(10/365), 
+               as.character(2/12), as.character(6/12), 
+               "2", "10")
+
+format_labels <- function(x, mult_factor){
+  gsub("\\.+$", "\\1", gsub("0+$", "\\1",
+    trimws(format(round(as.numeric(x), 6) * 
+      mult_factor, scientific = FALSE)), perl = TRUE))
+  }
+
+day_labels   <- ceiling(as.numeric(
+  format_labels(yr_labels, 365)) / 10) * 10
+minute_labels  <- ceiling(as.numeric(
+  format_labels(yr_labels, 365 * 24 * 60)) / 10) * 10
+month_labels  <- round(as.numeric(
+  format_labels(yr_labels, 12)), 0)
+
+mixed_labels <- paste0(
+      c(minute_labels[1:2], day_labels[3], month_labels[4:5], yr_labels[6:7]), 
+      c(" min", " min", " days", " months", " months", " years", " years"))
+
+quants <- exp(quantile(log(milstead[, "hrt"])))
+
+gg_fit_single <- 
+  ggplot(data = milstead, 
+    aes(x = hrt, y = Rp)) + geom_point(size = 0.9) +
+  scale_x_log10(labels = mixed_labels, 
+    breaks = as.numeric(yr_labels), limits = c(1 / 365, 11)) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), 
+              se = TRUE) +
+  scale_color_brewer(palette = "Set1") +
+  cowplot::theme_cowplot() + 
+  theme(legend.position = "none", legend.title = element_blank(), legend.text = element_text()) +
+  xlab("Residence Time") +
+  ylab("P Retention (%)") + 
+  geom_segment(data = data.frame(x = quants[c(2, 4)], y = c(0.8, 0.8)), 
+               aes(x = x, y = c(0, 0), xend = x, yend = y), 
+               color = "gray42", size = 1.5, linetype = 2)
+
+if(!interactive()){
+  ggsave("milstead_single.pdf", gg_fit_single, height = 5)
+}
+
+# milstead <- droplevels(milstead[milstead$lakeconnectivity != "Isolated",])
+gg_fit_multi <- ggplot(data = milstead, aes(x = hrt, y = Rp)) +
+  geom_point(size = 0.9) +
+  scale_x_log10(labels = mixed_labels, 
+                breaks = as.numeric(yr_labels), limits = c(1 / 365, 11)) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), 
+              se = TRUE, aes(color = lakeconnectivity), 
+              data = milstead) +
+  scale_color_brewer(palette = "Set1") +
+  cowplot::theme_cowplot() + 
+  theme(legend.title = element_blank(), legend.position = c(0.13, 0.8),
+        legend.text = element_text()) +
+  xlab("Residence Time") +
+  ylab("P Retention (%)") + 
+  geom_segment(data = data.frame(x = quants[c(2, 4)], y = c(0.8, 0.8)), 
+               aes(x = x, y = c(0, 0), xend = x, yend = y), 
+               color = "gray42", size = 1.5, linetype = 2)
+
+if(!interactive()){  
+  ggsave("milstead_multi.pdf", gg_fit_multi, height = 5)
+}
+
+# legend <- get_legend(gg_fit_multi)
+gg <- plot_grid(gg_fit_single, gg_fit_multi, scale = c(1, 1), rel_widths = c(3, 3), nrow = 1)
+
+if(!interactive()){
+  ggsave("milstead_conny.pdf", gg, height = 3.5, width = 7)
+}
+
+# ggsave("milstead_conny_nogroup.pdf", gg)
+
+# hist(log(x))
+# hist(log(dt[dt$variable == "x_raw", "value"]))
+
+nes <- read.csv("/home/jose/R/scripts/NES/nes_data.csv")
+nes <- nes[!is.na(nes$retention_time),] 
+
+nes$retention_time[nes$retention_time_units == "days" & 
+  !is.na(nes$retention_time_units)] <- 
+  nes$retention_time[nes$retention_time_units == "days" & 
+                       !is.na(nes$retention_time_units)] / 365
+
+dt <- data.frame(variable = "Milstead", 
+          reshape2::melt(milstead[,"hrt"]))
+
+# quants <- exp(quantile(log(dt$value)))
+# format_labels(quants, 365)
+# format_labels(quants, 12)
+
+dt <- rbind(dt, 
+        data.frame(variable = "NES", 
+          reshape2::melt(nes[, c("retention_time")])))  
+
+# dt$value <- log(dt$value)
+
+dens <- density(dt[dt$variable == "Milstead", "value"])
+dens <- data.frame(x = dens$x, y = dens$y)
+
+gg <- ggplot(data = dt, aes(x = value)) +
+  geom_density(aes(linetype = variable), alpha = 0.5, size = 1.55) + 
+  scale_x_log10(breaks = as.numeric(yr_labels)[c(3, 5, 7)], 
+                labels = mixed_labels[c(3, 5, 7)]) + 
+  cowplot::theme_cowplot() + theme(legend.position = c(0.15, 0.8), legend.title = element_blank(), legend.text = element_text()) +
+  xlab("Residence Time") + 
+  geom_segment(data = data.frame(x = quants[c(2, 4)], y = c(0.266, 0.48)), 
+               aes(x = x, y = 0, xend = x, yend = y), size = 1.55)
+
+if(!interactive()){  
+  ggsave("hrt_density.pdf", gg, height = 4)
+}
+
+# nes_fit_single <- ggplot(data = nes, aes(x = retention_time, y = p_percent_retention)) +
+#   geom_point() +
+#   scale_x_log10(labels = mixed_labels[c(2:4)], breaks = c(1e-05, 1e-02, 1e+01)) +
+#   stat_smooth(method = "glm", method.args = list(family = "binomial"), se = TRUE) +
+#   scale_color_brewer(palette = "Set1") +
+#   cowplot::theme_cowplot() + 
+#   theme(legend.position = "none", legend.title = element_blank(), legend.text = element_text()) +
+#   xlab("Residence Time") +
+#   ylab("P Retention (%)")
+```
+
+```{r p-retention_vs_percent-ag, fig.cap="P retention versus percent agriculture in network watersheds.", fig.width = 3, fig.height = 3}
+nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
+
+ggplot() + 
+  geom_point(data = nes_nws, aes(x = percent_ag, y = p_percent_retention)) +
+  xlab("Percent Agriculture") + ylab("P Retention")
+
+```
+
+```{r nes_vs_nla, fig.cap="Comparison of selected lake characteristics among the stratified random sampling design of the National Lakes Assessment (nla) and the haphazard sampling of the National Eutrophication Survey (nes) lakes analyzed in the present study.", fig.height=4}
 # , message=FALSE, warning=FALSE
 nla <- nla_load(2012)
 
@@ -460,9 +661,4 @@ ggplot(data = res, aes(y = id, x = value + 0.1)) +
   scale_x_log10() + 
   facet_wrap(~variable) + 
   theme(axis.title = element_blank())
-```
-
-```{r 05_partition_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and hierarchical model fits to the data where the solid lines and shaded intervals represent the median and central 95% model  estimates respectively. The green lines and symbols are the estimates from the lower of the two partition groups while the purple lines are estimates for the upper of the two partition groups (see Table 2).", fig.width = 4.8, fig.height=5, warning=FALSE}
-
-knitr::include_graphics("../figures/05_partition_vollenweider-1.pdf")
 ```
