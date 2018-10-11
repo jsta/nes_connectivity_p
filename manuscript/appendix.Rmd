@@ -423,7 +423,7 @@ ggplot(data = dplyr::filter(nes_nws,
 knitr::include_graphics("../figures/05_partition_vollenweider-1.pdf")
 ```
 
-```{r milstead_reanalysis}
+```{r milstead_reanalysis, fig.cap="Relationship between residence time and phosphorus retention for inland lakes with surface area greater than 4 ha in Northeastern USA (New England). Vertical dashed lines denote lakes with intermediate residence times (within the interquartile range). Best fit lines are colored based on whether they have upstream lake connections (DR_LakeStream), or upstream stream connection (DR_Stream), are headwater lakes, or are isolated lakes. Data from Milstead et al. (2013).", fig.width = 5, fig.height = 4}
 library(cowplot)
 library(ggplot2)
 library(sf)
@@ -433,7 +433,7 @@ library(maps)
 library(dplyr)
 
 ## load data ####
-milstead_path <- "data/milstead_2013.csv"
+milstead_path <- "../data/milstead_2013.csv"
 # unlink(milstead_path)
 
 if(!file.exists(milstead_path)){
@@ -556,9 +556,9 @@ gg_fit_multi <- ggplot(data = md, aes(x = hrt, y = Rp)) +
                aes(x = x, y = c(0, 0), xend = x, yend = y), 
                color = "gray42", size = 1.5, linetype = 2)
 
-if(!interactive()){  
+# if(!interactive()){  
   gg_fit_multi
-}
+# }
 
 # legend <- get_legend(gg_fit_multi)
 # gg <- plot_grid(gg_fit_single, gg_fit_multi, scale = c(1, 1), rel_widths = c(3, 3), nrow = 1)
