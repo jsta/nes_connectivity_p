@@ -1,6 +1,6 @@
 Code and data for:
 
-## Does Lake and Stream Connectivity Influence Phosphorus Retention in Lakes?
+## Does Freshwater Connectivity Influence Phosphorus Retention in Lakes?
 
 > Journal Target: Limnology and Oceanography
 
