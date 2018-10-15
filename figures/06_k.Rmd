@@ -114,11 +114,11 @@ k_viz_iws <- ggplot(
                                rep(c(viridis::viridis(1, begin = 0.5), 
                                      viridis::viridis(1, begin = 0)), 8))) +
     cowplot::theme_cowplot() + theme(panel.grid.major.y = element_blank(),
-                                     axis.text = element_text(size = 10),
-                                     axis.text.y = element_text(size = 10, 
+                                     axis.text = element_text(size = 9),
+                                     axis.text.y = element_text(size = 8, 
                                                 face = colorado(iws_labels$parameter)),
-                                     axis.title = element_text(size = 12),
-                               plot.title = element_text(size = 12, face = "bold", hjust = 0),
+                                     axis.title = element_text(size = 10),
+                               plot.title = element_text(size = 9, face = "bold", hjust = 0),
                                      axis.line.x = element_line(size = 1, 
                                      colour = "black"),
                                      axis.line.y = element_line(size = 1, 
@@ -179,11 +179,11 @@ k_viz_nws <- ggplot(
   scale_color_manual(values = c("grey", 
                                rep(c(viridis::viridis(1, begin = 0.5), 
                                      viridis::viridis(1, begin = 0)), 8))) +
-  cowplot::theme_cowplot() + theme(axis.text = element_text(size = 10),
-                                   axis.text.y = element_text(size = 10, 
+  cowplot::theme_cowplot() + theme(axis.text = element_text(size = 9),
+                                   axis.text.y = element_text(size = 8, 
                                                 face = colorado(nws_labels$parameter)),
-                                   axis.title = element_text(size = 12),
-                               plot.title = element_text(size = 12, face = "bold", hjust = 0),
+                                   axis.title = element_text(size = 10),
+                               plot.title = element_text(size = 9, face = "bold", hjust = 0),
                                    axis.line.x = element_line(size = 1, 
                                                   colour = "black"),
                                    axis.line.y = element_line(size = 1, 
@@ -199,7 +199,7 @@ k_viz_nws
 
 plot_grid(
   k_viz_iws + ggtitle("a. Lake Watershed") + xlim(0.8, 1.6),
-  k_viz_nws + ggtitle("b. Network Watershed") + xlim(0.8, 1.6), 
+  k_viz_nws + ggtitle("b. Lake Network Watershed") + xlim(0.8, 1.6), 
   ncol = 2, align = "v", rel_widths = c(1, 1)) + 
   theme(plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"))
 
