@@ -303,7 +303,7 @@ nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_total",
                                                    "nws_ha", "retention_time_yr"), 
                                      abb = c("Lake Area", "P Loading", 
                                              "Point Source P", "LWS area", 
-                                             "NWS area", "W. Res. Time")))
+                                             "NWS area", "Water Residence Time")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb
 
