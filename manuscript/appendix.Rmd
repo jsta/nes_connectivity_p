@@ -3,6 +3,7 @@ title: "Appendix"
 output:
   pdf_document:
     fig_caption: yes
+bibliography: bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -38,10 +39,22 @@ knitr::read_chunk("../data/connectivity_metrics.R")
 
 ```
 
-milstead reanalysis
+## Figure \ref{fig:fig1}
 
-```{r milstead_reanalysis, fig.cap="Relationship between residence time and phosphorus retention for inland lakes with surface area greater than 4 ha in Northeastern USA (New England). Vertical dashed lines denote lakes with intermediate residence times (within the interquartile range). Best fit lines are colored based on whether they have upstream lake connections (DR_LakeStream), or upstream stream connection (DR_Stream), are headwater lakes, or are isolated lakes. Data from Milstead et al. (2013).", fig.width = 5, fig.height = 4, warning=FALSE, message=FALSE}
-library(cowplot)
+It is difficult to thoroughly examine the uncertainties surrounding the relationship between water residence time and lake P retention because empirical measures of these quantities do not exist for many lakes. One of the few sources of this data is modelling studies which produce largely unverified estimates of water residence time and P retention [@milsteadEstimatingSummerNutrient2013]. Such model output data may not be appropriate for statistical P retention modelling because P retention and water residence time values do not represent independent estimates. As an alternative, we performed a more qualtiative analysis simply fitting separate smoothed functions to lakes of differing connectivity. Specifically, we used the connectivity data provided in LAGOS-NE [@sorannoLAGOSNEMultiscaledGeospatial2017] and described in detail by [@fergusFreshwaterLandscapeLake2017] where lakes are treated similarly based on whether they have upstream lake connections (DR_LakeStream), or upstream stream connections (DR_Stream), are headwater lakes, or are isolated lakes.
+
+## Figure \ref{fig:fig2}
+
+Our study lakes encompassed a range of land-use cover types and nutrient levels (Table 1). Although, lake watersheds were variable with respect to agricultural land use cover, we did not observe a strong relationship with lake P retention.
+
+## Figure \ref{fig:fig3}
+
+On average, the water quality (total phosphorus, chlorophyll concentration, and Secchi depth) of the lakes in our study are similar to other US lakes as measured by the stratified random sampling design of the National Lakes Assessment (NLA) lake population (USEPA 2012). However, our lakes are substantially larger and deeper than most NLA lakes.
+
+## References
+
+```{r milstead_reanalysis, fig.cap="\\label{fig:fig1}Relationship between residence time and phosphorus retention for inland lakes with surface area greater than 4 ha in Northeastern USA (New England). Vertical dashed lines denote lakes with intermediate residence times (within the interquartile range). Best fit lines are colored based on whether they have upstream lake connections (DR_LakeStream), or upstream stream connections (DR_Stream), are headwater lakes, or are isolated lakes. Data from Milstead et al. (2013).", fig.width = 5.5, fig.height = 4, warning=FALSE, message=FALSE}
+
 library(ggplot2)
 library(sf)
 library(nhdR)
@@ -151,11 +164,6 @@ gg_fit_single <-
                aes(x = x, y = c(0, 0), xend = x, yend = y), 
                color = "gray42", size = 1.5, linetype = 2)
 
-# if(!interactive()){
-#   ggsave("milstead_single.pdf", gg_fit_single, height = 5)
-# }
-
-# milstead <- droplevels(milstead[milstead$lakeconnectivity != "Isolated",])
 gg_fit_multi <- ggplot(data = md, aes(x = hrt, y = Rp)) +
   geom_point(size = 0.9) +
   scale_x_log10(labels = mixed_labels, 
@@ -165,8 +173,10 @@ gg_fit_multi <- ggplot(data = md, aes(x = hrt, y = Rp)) +
               data = md) +
   scale_color_brewer(palette = "Set1") +
   cowplot::theme_cowplot() + 
-  theme(legend.title = element_blank(), legend.position = c(0.13, 0.8),
-        legend.text = element_text(), legend.background = element_rect(fill = "white")) +
+  theme(legend.title = element_blank(), legend.position = c(0.02, 0.8),
+        legend.text = element_text(), 
+        legend.background = element_rect(fill = "white"), 
+        axis.text.x = element_text(size = 10)) +
   xlab("Residence Time") +
   ylab("P Retention (%)") + 
   geom_segment(data = data.frame(x = quants[c(2, 4)], y = c(0.8, 0.8)), 
@@ -176,7 +186,7 @@ gg_fit_multi <- ggplot(data = md, aes(x = hrt, y = Rp)) +
 gg_fit_multi
 ```
 
-```{r p-retention_vs_percent-ag, fig.cap="P retention versus percent agriculture in network watersheds.", fig.width = 3, fig.height = 3, warning=FALSE, message=FALSE}
+```{r p-retention_vs_percent-ag, fig.cap="\\label{fig:fig2}P retention versus percent agriculture in network watersheds.", fig.width = 3, fig.height = 3, warning=FALSE, message=FALSE}
 nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
 
 ggplot() + 
@@ -185,7 +195,7 @@ ggplot() +
 
 ```
 
-```{r nes_vs_nla, fig.cap="Comparison of selected lake characteristics among the stratified random sampling design of the National Lakes Assessment (nla) and the haphazard sampling of the National Eutrophication Survey (nes) lakes analyzed in the present study.", fig.height=4, warning=FALSE, message=FALSE}
+```{r nes_vs_nla, fig.cap="\\label{fig:fig3}Comparison of selected lake characteristics among the stratified random sampling design of the National Lakes Assessment (nla) and the haphazard sampling of the National Eutrophication Survey (nes) lakes analyzed in the present study.", fig.height=4, warning=FALSE, message=FALSE}
 # , message=FALSE, warning=FALSE
 nla <- nla_load(2012)
 
