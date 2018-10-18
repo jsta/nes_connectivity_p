@@ -103,3 +103,9 @@ figures/*.tiff
 figures/*.png
 tables/*.pdf
 manuscript/reviewer_comments/
+scripts/*.stan
+figures_backup.zip
+figures/old
+figures/*.pdf
+figures/*.tex
+figures/conceptual_p-cycle.xml

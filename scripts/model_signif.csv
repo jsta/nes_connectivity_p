@@ -1,0 +1,15 @@
+"parameter","scale","signif"
+"Lake connection",NA,TRUE
+"Max depth",NA,TRUE
+"Closest lake distance","iws",FALSE
+"Stream density","iws",FALSE
+"Baseflow","iws",TRUE
+"Average link length","iws",TRUE
+"Upstream lake area","iws",TRUE
+"Stream order ratio","iws",TRUE
+"Closest lake distance","nws",TRUE
+"Average link length","nws",TRUE
+"Upstream lake area","nws",TRUE
+"Baseflow","nws",TRUE
+"Stream density","nws",TRUE
+"Stream order ratio","nws",FALSE
