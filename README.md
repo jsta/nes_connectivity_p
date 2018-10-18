@@ -17,12 +17,13 @@ Manuscript: [manuscript/draft.pdf](manuscript/draft.pdf)
 #### Data requirements
 
   * LAGOS-NE-GIS
-  * nesRdata
+  * `nesRdata`
 
 #### System requirements
 
 * GRASS GIS
   * v.stream.order
+  * v.net
 
 * Stan
 
@@ -41,3 +42,4 @@ Manuscript: [manuscript/draft.pdf](manuscript/draft.pdf)
   * ggridges
   * nhdR
   * streamnet
+  * sf
