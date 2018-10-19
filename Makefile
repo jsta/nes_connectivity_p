@@ -8,7 +8,7 @@ all: manuscript/draft.pdf figures tables scripts/table_1.csv
 manuscript/draft.pdf: manuscript/draft.md
 	pandoc manuscript/draft.md -o manuscript/draft.pdf
 
-figures: manuscript/figures.pdf manuscript/appendix.pdf
+figures: manuscript/figures.pdf manuscript/appendix.pdf manuscript/grayscale_figures.pdf
 
 manuscript/appendix.pdf: manuscript/appendix.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
@@ -19,6 +19,11 @@ manuscript/figures.pdf: manuscript/figures.Rmd figures/01_conceptual_p-cycle_pt2
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	-pdftk manuscript/figures.pdf cat 2-end output manuscript/figures2.pdf
 	-mv manuscript/figures2.pdf manuscript/figures.pdf
+	
+manuscript/grayscale_figures.pdf: manuscript/grayscale_figures.Rmd manuscript/figures.pdf
+	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
+	-pdftk manuscript/grayscale_figures.pdf cat 2-end output manuscript/figures2.pdf
+	-mv manuscript/figures2.pdf manuscript/grayscale_figures.pdf
 
 figures/03_iws_nws.pdf: figures/03_iws_nws.tex figures/beamer-lake-fig/beamer-lake-fig.tex
 	cd figures && pdflatex 03_iws_nws.tex
