@@ -10,31 +10,31 @@ output:
 knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.height = 6, dev = c("pdf"))
 ```
 
-```{r fig.cap="Figure 1: Major lake and watershed P factors affecting lake P retention. Shaded symbols indicate tangible factors that are typically considered in P retention models while open symbols indicate additional factors specific to the present study. Dashed lines indicate inferred linkages, which cannot be tested with available data, but are otherwise discussed herein. The abbreviation ‘W. Res. Time’ is water residence time.", echo=FALSE, fig.width=1,out.height="4in"}
+```{r fig.cap="Major lake and watershed factors affecting lake P retention. Shaded symbols indicate factors typically considered in P retention models whereas open symbols indicate additional factors specific to the present study. Dashed lines indicate inferred relationships, which cannot be tested with available data, but are otherwise discussed herein.", echo=FALSE, fig.width=1,out.height="4in"}
 knitr::include_graphics("../figures/01_conceptual_p-cycle_pt2.pdf")
 ```
 
-```{r fig.cap="Connectivity metric definitions along with examples of high and low connectivity lakes.", echo=FALSE}
+```{r fig.cap="Connectivity metric definitions along with simplified examples of high and low connectivity lakes that might arise from a binary classification. Here, high connectivity lakes with respect to both lake-stream-based and stream-based metrics are associated with lower barriers to in-stream transport. For stream-based metrics, high connectivity lakes are associated with more direct transport of P from terrestrial runoff to streams. We use the term “first order stream” to describe a headwater stream.", echo=FALSE}
 knitr::include_graphics("../figures/02_conny_metric_key_crop_small.pdf")
 ```
 
-```{r fig.cap="Diagram showing the lake watershed (LWS) and network watershed (NWS) of three lakes. Here the IWS of lake 3 encompasses the LWS of lake 2 because of it is smaller than 10 ha small size but it does not encompass the LWS of lake 1 because it has an area of at least 10 ha.  In contrast to the LWS boundaries, the NWS boundaries extend to the headwaters of the lake chain.", echo=FALSE}
+```{r fig.cap="Diagram showing the lake watershed and lake network watershed of three lakes. Here the lake watershed of lake 3 encompasses the lake watershed of lake 2 because it is smaller than 10 ha but it does not encompass the lake watershed of lake 1 because it has an area of at least 10 ha. In contrast to the lake watershed boundaries, the lake network watershed boundaries extend to the headwaters of the lake chain.", echo=FALSE}
 knitr::include_graphics("../figures/03_iws_nws.pdf")
 ```
 
-```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.cap="Correlation between connectivity metrics and selected lake characteristics.", message=FALSE}
+```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.cap="Correlation among connectivity metrics and selected lake characteristics. NWS is the lake network watershed extent whereas LWS is the lake watershed extent. Connectivity metrics are defined in Figure 2.", message=FALSE}
 knitr::include_graphics("../figures/07_cor_mat_hmap-1.pdf")
 ```
 
-```{r 08_maps, echo=FALSE, fig.cap="Maps showing the locations of lake connectivity partitions. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", warning=FALSE, message=FALSE}
+```{r 08_maps, echo=FALSE, fig.cap="Locations of lakes of different connectivity classes at the (A) lake watershed and (B) lake network watershed extent. Low connectivity lakes are represented by green symbols, and high connectivity lakes are represented by purple symbols. NWS is the lake network watershed extent. LWS is the lake watershed extent. Connectivity metrics are defined in Figure 2.", warning=FALSE, message=FALSE}
 knitr::include_graphics("../figures/08_maps-1.pdf")
 ```
 
-```{r 04_global_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data where the solid line and shaded interval represents the median and central 95% interval estimates respectively.", warning=FALSE}
+```{r 04_global_vollenweider, echo=FALSE, fig.cap="Residence time (yr) versus P retention for the NES dataset and the global model fit to the data ($R^{2}$ = 0.34, n = 129) where the solid line and shaded interval represents the median and central 95% interval estimates respectively (A). As above except that solid lines and shaded interval estimates represent hierarchical model fits to the data ($R^{2}$ = 0.41, n = 129) based on network watershed average link length, which had the strongest association of any connectivity metric relative to P retention (B). Equations for these lines at median water residence time for low and high connectivity lakes are: Rp = 1 - (1 / (1 + 1.32 $\\tau^{0.4}$)) and Rp = 1 - (1 / (1 + 1.08 $\\tau^{0.4}$)) respectively.", warning=FALSE}
 
 knitr::include_graphics("../figures/04_global_vollenweider-1.pdf")
 ```
 
-```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider's equation in low and high connectivity partitions at the (A) LWS and (B) NWS scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=5, fig.height=3.8, warning=FALSE}
+```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from Eq. 1 in lakes of differing connectivity, depth, or baseflow at the (A) lake watershed and (B) lake network watershed extents. Green lines indicate lower connectivity lakes while purple lines indicate higher connectivity lakes. For maximum depth, green lines indicate deeper lakes. For baseflow, green lines indicate higher baseflow. Connectivity metrics are defined in Figure 2. Labels associated with models where differences in k translated to significant differences in P retention are bolded and starred.", fig.width=5, fig.height=3.8, warning=FALSE}
 knitr::include_graphics("../figures/06_k-3.pdf")
 ```
