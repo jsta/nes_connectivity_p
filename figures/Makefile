@@ -11,6 +11,7 @@ tiff:
 	echo done
 	
 grayscale:
+	-rm grayscale/*.pdf
 	cp *.pdf grayscale
 	cd grayscale && make all
 	

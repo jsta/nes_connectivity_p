@@ -376,7 +376,7 @@ pheatmap::pheatmap(res_f, na_col = "grey",
                    cluster_cols = FALSE, cluster_rows = FALSE, 
                    color = colorRampPalette(
                      rev(
-                       RColorBrewer::brewer.pal(n = 7, name ="RdBu")[2:6]
+                       RColorBrewer::brewer.pal(n = 7, name ="BrBG")[2:6]
                       ))(100), 
                    display_numbers = apply(res_f, 2, function(x) fnc(x, 2)), 
                    fontsize_number = 6)
