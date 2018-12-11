@@ -1,6 +1,6 @@
 # setwd("scripts")
 # source("99_utils.R")
-# source("01_prepdata.R")
+# source("01.5_loaddata.R")
 
 # ---- 04_global_vollenweider ----
 
@@ -244,9 +244,8 @@ plot_grid(
 
 # ---- 07_cor_mat_hmap ----
 # correlation matrix heatmap
-
+# setwd("scripts")
 library(corrr)
-library(superheat)
 
 splits      <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 
@@ -258,7 +257,7 @@ nes_iws$p_pnt_source <-  rowSums(cbind(nes_iws$p_pnt_source_muni,
 nes_iws$p_pnt_source_pct <- nes_iws$p_pnt_source / 
   (nes_iws$p_nonpnt_source + nes_iws$p_pnt_source)
 
-lg <- lagosne_load("1.087.1")
+lg      <- lagosne_load("1.087.1")
 nes_iws <- dplyr::left_join(nes_iws, select(lg$iws, lagoslakeid, iws_ha))
 
 nes_nws$p_pnt_source <-  rowSums(cbind(nes_nws$p_pnt_source_muni,
@@ -268,7 +267,9 @@ nes_nws$p_pnt_source <-  rowSums(cbind(nes_nws$p_pnt_source_muni,
 
 nes_nws$p_pnt_source_pct <- nes_nws$p_pnt_source / 
   (nes_nws$p_nonpnt_source + nes_nws$p_pnt_source)
-nes_nws <- dplyr::left_join(nes_nws, select(lg$iws, lagoslakeid, iws_ha))
+nes_nws                  <- dplyr::left_join(nes_nws, 
+                                             select(lg$iws, 
+                                                    lagoslakeid, iws_ha))
 
 # format iws data
 nes_iws_sub <- dplyr::select(nes_iws, -lakeconnection)
@@ -281,7 +282,8 @@ nes_iws_sub <- nes_iws_sub[,c(conny_cols,
 iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)), 
                  splits[,c("iws_names", "abb")], sort = FALSE)
 iws_key <- rbind(iws_key, 
-                 data.frame(iws_names = c("lake_area_ha", "p_pnt_source_pct", "iws_ha"), 
+                 data.frame(iws_names = c("lake_area_ha", 
+                                          "p_pnt_source_pct", "iws_ha"), 
                             abb = c("Lake Area", "Point Source P", "LWS area")))
 iws_key <- iws_key[!duplicated(iws_key),]
 names(nes_iws_sub) <- iws_key$abb
@@ -312,8 +314,34 @@ nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
 # nes_sub <- nes_iws_sub
 # nes_sub <- nes_nws_sub
 
+# p_values
+get_corrr_p_values <- function(d){
+  var_pairs <- t(combn(names(d), 2)) %>%
+    as_data_frame() %>% 
+    setNames(c("x", "y"))
+  
+  p_values <- var_pairs %>% 
+    dplyr::mutate(r.test = purrr::map2(x, y, ~ stats::cor.test(d[[.x]], d[[.y]])),
+                  r.test = purrr::map(r.test, broom::tidy)) %>%
+    tidyr::unnest(r.test)
+  
+  res <- matrix(NA, 
+                nrow = length(names(d)), 
+                ncol = length(names(d)))
+  res[lower.tri(res)] <- p_values$p.value
+  res <- data.frame(res, stringsAsFactors = FALSE, row.names = names(d))
+  setNames(res, names(d))
+}
+
+p_values <- get_corrr_p_values(nes_sub)
+
 # correlation matrix 
 res <- shave(correlate(nes_sub))
+sig_positions <- which(p_values > 0.05, TRUE)
+for(i in seq_len(nrow(sig_positions))){
+  res[sig_positions[i, 1], sig_positions[i, 2] + 1] <- NA
+}
+
 res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
 res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
 names(res)[1] <- ""
@@ -330,8 +358,8 @@ row.names(res_f) <- res_names_r
 #   row.names(res) <- 
 #   sapply(row.names(res), function(x) paste(strwrap(x, 10), collapse="\n "))
 
-fnc = function(var, decimal.places) {
-  var = sprintf(paste0("%1.",decimal.places,"f"), var)
+fnc <- function(var, decimal.places) {
+  var <- sprintf(paste0("%1.", decimal.places, "f"), var)
   var[var=="NA"] <- ""
   var <- gsub("-", "", var)
   var
@@ -340,24 +368,8 @@ fnc = function(var, decimal.places) {
 pheatmap::pheatmap(res_f, na_col = "grey", 
                    cluster_cols = FALSE, cluster_rows = FALSE, 
                    color = colorRampPalette(
-                     rev(RColorBrewer::brewer.pal(n = 7, name ="RdBu")))(100), 
+                     rev(
+                       RColorBrewer::brewer.pal(n = 7, name ="RdBu")[2:6]
+                      ))(100), 
                    display_numbers = apply(res_f, 2, function(x) fnc(x, 2)), 
                    fontsize_number = 6)
-
-# test <- superheat(
-#           X = res_f, bottom.label.text.angle = 90, 
-#           left.label.size = 1.4, bottom.label.size = 1.4, 
-#           heat.pal = c("#542788", "white", "#b35806"), 
-#           heat.pal.values = c(0, 0.6, 1))
-
-# options(knitr.kable.NA = '')
-# knitr::kable(res, digits = 2, 
-#              caption = "Pearson correlation matrix among connectivity metrics.")
-
-# # pander::panderOptions('keep.line.breaks', TRUE)
-# pander::panderOptions("round", 2)
-# pander::panderOptions("missing", '')
-# # pander::pander(res, 
-# #       caption = "Pearson correlation matrix among connectivity metrics", 
-# #       split.cells = c(11, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
-# pander::pandoc.table(res, style = "grid", keep.line.breaks = TRUE)
