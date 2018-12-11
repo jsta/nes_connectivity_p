@@ -277,14 +277,17 @@ conny_cols  <- unique(splits$iws_names)[!is.na(unique(splits$iws_names))]
 conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 
 nes_iws_sub <- nes_iws_sub[,c(conny_cols, 
-                              "lake_area_ha", "p_pnt_source_pct", "iws_ha")]
+                              "lake_area_ha", "p_pnt_source_pct", "iws_ha", 
+                              "p_percent_retention")]
 
 iws_key <- merge(data.frame(iws_names = names(nes_iws_sub)), 
                  splits[,c("iws_names", "abb")], sort = FALSE)
 iws_key <- rbind(iws_key, 
                  data.frame(iws_names = c("lake_area_ha", 
-                                          "p_pnt_source_pct", "iws_ha"), 
-                            abb = c("Lake Area", "Point Source P", "LWS area")))
+                                          "p_pnt_source_pct", "iws_ha", 
+                                          "p_percent_retention"), 
+                            abb = c("Lake Area", "Point Source P", "LWS area", 
+                                    "P Retention")))
 iws_key <- iws_key[!duplicated(iws_key),]
 names(nes_iws_sub) <- iws_key$abb
 
@@ -297,15 +300,18 @@ conny_cols  <- conny_cols[!(conny_cols %in% "lakeconnection")]
 nes_nws_sub <- nes_nws_sub[,c(conny_cols, 
                               "lake_area_ha", "p_total", 
                               "p_pnt_source_pct", "iws_ha", 
-                              "nws_ha", "retention_time_yr")]
+                              "nws_ha", "retention_time_yr", 
+                              "p_percent_retention")]
 nws_key <- merge(data.frame(nws_names = names(nes_nws_sub)), 
                  splits[,c("nws_names", "abb")], sort = FALSE)
 nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_total", 
                                                    "p_pnt_source_pct", "iws_ha", 
-                                                   "nws_ha", "retention_time_yr"), 
+                                                   "nws_ha", "retention_time_yr", 
+                                                   "p_percent_retention"), 
                                      abb = c("Lake Area", "P Loading", 
                                              "Point Source P", "LWS area", 
-                                             "NWS area", "Water Residence Time")))
+                                             "NWS area", "Water Residence Time", 
+                                             "P Retention")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb
 
@@ -316,6 +322,7 @@ nes_sub <- dplyr::bind_rows(nes_iws_sub, nes_nws_sub)
 
 # p_values
 get_corrr_p_values <- function(d){
+  # d <- nes_sub
   var_pairs <- t(combn(names(d), 2)) %>%
     as_data_frame() %>% 
     setNames(c("x", "y"))
