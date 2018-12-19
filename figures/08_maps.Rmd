@@ -19,6 +19,7 @@ knitr::read_chunk("../scripts/99_utils.R")
 ```
 
 ```{r load_data, message=FALSE, results='hide', echo=FALSE, warning=FALSE}
+  # source("../scripts/99_utils.R")
   source("../scripts/01.5_loaddata.R")
 ```
 
@@ -39,7 +40,7 @@ partition_splits$pnames2 <- factor(partition_splits$pnames2,
 
 metric_order_key <- data.frame(
   pnames2 = c("sr", "bf", "la", "sd", "cd", "ll"), 
-  higher_connectivity = c("higher", "higher", "higher", "lower", "higher", "higher"))
+  higher_connectivity = c("higher", "higher", "higher", "higher", "higher", "higher"))
 
 partition_splits <- left_join(partition_splits, metric_order_key)
 
@@ -51,6 +52,16 @@ lower_iws_maps <- lapply(which(partition_splits$scale == "iws"),
                                           partition_splits[x, "iws_names"],
                                           partition_splits[x, "splits"], 
                                           partition_splits[x, "higher_connectivity"])
+                           
+                           # print(paste0("lower = ", mean(
+                           #   st_drop_geometry(nes_sub)[
+                           #     ,as.character(partition_splits[x, "iws_names"])], 
+                           #      na.rm = TRUE)))
+                           # 
+                           # print(paste0("higher = ", mean(
+                           #   st_drop_geometry(nes_sf)[
+                           #     ,as.character(partition_splits[x, "nws_names"])], 
+                           #      na.rm = TRUE)))
                            
                            ggplot() + 
                              geom_sf(data = us_states) +

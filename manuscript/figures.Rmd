@@ -26,7 +26,7 @@ knitr::include_graphics("../figures/03_iws_nws.pdf")
 knitr::include_graphics("../figures/07_cor_mat_hmap-1.pdf")
 ```
 
-```{r 08_maps, echo=FALSE, fig.cap="Locations of lakes of different connectivity classes at the (A) lake subwatershed and (B) lake watershed extent. Low connectivity lakes are represented by green symbols, and high connectivity lakes are represented by purple symbols. WS is the lake watershed extent. SWS is the lake subwatershed extent. Connectivity metrics are defined in Figure 2.", warning=FALSE, message=FALSE}
+```{r 08_maps, echo=FALSE, fig.cap="Locations of lakes of with different connectivity metric values at the (A) lake subwatershed and (B) lake watershed extent. Low valued lakes are represented by lighter (green) symbols, and high values lakes are represented by darker (purple) symbols. WS is the lake watershed extent. SWS is the lake subwatershed extent. Connectivity metrics are defined in Figure 2.", warning=FALSE, message=FALSE}
 knitr::include_graphics("../figures/08_maps-1.pdf")
 ```
 
