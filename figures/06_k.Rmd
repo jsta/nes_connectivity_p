@@ -23,7 +23,7 @@ knitr::read_chunk("../scripts/99_utils.R")
   source("../scripts/01.5_loaddata.R")
 ```
 
-```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider equation in low and high connectivity partitions at the (A) lake watershed and (B) network watershed scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=7, fig.height=3.8, warning=FALSE}
+```{r 06_k, echo=FALSE, message=FALSE, fig.cap="Distribution of the k parameter from the Vollenweider equation in low and high connectivity metric partitions at the (A) lake watershed and (B) network watershed scales. Green symbols indicate the lower of the two partition groups while purple symbols represent the higher of the two partition groups (see Table 2).", fig.width=7, fig.height=3.8, warning=FALSE}
 
 model_signif <- read.csv("../scripts/model_signif.csv", 
                          stringsAsFactors = FALSE)
@@ -50,12 +50,12 @@ fit_df_iws <- rbind(
 
 # controls ordering of ridge plot
 fit_df_iws$key <- factor(fit_df_iws$key, levels = c("k",
-                                                    "k1_sr", "k2_sr",
-                                                    "k1_bf", "k2_bf",
-                                                    "k2_md", "k1_md",
+                                                    "k1_sr", "k2_sr", # k2 is higer
+                                                    "k1_bf", "k2_bf", # k2 is higher
+                                                    "k1_md", "k2_md", # k2 is deeper
                                                     "k1_la", "k2_la",
-                                                    "k2_lc", "k1_lc",
-                                                    "k2_sd", "k1_sd",
+                                                    "k2_lc", "k1_lc", # k2 is dr_stream
+                                                    "k1_sd", "k2_sd", # k2 is more dense
                                                     "k1_cd", "k2_cd",
                                                     "k1_ll", "k2_ll"))
 # k2  = higher metric value
@@ -159,10 +159,10 @@ fit_df_nws <- dplyr::filter(fit_df_nws, fit_df_nws$key %in% fit_df_iws$key)
 fit_df_nws$key <- factor(fit_df_nws$key, levels = c("k",
                                                     "k1_sr", "k2_sr",
                                                     "k1_bf", "k2_bf",
-                                                    "k2_md", "k1_md",
+                                                    "k1_md", "k2_md",
                                                     "k1_la", "k2_la",
                                                     "k2_lc", "k1_lc",
-                                                    "k2_sd", "k1_sd",
+                                                    "k1_sd", "k2_sd",
                                                     "k1_cd", "k2_cd",
                                                     "k1_ll", "k2_ll"))
 # k2  = higher metric value

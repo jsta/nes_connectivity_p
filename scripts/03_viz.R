@@ -7,7 +7,7 @@
 plot_grid(
   full_pred_plot(nes_iws, readRDS("../data/global_vollenweider.rds")),
   part_pred_plot(nes_nws, readRDS("../data/nws/ll_vollenweider.rds"),
-                 8, "B.", xl = TRUE, yl = FALSE, legend_title = "Link length \n (connectivity)"), 
+                 8, "B.", xl = TRUE, yl = FALSE, legend_title = "Link length"), 
   rel_widths = c(1, 0.9), 
   rel_heights = c(1, 1))
 
