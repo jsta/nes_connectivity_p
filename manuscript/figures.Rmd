@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.path = "../figures/", fig.width = 5, fig.
 knitr::include_graphics("../figures/01_conceptual_p-cycle_pt2.pdf")
 ```
 
-```{r fig.cap="Connectivity metric definitions along with simplified examples of high and low connectivity lakes that might arise from a binary classification. Here, high connectivity lakes with respect to both lake-stream-based and stream-based metrics are associated with lower barriers to in-stream transport. For stream-based metrics, high connectivity lakes are associated with more direct transport of P from terrestrial runoff to streams. We use the term “first order stream” to describe a headwater stream.", echo=FALSE}
+```{r fig.cap="Connectivity metric definitions along with simplified examples of high and low value lakes that might arise from a binary classification. Both lake-stream-based and stream-based metrics are associated with restrictions on  in-stream transport whereas stream-based metrics are associated with differences in transport of P from terrestrial runoff to streams. We use the term “first order stream” to describe a headwater stream.", echo=FALSE}
 knitr::include_graphics("../figures/02_conny_metric_key_crop_small.pdf")
 ```
 
