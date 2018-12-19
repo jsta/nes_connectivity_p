@@ -286,7 +286,7 @@ iws_key <- rbind(iws_key,
                  data.frame(iws_names = c("lake_area_ha", 
                                           "p_pnt_source_pct", "iws_ha", 
                                           "p_percent_retention"), 
-                            abb = c("Lake Area", "Point Source P", "LWS area", 
+                            abb = c("Lake Area", "Point Source P", "SWS area", 
                                     "P Retention")))
 iws_key <- iws_key[!duplicated(iws_key),]
 names(nes_iws_sub) <- iws_key$abb
@@ -309,8 +309,8 @@ nws_key <- rbind(nws_key, data.frame(nws_names = c("lake_area_ha", "p_total",
                                                    "nws_ha", "retention_time_yr", 
                                                    "p_percent_retention"), 
                                      abb = c("Lake Area", "P Loading", 
-                                             "Point Source P", "LWS area", 
-                                             "NWS area", "Water Residence Time", 
+                                             "Point Source P", "SWS area", 
+                                             "WS area", "Water Residence Time", 
                                              "P Retention")))
 nws_key <- nws_key[!duplicated(nws_key),]
 names(nes_nws_sub) <- nws_key$abb

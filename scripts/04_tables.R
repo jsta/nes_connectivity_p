@@ -18,7 +18,7 @@ name_key <- data.frame(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
     "P Loading (kg/yr)", "P Retention", "Residence Time (yr)",
     "Lake Area (km2)", "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
-    "Lake Watershed Area (km2)", "Network Watershed Area (km2)"), 
+    "Lake Subwatershed Area (km2)", "Lake Watershed Area (km2)"), 
   digits = c(2, 0, 2, 
              0, 2, 2, 
              2, 1, 2, 2, 

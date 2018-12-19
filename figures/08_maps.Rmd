@@ -116,7 +116,7 @@ plot_grid(
             NULL,
             NULL, 
             nrow = 4, ncol = 1,
-            labels = c("A. LWS", "", "B. NWS", "", ""), 
+            labels = c("A. SWS", "", "B. WS", "", ""), 
             label_colour = "black", vjust = c(1.2, 0, 2, 0, 0), 
             hjust = c(-0.1, 0, -0.12, 0, 0)),
   plot_grid(

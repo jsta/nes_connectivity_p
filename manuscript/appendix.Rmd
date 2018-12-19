@@ -186,7 +186,7 @@ gg_fit_multi <- ggplot(data = md, aes(x = hrt, y = Rp)) +
 gg_fit_multi
 ```
 
-```{r p-retention_vs_percent-ag, fig.cap="\\label{fig:fig2}P retention versus percent agriculture in network watersheds.", fig.width = 3, fig.height = 3, warning=FALSE, message=FALSE}
+```{r p-retention_vs_percent-ag, fig.cap="\\label{fig:fig2}P retention versus percent agriculture in lake watersheds.", fig.width = 3, fig.height = 3, warning=FALSE, message=FALSE}
 nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
 
 ggplot() + 
