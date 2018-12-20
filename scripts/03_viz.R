@@ -244,8 +244,7 @@ plot_grid(
 
 # ---- 07_cor_mat_hmap ----
 # correlation matrix heatmap
-# setwd("scripts")
-library(corrr)
+# setwd("scripts"); source("99_utils.R"); source("01.5_loaddata.R")
 
 splits      <- read.csv("../figures/table_1.csv", stringsAsFactors = FALSE)
 
@@ -345,9 +344,9 @@ p_values <- get_corrr_p_values(nes_sub)
 # correlation matrix 
 res <- shave(correlate(nes_sub))
 sig_positions <- which(p_values > 0.05, TRUE)
-for(i in seq_len(nrow(sig_positions))){
-  res[sig_positions[i, 1], sig_positions[i, 2] + 1] <- NA
-}
+# for(i in seq_len(nrow(sig_positions))){
+#   res[sig_positions[i, 1], sig_positions[i, 2] + 1] <- NA
+# }
 
 res <- res[apply(res[,2:ncol(res)], 1, function(x) !all(is.na(x))),]
 res <- res[,c(TRUE, apply(res[,2:ncol(res)], 2, function(x) !all(is.na(x))))]
@@ -372,11 +371,16 @@ fnc <- function(var, decimal.places) {
   var
 }
 
+cell_text <- apply(res_f, 2, function(x) fnc(x, 2))
+for(i in seq_len(nrow(sig_positions))){
+  cell_text[sig_positions[i, 1] - 1, sig_positions[i, 2]] <- ""
+}
+
 pheatmap::pheatmap(res_f, na_col = "grey", 
                    cluster_cols = FALSE, cluster_rows = FALSE, 
                    color = colorRampPalette(
                      rev(
                        RColorBrewer::brewer.pal(n = 7, name ="BrBG")[2:6]
                       ))(100), 
-                   display_numbers = apply(res_f, 2, function(x) fnc(x, 2)), 
+                   display_numbers = cell_text, 
                    fontsize_number = 6)
