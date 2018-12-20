@@ -34,3 +34,7 @@ figures/*.tex
 figures/conceptual_p-cycle.xml
 manuscript/01_lno_submission.pdf
 manuscript/02_lno_submission.pdf
+nes_iws.rds
+nes_nws.rds
+nes_rf_iws.rds
+nes_rf_nws.rds
