@@ -23,7 +23,6 @@ suppressMessages(library(magrittr))
 suppressMessages(library(purrr))
 
 prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALSE){
-  
   nes         <- read.csv(system.file("extdata/nes.csv", package = "nesRdata"),
                           stringsAsFactors = FALSE)
   nes_x_lagos <- read.csv(nes_x_lagos, stringsAsFactors = FALSE)
@@ -65,6 +64,7 @@ prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALS
     nes <- dplyr::left_join(nes, nes_x_lagos)
   }
   
+  # browser()
   nes <- dplyr::filter(nes,
                        !is.na(retention_time),
                        !is.na(retention_time_units),
@@ -82,7 +82,7 @@ prep_full_nes <- function(nes_x_lagos, conny_metrics_path, join_lagos_gis = FALS
   }
   nes <- dplyr::filter(nes, lakeconnection != "Isolated",
                        lakeconnection != "Headwater")
-  nes$lakeconnection      <- droplevels(nes$lakeconnection)
+  # nes$lakeconnection      <- droplevels(nes$lakeconnection)
   nes$p_percent_retention <- nes$p_percent_retention / 100
   
   nes$tp_in <- nesRdata:::calculate_tp_in(nes)
