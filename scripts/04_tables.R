@@ -119,5 +119,5 @@ knitr::kable(res, format = "latex", escape = FALSE, booktabs = TRUE,
                            "Delta k", "Split Value", "N", "N"), 
              align = c("lllcccc")) %>% 
   kable_styling() %>%
-  add_header_above(c(" " = 5, "Low Connectivity" = 1, "High Connectivity" = 1))
+  add_header_above(c(" " = 5, "Low" = 1, "High" = 1))
   
