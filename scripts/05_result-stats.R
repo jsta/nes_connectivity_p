@@ -202,3 +202,31 @@ group_by(milstead, hrt_cat) %>%
   mutate(Rp_IQR = Rp_75 - Rp_25)
 
 boxplot(Rp ~ hrt_cat, data = milstead)
+
+# ---- loading_vs_concentration ----
+# Is loading a better predictor of retention than connectivity?
+# > Not according to Fig 4 but a more thorough investigation is beyond the scope of the paper
+# Is loading equivalent to concentration * wrt?
+
+setwd("scripts"); source("01.5_loaddata.R"); source("99_utils.R")
+
+hist(nes_nws$mean_depth)
+# m2 * m = volume
+test <- nes_nws %>% 
+  # calculate tp_in (tp concentration) from total_inflow and p_total
+  calculate_tp_in() %>% # mg / L / yr
+  # calculate retention time independently from total_inflow and volume
+  mutate(surface_area = surface_area * 1000000) %>% # km2 to m2
+  mutate(volume = surface_area * mean_depth) %>%
+  mutate(volume = volume * 1000000) %>% # m3 to cm3
+  mutate(volume = volume * 0.001) %>% # ml to L
+  mutate(total_inflow = (total_inflow / 0.001) * 3.154e+7) %>% # cms to L/yr
+  mutate(retention_time_yr_manual = (1 / total_inflow) * volume) %>%
+  # calculate p_total (p loading) from concentration and wrt
+  mutate(tp_loading = p_total * 1000000) # kg to mg
+  
+plot(test$tp, test$tp_in)
+abline(0, 1)
+
+plot(test$retention_time_yr, test$retention_time_yr_manual)
+abline(0, 1)

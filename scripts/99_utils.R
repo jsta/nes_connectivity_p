@@ -398,3 +398,12 @@ signif_star <- function(x){
     ""
   }
 }
+
+# from nesRdata:::calculate_tp_in
+calculate_tp_in <- function(nes){
+  # kg to mg
+  nes$tp_in <- nes$p_total * 1000000
+  # cms to l per year
+  nes$tp_in <- nes$tp_in / ((nes$total_inflow * 60 * 60 * 24 * 365) / 0.001)
+  nes
+}
