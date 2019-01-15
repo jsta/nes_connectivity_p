@@ -22,7 +22,7 @@ knitr::include_graphics("../figures/02_conny_metric_key_crop_small.pdf")
 knitr::include_graphics("../figures/03_iws_nws.pdf")
 ```
 
-```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.cap="Correlation among connectivity metrics and selected lake characteristics. WS is the lake watershed extent whereas SWS is the lake subwatershed extent. Connectivity metrics are defined in Figure 2.", message=FALSE}
+```{r 07_cor_mat_hmap, echo=FALSE, warning=FALSE, fig.cap="Correlation among connectivity metrics and selected lake characteristics. Cell shading and color reflects the correlation coefficient value. Only coefficients accompanied by a significant p value < 0.05 are shown as text. Here, WS is the lake watershed extent whereas SWS is the lake subwatershed extent. Connectivity metrics are defined in Figure 2.", message=FALSE}
 knitr::include_graphics("../figures/07_cor_mat_hmap-1.pdf")
 ```
 
