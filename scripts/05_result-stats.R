@@ -224,9 +224,13 @@ test <- nes_nws %>%
   mutate(retention_time_yr_manual = (1 / total_inflow) * volume) %>%
   # calculate p_total (p loading) from concentration and wrt
   mutate(tp_loading = p_total * 1000000) # kg to mg
-  
-plot(test$tp, test$tp_in)
-abline(0, 1)
+
+ggplot(data = test) + 
+  geom_point(aes(x = tp, y = tp_in)) + 
+  ylab("Inflow TP") + xlab("Lake TP") +
+  geom_abline(aes(slope = 1, intercept = 0))
+
+ggplot2::ggsave("../figures/tp-in_vs_tp-lake.png")
 
 plot(test$retention_time_yr, test$retention_time_yr_manual)
 abline(0, 1)
