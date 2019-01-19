@@ -5,7 +5,7 @@ liftr:
   maintainer: "Joseph Stachelek"
   email: "stachel2@msu.edu"
   from: "rocker/geospatial:latest"
-  pandoc: true
+  pandoc: false
   sysdeps: 
     - apt-utils
     - grass
@@ -130,83 +130,37 @@ A primary tool for evaluating the influence of specific lake characteristics, li
 
 For example, there is evidence that the relative proportion of particulate versus dissolved P loads (hereafter, particulate load fraction), influences P retention in stream and wetland ecosystems (Jarvie et al. 2011; Kronvang 1992; Russell et al. 1998; Vanni et al. 2001). However, evidence for particulate load fraction controls on P retention in lakes remains limited because of difficulties in tracking the fate of particulate loads after entering a lake (Brett and Benjamin 2007; Dillon and Molot 1996). Therefore, there is potential to further study particulate load Ffraction using proxies that may be closely related to it, such as the relative amounts of point and nonpoint nutrient sources to a lake subwatershed.
 
-In general, point source inputs e to lakes are associated with increased dissolved P loads (Kronvang 1992; Russell et al. 1998), whereas non-point source inputs to lakes, such as those in lake watersheds with high agricultural land e use cover, typically have higher particulate P loads (Carpenter et al. 1998; Sharpley et al. 1994). Exceptions to these generalizations have been observed in areas where increased dissolved P loading O occurs not as a result of point source nutrient inputs but rather as a result of non-point source runoff due to P saturated soils or legacy P release (Bennett and Carpenter 2001; Powers et al. 2016). Despite the fact that particulate loads are usually related to non-point source inputs, the fraction of non-point source inputs that are in particulate form is highly variable and may depend on intra-annual flow variations as well as watershed erosion characteristics (Jarvie et al. 2011). Furthermore, quantifying non-point source inputs at broad spatial scales is not commonly done due to logistical and sampling constraints (Guy et al. 1994). As a result, studies often infer the relative amounts of particulate and dissolved loading from other available proxy data such as land-use cover (Ellison and Brett
-2006, Djodjic and Markensten 2018).
+In general, point source inputs e to lakes are associated with increased dissolved P loads (Kronvang 1992; Russell et al. 1998), whereas non-point source inputs to lakes, such as those in lake watersheds with high agricultural land e use cover, typically have higher particulate P loads (Carpenter et al. 1998; Sharpley et al. 1994). Exceptions to these generalizations have been observed in areas where increased dissolved P loading O occurs not as a result of point source nutrient inputs but rather as a result of non-point source runoff due to P saturated soils or legacy P release (Bennett and Carpenter 2001; Powers et al. 2016). Despite the fact that particulate loads are usually related to non-point source inputs, the fraction of non-point source inputs that are in particulate form is highly variable and may depend on intra-annual flow variations as well as watershed erosion characteristics (Jarvie et al. 2011). Furthermore, quantifying non-point source inputs at broad spatial scales is not commonly done due to logistical and sampling constraints (Guy et al. 1994). As a result, studies often infer the relative amounts of particulate and dissolved loading from other available proxy data such as land-use cover (Ellison and Brett 2006, Djodjic and Markensten 2018).
 
 Apart from land-use cover, another potential proxy for particulate load fraction entering lakes is the type and amount of freshwater connections to a lake, which we argue is easier to measure than other proxies, and could help to improve estimates of lake P retention, especially in lakes for which we lack P loading data (Figure 1). Although freshwater connectivity may be easy to measure from a logistical standpoint, there are still many ways to measure connectivity that likely represent different mechanisms of water and material flow (Figure 2). We broadly define and study two types of freshwater connectivity that correspond to either stream-based metrics or lake-stream-based metrics. First, lake-stream-based metrics measure the connections between a lake, other upstream lakes, and streams e in their watershed. This type of connectivity can be quantified by measuring the closest distance to an upstream stream-connected lake (Figure 2A), or by measuring the total upstream lake area e (Figure 2B). Second, stream-based metrics measure the connections between inflowing streams and their surrounding land whereby increasing stream connections lead to a greater abundance of land-water O interfaces and greater transport of material from hillslope and riparian areas adjacent to watershed stream networks (Figure 2C-E).
 
-In addition to variation among connectivity metrics and connectivity metric types, it is also not always clear which spatial extent is appropriate for determining functional differences in connectivity among lakes (Soranno et al. 2015). Such information is needed to inform the design
-of regulatory frameworks balancing controls on cumulative nutrient transport along stream networks and controls on localized nutrient transport (Alexander et al. 2008; Carpenter et al. 1998; Withers and Jarvie 2008). To test the importance of different spatial extents, we examined connectivity metrics measured for both the lake subwatershed extent and the lake watershed extent (Figure 3). Here, the lake subwatershed extent includes the elements of the immediate watershed in the direct drainage of a lake whereas the lake watershed extent includes all of the elements in the entirety of the lake-stream network up to and including headwater streams (Figure 3).
-We propose that measures of freshwater connectivity are related to P retention in the following ways. First, some connectivity metrics reflect the proximity of terrestrial watershed areas to the stream network (Covino 2017). For example, lakes with a high watershed stream density should have increased particulate matter loading from terrestrial hillslope and riparian areas adjacent to watershed stream networks because particulate matter export is limited by overland distance (Gomi et al. 2002). Second, connectivity metrics can reflect the configuration of lakes within lake-stream networks. e For example, lakes with upstream lakes in close proximity may receive P loads that have previously undergone in-lake processing whereby labile fractions have already been trapped in upstream lakes e (Cardille et al. 2007). In contrast, lakes with more distant upstream lakes are more likely to receive the more labile fractions from terrestrial runoff that serve to increase P retention as opposed to receiving the more recalcitrant fractions that are resistant to biological uptake and are thus not retained. Although some connectivity metrics have an intuitive relation to P retention, it is not clear which specific measures of freshwater connectivity are important for transport of particulate matter. Therefore, our study is designed to examine and compare which measures of connectivity are more related to lake P retention. We addressed the above knowledge gaps by quantifying and comparing a range of freshwater connectivity measures at multiple spatial extents. Taken together, our suite of connectivity metrics reflect both freshwater connectivity in the direct drainage of lakes (i.e. the lake subwatershed extent) and freshwater connectivity of the entirety of the stream network up to and including watershed headwater areas (i.e. the lake watershed extent, Figure 3). Our motivation for measuring connectivity so many ways is that it is easy to measure connectivity of lakes with small watersheds situated at the beginning of lake chains but it is much more challenging to identify the type and extent of connectivity in larger, more complex lake networks. Another reason we examined relationships between P retention, multiple measures of connectivity, and multiple spatial extents is that many commonly used connectivity metrics merely reflect watershed size (spatial extent) rather than types of material transport or particulate load fraction (Leibowitz et al., 2018). Although lakes in larger watersheds have both a greater potential area from which to source particulate runoff and total phosphorus export from the watershed, we expect that delivery of sediment-bound phosphorus is dependent on connectivity-mediated trapping in the upstream watershed e (Prairie and Kalff 1986). We asked two questions in this  study: 1) Which measures of freshwater connectivity influence lake phosphorus retention? 2) What e spatial extent of connectivity most strongly influences P retention? To answer these questions, we fit statistical P retention models in a Bayesian hierarchical framework following Cheng et O al. (2010) where 2 separate values of the k processing parameter were estimated for lakes with either high or low values of each connectivity metric. Using this approach, higher k values for a specific lake connectivity class indicates more extensive in-lake processing and higher P retention. We applied this model to a dataset of 129 lakes across a wide range of hydrologic, geologic, and climatic settings. We fit separate models using each combination of connectivity metric and spatial extent in an effort to determine whether P retention is more strongly controlled at the lake subwatershed extent or the lake watershed extent.
+In addition to variation among connectivity metrics and connectivity metric types, it is also not always clear which spatial extent is appropriate for determining functional differences in connectivity among lakes (Soranno et al. 2015). Such information is needed to inform the design of regulatory frameworks balancing controls on cumulative nutrient transport along stream networks and controls on localized nutrient transport (Alexander et al. 2008; Carpenter et al. 1998; Withers and Jarvie 2008). To test the importance of different spatial extents, we examined connectivity metrics measured for both the lake subwatershed extent and the lake watershed extent (Figure 3). Here, the lake subwatershed extent includes the elements of the immediate watershed in the direct drainage of a lake whereas the lake watershed extent includes all of the elements in the entirety of the lake-stream network up to and including headwater streams (Figure 3).
+
+We propose that measures of freshwater connectivity are related to P retention in the following ways. First, some connectivity metrics reflect the proximity of terrestrial watershed areas to the stream network (Covino 2017). For example, lakes with a high watershed stream density should have increased particulate matter loading from terrestrial hillslope and riparian areas adjacent to watershed stream networks because particulate matter export is limited by overland distance (Gomi et al. 2002). Second, connectivity metrics can reflect the configuration of lakes within lake-stream networks. e For example, lakes with upstream lakes in close proximity may receive P loads that have previously undergone in-lake processing whereby labile fractions have already been trapped in upstream lakes e (Cardille et al. 2007). In contrast, lakes with more distant upstream lakes are more likely to receive the more labile fractions from terrestrial runoff that serve to increase P retention as opposed to receiving the more recalcitrant fractions that are resistant to biological uptake and are thus not retained. Although some connectivity metrics have an intuitive relation to P retention, it is not clear which specific measures of freshwater connectivity are important for transport of particulate matter. Therefore, our study is designed to examine and compare which measures of connectivity are more related to lake P retention. 
+
+We addressed the above knowledge gaps by quantifying and comparing a range of freshwater connectivity measures at multiple spatial extents. Taken together, our suite of connectivity metrics reflect both freshwater connectivity in the direct drainage of lakes (i.e. the lake subwatershed extent) and freshwater connectivity of the entirety of the stream network up to and including watershed headwater areas (i.e. the lake watershed extent, Figure 3). Our motivation for measuring connectivity so many ways is that it is easy to measure connectivity of lakes with small watersheds situated at the beginning of lake chains but it is much more challenging to identify the type and extent of connectivity in larger, more complex lake networks. Another reason we examined relationships between P retention, multiple measures of connectivity, and multiple spatial extents is that many commonly used connectivity metrics merely reflect watershed size (spatial extent) rather than types of material transport or particulate load fraction (Leibowitz et al., 2018). Although lakes in larger watersheds have both a greater potential area from which to source particulate runoff and total phosphorus export from the watershed, we expect that delivery of sediment-bound phosphorus is dependent on connectivity-mediated trapping in the upstream watershed (Prairie and Kalff 1986). 
+
+We asked two questions in this  study: 1) Which measures of freshwater connectivity influence lake phosphorus retention? 2) What e spatial extent of connectivity most strongly influences P retention? To answer these questions, we fit statistical P retention models in a Bayesian hierarchical framework following Cheng et O al. (2010) where 2 separate values of the k processing parameter were estimated for lakes with either high or low values of each connectivity metric. Using this approach, higher k values for a specific lake connectivity class indicates more extensive in-lake processing and higher P retention. We applied this model to a dataset of 129 lakes across a wide range of hydrologic, geologic, and climatic settings. We fit separate models using each combination of connectivity metric and spatial extent in an effort to determine whether P retention is more strongly controlled at the lake subwatershed extent or the lake watershed extent.
 
 ## Methods
 
 ### Dataset description
 
-We used data on P retention, maximum depth, and water residence time from 129 lakes in the National Eutrophication Survey (USEPA 1975, Stachelek et al. 2018). Mean annual P loading, P discharge, and P retention values in the National Eutrophication Survey (NES) dataset were calculated based on monthly sampling for P in tributary and outlet discharge points as well as
-any municipal waste discharges from 1972 to 1975. Here, P retention is a unitless value representing the fraction of incoming P loads. Sampling frequency for water discharge and residence time varied among o
- lakes but details of these variations were not provided in the source
-rdataset (USEPA 1975, Stachelek et al. 2018). Estimates of water discharge and residence time in
-R
-the NES dataset represent normalized e mean flow estimates expected to occur during a period of
-average precipitation and hydrology v
- (USEPA 1975). Water residence time for our study lakes
-iranged from 1 week to 17 years with an interquartile e range of 3 months to 1.8 years while P
-retention ranged from 0.06 to 0.99 with an w
- interquartile range of 0.24 to 0.59 (Table 1).
-We supplemented the NES dataset with boundaries O for lake subwatersheds, as well as
-n
-estimates of stream density, upstream lake area, upstream lake connection(s), baseflow (an index
-ly
-of groundwater inputs), land-use cover, and other water quality measurements from the LAGOS-
-NE dataset (Table 1; Soranno et al. 2017). Our study lakes encompassed a wide range of land-
-use cover types and nutrient levels (Table 1). Although, lake subwatersheds were variable with
-respect to agricultural land use cover, we did not observe a strong relationship with lake P
-retention (Figure A2). On average, the water quality (total phosphorus, chlorophyll
-concentration, and Secchi depth) of the lakes in our study are similar to other US lakes as
-measured by the stratified random sampling design of the National Lakes Assessment (NLA) lake population (USEPA 2016). However, our lakes are substantially larger and deeper than most
-NLA lakes (Figure A3).
-We restricted the lakes in the study to those located within the footprint of LAGOS-NE
-which includes lakes located in 17 northeastern and midwestern US states (Soranno et al. 2017).
-We excluded lakes from our analysis if they had a surface area of greater than 1000 km2 or a
-surface area of less than 0.1 km2. We also excluded lakes if they had a maximum depth of greater
-than 70 m, lacked upstream surface water connections, or had one of the North American Great
-Lakes in its upstream watershed. A total of 129 out of 236 NES lakes met each of these selection criteria.
+We used data on P retention, maximum depth, and water residence time from 129 lakes in the National Eutrophication Survey (USEPA 1975, Stachelek et al. 2018). Mean annual P loading, P discharge, and P retention values in the National Eutrophication Survey (NES) dataset were calculated based on monthly sampling for P in tributary and outlet discharge points as well as any municipal waste discharges from 1972 to 1975. Here, P retention is a unitless value representing the fraction of incoming P loads. Sampling frequency for water discharge and residence time varied among lakes but details of these variations were not provided in the source dataset (USEPA 1975, Stachelek et al. 2018). Estimates of water discharge and residence time in the NES dataset represent normalized mean flow estimates expected to occur during a period of average precipitation and hydrology (USEPA 1975). Water residence time for our study lakes ranged from 1 week to 17 years with an interquartile e range of 3 months to 1.8 years while P retention ranged from 0.06 to 0.99 with an interquartile range of 0.24 to 0.59 (Table 1).
+
+We supplemented the NES dataset with boundaries O for lake subwatersheds, as well as estimates of stream density, upstream lake area, upstream lake connection(s), baseflow (an index of groundwater inputs), land-use cover, and other water quality measurements from the LAGOS-NE dataset (Table 1; Soranno et al. 2017). Our study lakes encompassed a wide range of land-use cover types and nutrient levels (Table 1). Although, lake subwatersheds were variable with respect to agricultural land use cover, we did not observe a strong relationship with lake P retention (Figure A2). On average, the water quality (total phosphorus, chlorophyll concentration, and Secchi depth) of the lakes in our study are similar to other US lakes as measured by the stratified random sampling design of the National Lakes Assessment (NLA) lake population (USEPA 2016). However, our lakes are substantially larger and deeper than most NLA lakes (Figure A3).
+
+We restricted the lakes in the study to those located within the footprint of LAGOS-NE which includes lakes located in 17 northeastern and midwestern US states (Soranno et al. 2017). We excluded lakes from our analysis if they had a surface area of greater than 1000 km2 or a surface area of less than 0.1 km2. We also excluded lakes if they had a maximum depth of greater than 70 m, lacked upstream surface water connections, or had one of the North American Great Lakes in its upstream watershed. A total of 129 out of 236 NES lakes met each of these selection criteria.
 
 ### Connectivity metrics and spatial extents
 
-In addition to data from the NES and  LAGOS-NE datasets, we calculated several connectivity
-imetrics that we expected would be related e to lake P retention (Figure 2). Some of these metrics
-were stream-based with the goal of capturing w
- aspects of the configuration of each lakes’
-upstream surface water network (Figure 2C-D). In particular, O we chose metrics that would
-n
-quantitatively approximate network complexity under the assumption that highly complex
-ly
-networks are also low connectivity networks. This assumption is supported by the findings of
-stream network simulations where increased network complexity leads to increased network
-resistance and ultimately decreases in network connectivity (Rodriguez-Iturbe and Rinaldo
-2001). In addition to stream-based metrics, we calculated lake-stream-based metrics that we
-expected would reflect the likelihood of P trapping in upstream lakes prior to arriving at a given
-focal lake via tributary flow (Figure 2A, 2B). A simple metric that captures this likelihood is the
-presence (or absence) of an upstream lake (greater than 4 ha) which we define as “lake
-
-connection” (Fergus et al. 2017). In addition to lake connection, we calculated related metrics
-such as total upstream lake area and the network distance to the closest upstream lake.
-To examine the importance of spatial extent relative to our connectivity metrics, we
-calculated each metric at multiple extents (Figure 3). First, we calculated connectivity metrics at
-the scale of individual lake subwatersheds. We defined a lake subwatershed as the area draining
-into a particular lake exclusive of any upstream areas that drain into a lake greater than or equal
-to 10 ha (0.1 km2). Next, we calculated connectivity metrics at the scale of entire upstream lake
-networks (lake watershed extent). We defined a lake watershed as the area draining into any part
-Fof the upstream network o
- irrespective of the presence or absence of upstream lakes (Figure 3).
-rAll connectivity metrics were calculated using the high-resolution National Hydrography
-R
-Dataset (NHD) as a primary input (USGS e 2018). Average link length was calculated as the total
-stream length in a given watershed divided v
- by the number of stream reaches after dissolving
-i(removing) any network points that do not e occur at a stream junction. Stream density was
+In addition to data from the NES and  LAGOS-NE datasets, we calculated several connectivity metrics that we expected would be related e to lake P retention (Figure 2). Some of these metrics were stream-based with the goal of capturing  aspects of the configuration of each lakes’ upstream surface water network (Figure 2C-D). In particular, we chose metrics that would quantitatively approximate network complexity under the assumption that highly complex networks are also low connectivity networks. This assumption is supported by the findings of stream network simulations where increased network complexity leads to increased network resistance and ultimately decreases in network connectivity (Rodriguez-Iturbe and Rinaldo 2001). In addition to stream-based metrics, we calculated lake-stream-based metrics that we
+expected would reflect the likelihood of P trapping in upstream lakes prior to arriving at a given focal lake via tributary flow (Figure 2A, 2B). A simple metric that captures this likelihood is the presence (or absence) of an upstream lake (greater than 4 ha) which we define as “lake connection” (Fergus et al. 2017). In addition to lake connection, we calculated related metrics such as total upstream lake area and the network distance to the closest upstream lake.
+To examine the importance of spatial extent relative to our connectivity metrics, we calculated each metric at multiple extents (Figure 3). First, we calculated connectivity metrics at the scale of individual lake subwatersheds. We defined a lake subwatershed as the area draining into a particular lake exclusive of any upstream areas that drain into a lake greater than or equal
+to 10 ha (0.1 km2). Next, we calculated connectivity metrics at the scale of entire upstream lake networks (lake watershed extent). We defined a lake watershed as the area draining into any part
+Fof the upstream network irrespective of the presence or absence of upstream lakes (Figure 3).
+All connectivity metrics were calculated using the high-resolution National Hydrography Dataset (NHD) as a primary input (USGS e 2018). Average link length was calculated as the total stream length in a given watershed divided v
+ by the number of stream reaches after dissolving (removing) any network points that do not e occur at a stream junction. Stream density was
 calculated as the length of all streams in the w
  watershed (minus artificial lines through lakes)
 expressed in units of meters per hectare. Upstream lake O area was calculated as the sum of the
@@ -224,32 +178,15 @@ streamnet package use the sf R package (Pebesma 2018) as well as the v.net and v
 
 ### Modelling lake P retention
 
-We modelled lake total phosphorus retention (hereafter, P retention) using the Vollenweider equation that models P retention as a function of water residence time and a parameter (k)
-conceptually representing in-lake P decay (Chapra 2008, Vollenweider 1975). Although there are
-several variants of this basic equation, we selected a 2-parameter form (equation 1) that has been
-Fshown to have good performance o
- in multiple cross-sectional studies (Brett and Benjamin 2007,
-rCheng et al. 2010):
-R
-Ri = 1 ― 1 + 1
- ktx
- i
- e Eq. 1
-v
-where Ri is P retention as a fraction of P inputs, i $\tau$ is water residence time, k is a unitless
-eparameter representing in-lake P decay, and w
- x is a unitless parameter representing P export via
-hydrologic flushing. Here, higher values of k are associated with greater integrated P losses from
-Osedimentation and biological uptake resulting in greater P retention. Note that Eq 1 does not
-n
-include a recycling term. Therefore, our results represent net l P retention (as opposed to gross P
-y
-retention) under a steady state assumption where lakes are at equilibrium with respect to
-recycling (Vollenweider 1975). Note that although some forms of the Vollenweider equation use
-P loading as a predictor variable, it does not appear in Eq 1. The reason for this is two-fold. First,
-estimates of P loading are more difficult to obtain than estimates of water residence time and our
-aim was to develop a model than can be widely applied to lakes for which we lack detailed data
-on P loading. Second, loading based model forms have been shown to be mathematically
+We modelled lake total phosphorus retention (hereafter, P retention) using the Vollenweider equation that models P retention as a function of water residence time and a parameter (k) conceptually representing in-lake P decay (Chapra 2008, Vollenweider 1975). Although there are several variants of this basic equation, we selected a 2-parameter form (equation 1) that has been
+shown to have good performance in multiple cross-sectional studies (Brett and Benjamin 2007, Cheng et al. 2010):
+
+$$
+Ri = 1 - \frac{1}{1 + kt^{x}_{i}}
+$$
+
+where $R_i$ is P retention as a fraction of P inputs, i $\tau$ is water residence time, k is a unitless parameter representing in-lake P decay, and w
+ x is a unitless parameter representing P export via hydrologic flushing. Here, higher values of k are associated with greater integrated P losses from sedimentation and biological uptake resulting in greater P retention. Note that Eq 1 does not include a recycling term. Therefore, our results represent net l P retention (as opposed to gross P retention) under a steady state assumption where lakes are at equilibrium with respect to recycling (Vollenweider 1975). Note that although some forms of the Vollenweider equation use P loading as a predictor variable, it does not appear in Eq 1. The reason for this is two-fold. First, estimates of P loading are more difficult to obtain than estimates of water residence time and our aim was to develop a model than can be widely applied to lakes for which we lack detailed data on P loading. Second, loading based model forms have been shown to be mathematically
 equivalent to water residence time based model forms (Brett and Benjamin 2008).
 We used the model described by Eq 1 to compare lake P retention in lakes with different
 connectivity by fitting the model in two ways. First, we modelled the overall relationship
@@ -257,19 +194,16 @@ between P retention and water residence time for all lakes in our dataset (globa
 we fit hierarchical versions of Eq. 1 where k was modelled separately (kj) as a function of a
 binary sub-population indicator gi denoting membership in one of two lake classes formed on the
 basis of specific connectivity metrics (or lake depth) and specific spatial extents:
-1
-Ri = 1 ―
- 1 + kjtxi
- F Eq. 2
-o
-kj = gi
- rwhere greater differences in k between R
- the two groups indicate greater support for a connectivity
-eeffect on P retention. Prior to model fitting, we examined the bivariate relationships between
-v
-each connectivity metric, water residence i time, P loading, and other factors related to P retention
-eusing Pearson’s correlation coefficients. The w
- purpose of this exercise was twofold, to determine
+
+$$
+Ri = 1 - \frac{1}{1 + k_{j}t^{x}_{i}}
+$$
+$$
+k_{j} = g_{i}
+$$
+
+where greater differences in k between R the two groups indicate greater support for a connectivity effect on P retention. Prior to model fitting, we examined the bivariate relationships between each connectivity metric, water residence i time, P loading, and other factors related to P retention
+eusing Pearson’s correlation coefficients. The purpose of this exercise was twofold, to determine
 the potential for collinearity among any of the variables in Eq 2 and to identify any relationships
 Obetween P retention, water residence time, and other watershed and lake characteristics that were
 n
