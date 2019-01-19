@@ -1,6 +1,6 @@
 .PHONY: figures data tables all
 
-all: manuscript/manuscript.pdf figures tables scripts/table_1.csv Dockerfile
+all: manuscript/manuscript.pdf figures tables scripts/table_1.csv
 
 data: 
 	cd data && make all

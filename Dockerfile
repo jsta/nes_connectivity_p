@@ -3,8 +3,7 @@ FROM rocker/geospatial:latest
 MAINTAINER Joseph Stachelek <stachel2@msu.edu>
 
 # System dependencies for required R packages
-RUN  rm -f /var/lib/dpkg/available \
-  && rm -rf  /var/cache/apt/* \
+RUN  rm -rf  /var/cache/apt/* \
   && apt-get update -qq \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -13,7 +12,7 @@ RUN  rm -f /var/lib/dpkg/available \
     libxml2-dev \
     git
 
-RUN apt-get update -qq && apt-get install -y --no-install-recommends apt-utils grass
+RUN apt-get update -qq && apt-get install -y --no-install-recommends grass
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 
