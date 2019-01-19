@@ -39,3 +39,6 @@ nes_nws.rds
 nes_rf_iws.rds
 nes_rf_nws.rds
 manuscript/*cover-letter.md
+manuscript/*.log
+manuscript/manuscript.tex
+manuscript/grayscale_figures.tex

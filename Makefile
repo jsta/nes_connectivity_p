@@ -1,12 +1,15 @@
 .PHONY: figures data tables all
 
+all: manuscript/manuscript.pdf figures tables scripts/table_1.csv Dockerfile
+
 data: 
 	cd data && make all
 
-all: manuscript/draft.pdf figures tables scripts/table_1.csv
+Dockerfile: manuscript/manuscript.Rmd
+	Rscript -e "liftr::lift('$<', output_dir = '.')"
 
-manuscript/draft.pdf: manuscript/draft.md
-	pandoc manuscript/draft.md -o manuscript/draft.pdf
+manuscript/manuscript.pdf: manuscript/manuscript.Rmd
+	Rscript -e "rmarkdown::render('$<')"
 
 figures: manuscript/figures.pdf manuscript/appendix.pdf manuscript/grayscale_figures.pdf
 
