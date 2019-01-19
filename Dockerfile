@@ -13,7 +13,7 @@ RUN  rm -f /var/lib/dpkg/available \
     libxml2-dev \
     git
 
-RUN apt-get update -qq && apt-get install -y --no-install-recommends grass
+RUN apt-get update -qq && apt-get install -y --no-install-recommends apt-utils grass
 
 # Pre-compiled pandoc required by rmarkdown
 # Version from: https://github.com/metacran/r-builder/blob/master/pkg-build.sh
