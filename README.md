@@ -17,6 +17,8 @@ The full system and R environment required to reproduce the paper and analyses i
 
 Run the following commands with Git and Docker installed:
 
+docker run -it <image> /bin/bash
+
 ```
 git pull https://github.com/jsta/nes_connectivity_p.git
 cd nes_connectivity_p

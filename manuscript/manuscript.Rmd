@@ -8,9 +8,10 @@ liftr:
   pandoc: false
   texlive: true
   sysdeps:
-    - grass
+    - grass-dev
     - p7zip-full
     - curl
+    - texlive-base
     - texlive-extra-utils 
   cran:
     - LAGOSNE
