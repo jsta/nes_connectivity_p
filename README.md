@@ -3,8 +3,6 @@ Code and data for:
 **Joseph Stachelek and Patricia A. Soranno (In Press)**. Does Freshwater Connectivity Influence Phosphorus Retention in Lakes? *Limnology and Oceanography*
 [preprint](manuscript/manuscript.pdf)
 
-> Limnology and Oceanography
-
 ### Products
 
 Figures: [manuscript/figures.pdf](manuscript/figures.pdf)
@@ -15,10 +13,18 @@ Manuscript: [manuscript/manuscript.pdf](manuscript/manuscript.pdf)
 
 ### Reproducibility
 
-The full system and R environment required to reproduce the paper and analyses is specified in [Dockerfile](Dockerfile) and on Dockerhub [jsta/stachelek_soranno_2019](https://cloud.docker.com/repository/docker/jsta/stachelek_soranno_2019).
+The full system and R environment required to reproduce the paper and analyses is specified in this [Dockerfile](Dockerfile) which is also on Dockerhub at [jsta/stachelek_soranno_2019](https://cloud.docker.com/repository/docker/jsta/stachelek_soranno_2019).
 
-Run `docker run -e PASSWORD=<PASSWORD> --rm -p 8787:8787 jsta/stachelek_soranno_2019`
-Run `make -B all` to reproduce outputs.
+Run the following commands with Git and Docker installed:
+
+```
+git pull https://github.com/jsta/nes_connectivity_p.git
+cd nes_connectivity_p
+docker pull jsta/stachelek_soranno_2019:latest
+docker run -e PASSWORD=<PASSWORD> --rm -p 8787:8787 -v .:/home/rstudio/stachelek_soranno_2019 jsta/stachelek_soranno_2019
+setwd("nes_connectivity_p")
+make -B all
+```
 
 #### Data requirements
 

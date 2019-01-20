@@ -10,6 +10,8 @@ liftr:
   sysdeps:
     - grass
     - p7zip-full
+    - curl
+    - texlive-extra-utils 
   cran:
     - LAGOSNE
     - brms

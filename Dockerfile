@@ -12,9 +12,11 @@ RUN  rm -rf  /var/cache/apt/* \
     libxml2-dev \
     git
 
-RUN apt-get update -qq && apt-get install -y --no-install-recommends grass p7zip-full
+RUN apt-get update -qq && apt-get install -y --no-install-recommends grass p7zip-full curl texlive-extra-utils 
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
+
+RUN tlmgr install beamer translator beamerposter
 
 RUN Rscript -e "source('https://cdn.rawgit.com/road2stat/liftrlib/aa132a2d/install_cran.R');install_cran(c('LAGOSNE','brms','dplyr','tidyr','modelr','data.tree','ggplot2','tidybayes','cowplot','nesRdata', 'pinp'))"
 
