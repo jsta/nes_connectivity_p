@@ -12,7 +12,7 @@ RUN  rm -rf  /var/cache/apt/* \
     libxml2-dev \
     git
 
-RUN apt-get update -qq && apt-get install -y --no-install-recommends grass
+RUN apt-get update -qq && apt-get install -y --no-install-recommends grass p7zip-full
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 
