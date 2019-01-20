@@ -12,7 +12,7 @@ RUN  rm -rf  /var/cache/apt/* \
     libxml2-dev \
     git
 
-RUN dpkg --purge --force-depends tex-common
+RUN dpkg --purge --force-depends tex-common && apt --fix-broken install
 
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends grass-dev p7zip-full curl texlive-base texlive-extra-utils 
 
