@@ -7,6 +7,7 @@ RUN  rm -rf  /var/cache/apt/* \
   && apt-get update -qq \
   && apt-get install -y --no-install-recommends \
     ca-certificates \
+    apt-utils \
     libssl-dev \
     libcurl4-openssl-dev \
     libxml2-dev \
@@ -14,7 +15,7 @@ RUN  rm -rf  /var/cache/apt/* \
 
 # RUN dpkg --purge --force-depends tex-common && apt -y --fix-broken install
 
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils grass-dev p7zip-full curl texlive-base texlive-extra-utils 
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends grass-dev p7zip-full curl texlive-base texlive-extra-utils 
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 
