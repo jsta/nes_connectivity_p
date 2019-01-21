@@ -3,6 +3,8 @@ Code and data for:
 **Joseph Stachelek and Patricia A. Soranno (In Press)**. Does Freshwater Connectivity Influence Phosphorus Retention in Lakes? *Limnology and Oceanography*
 [preprint](manuscript/manuscript.pdf)
 
+![Docker Build](https://img.shields.io/docker/build/jsta/stachelek_soranno_2019.svg)
+
 ### Products
 
 Figures: [manuscript/figures.pdf](manuscript/figures.pdf)
