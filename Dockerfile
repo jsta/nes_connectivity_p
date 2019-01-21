@@ -8,7 +8,10 @@ RUN dpkg --purge --force-depends tex-common texinfo \
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    apt-utils \
+    apt-utils
+    
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
     grass-dev \
     p7zip-full \
     curl \
