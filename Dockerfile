@@ -1,9 +1,10 @@
 FROM rocker/geospatial:latest
 ARG DEBIAN_FRONTEND=noninteractive
+ARG LANG=C
 
 MAINTAINER "Joseph Stachelek" stachel2@msu.edu
 
-RUN dpkg --purge --force-depends tex-common texinfo \ 
+RUN dpkg --purge --force-depends tex-common texinfo texlive-local \ 
   && apt --fix-broken install
 
 RUN apt-get update \
