@@ -5,6 +5,7 @@ MAINTAINER "Joseph Stachelek" stachel2@msu.edu
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
+    apt-utils \
     grass-dev \
     p7zip-full \
     curl \
