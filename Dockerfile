@@ -19,7 +19,8 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     grass-dev \
     p7zip-full \
-    curl 
+    curl \
+    libmagick++-dev
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 

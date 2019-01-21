@@ -19,13 +19,12 @@ The full system and R environment required to reproduce the paper and analyses i
 
 Run the following commands with Git and Docker installed:
 
-docker run -it <image> /bin/bash
-
 ```
 git pull https://github.com/jsta/nes_connectivity_p.git
 cd nes_connectivity_p
-docker pull jsta/stachelek_soranno_2019:latest
-docker run -e PASSWORD=<PASSWORD> --rm -p 8787:8787 -v .:/home/rstudio/stachelek_soranno_2019 jsta/stachelek_soranno_2019
+docker run -e PASSWORD=<PASSWORD> --rm --user root -p 8787:8787 -v /home/jose/test/nes_connectivity_p/:/home/rstudio/stachelek_soranno_2019 jsta/stachelek_soranno_2019
+docker ps
+docker exec -ti -u root <NAME> /bin/bash
 setwd("nes_connectivity_p")
 make -B all
 ```
