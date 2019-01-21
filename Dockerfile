@@ -1,4 +1,5 @@
 FROM rocker/geospatial:latest
+ARG DEBIAN_FRONTEND=noninteractive
 
 MAINTAINER "Joseph Stachelek" stachel2@msu.edu
 
