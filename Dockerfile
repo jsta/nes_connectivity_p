@@ -4,23 +4,22 @@ ARG LANG=C
 
 MAINTAINER "Joseph Stachelek" stachel2@msu.edu
 
-RUN dpkg --purge --force-depends tex-common texinfo texlive-local \ 
-  && apt --fix-broken install
+# RUN dpkg --purge --force-depends tex-common texinfo texlive-local \ 
+#   && apt --fix-broken install
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    apt-utils
+# RUN apt-get update \
+#  && apt-get install -y --no-install-recommends \
+#    apt-utils
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    texlive-base
+# RUN apt-get update \
+#  && apt-get install -y --no-install-recommends \
+#    texlive-base
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     grass-dev \
     p7zip-full \
-    curl \
-    texlive-latex-extra
+    curl 
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 
