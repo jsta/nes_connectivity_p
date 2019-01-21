@@ -4,7 +4,7 @@ MAINTAINER Joseph Stachelek <stachel2@msu.edu>
 
 # System dependencies for required R packages
 RUN  rm -rf  /var/cache/apt/* \
-  && apt-get update -qq \
+  && DEBIAN_FRONTEND=noninteractive apt-get update -qq \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
     apt-utils \
