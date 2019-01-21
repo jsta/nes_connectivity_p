@@ -9,7 +9,11 @@ RUN dpkg --purge --force-depends tex-common texinfo \
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     apt-utils
-    
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    texlive-base
+
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     grass-dev \
