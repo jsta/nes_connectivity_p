@@ -3,6 +3,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 MAINTAINER "Joseph Stachelek" stachel2@msu.edu
 
+RUN dpkg --purge --force-depends texlive-lang-other texlive-latex-extra tex-common texlive-fonts-recommended texlive-pictures texlive-metapost
+
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     apt-utils \
