@@ -25,7 +25,13 @@ docker run -e PASSWORD=<PASSWORD> --rm -v /home/jose/test/nes_connectivity_p/:/h
 docker ps
 docker exec -ti <NAME> /bin/bash
 setwd("nes_connectivity_p")
+
+# build all
 make -B all
+
+# or test metrics creation
+dir.create(file.path(rappdirs::user_data_dir(), "test"), recursive = TRUE)
+example("calc_metrics", package = "streamnet", run.dontrun = TRUE)
 ```
 
 #### Data requirements
