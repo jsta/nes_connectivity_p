@@ -25,3 +25,7 @@ RUN Rscript -e "dir.create(rappdirs::user_data_dir(), recursive = TRUE)"
 RUN Rscript -e "streamnet:::install_grass_extensions()"
 
 RUN Rscript -e "LAGOSNE::lagosne_get('1.087.1')"
+
+RUN Rscript -e "LAGOSNEgis::lagosnegis_get()"
+
+RUN Rscript -e "nlaR::nla_get(2012, use_rappdirs = TRUE)"
