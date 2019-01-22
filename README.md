@@ -30,8 +30,7 @@ setwd("nes_connectivity_p")
 make -B all
 
 # or test metrics creation
-dir.create(file.path(rappdirs::user_data_dir(), "test"), recursive = TRUE)
-example("calc_metrics", package = "streamnet", run.dontrun = TRUE)
+Rscript -e 'dir.create(file.path(rappdirs::user_data_dir(), "test"), recursive = TRUE); example("calc_metrics", package = "streamnet", run.dontrun = TRUE)'
 ```
 
 #### Data requirements
