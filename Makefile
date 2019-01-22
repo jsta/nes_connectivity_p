@@ -81,3 +81,6 @@ tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd scripts/tab
 	
 scripts/table_1.csv: scripts/table_1.R
 	Rscript scripts/table_1.R
+
+test: 
+	Rscript -e 'dir.create(rappdirs::user_data_dir(), recursive = TRUE); example("calc_metrics", package = "streamnet", run.dontrun = TRUE)'
