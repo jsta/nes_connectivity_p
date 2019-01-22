@@ -19,3 +19,9 @@ RUN tlmgr install beamer translator beamerposter type1cm fp pgfplots subfiles pb
 RUN Rscript -e "source('https://cdn.rawgit.com/road2stat/liftrlib/aa132a2d/install_cran.R');install_cran(c('LAGOSNE','brms','dplyr','tidyr','modelr','data.tree','ggplot2','cowplot','nesRdata','pinp','nlaR','pheatmap','USAboundaries','partykit','corrr'))"
 
 RUN Rscript -e "source('https://cdn.rawgit.com/road2stat/liftrlib/aa132a2d/install_remotes.R');install_remotes(c('jsta/nhdR','jsta/spnetwork','jsta/streamnet','jsta/rgrass7sf','mjskay/tidybayes@v0.12.1.9000'))"
+
+RUN Rscript -e "dir.create(rappdirs::user_data_dir(), recursive = TRUE)"
+
+RUN Rscript -e "streamnet:::install_grass_extensions()"
+
+RUN Rscript -e "LAGOSNE::lagosne_get('1.087.1')"
