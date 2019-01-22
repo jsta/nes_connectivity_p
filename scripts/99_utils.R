@@ -3,7 +3,6 @@
 
 library(nlaR)
 library(pheatmap)
-library(superheat)
 suppressPackageStartupMessages(library(corrr))
 library(LAGOSNE)
 library(nesRdata)
