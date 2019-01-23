@@ -18,7 +18,7 @@ name_key <- data.frame(
     "Total Phosphorus (ug/L)", "Chlorophyll (ug/L)", "Secchi Depth (m)",
     "P Loading (kg/yr)", "P Retention", "Residence Time (yr)",
     "Lake Area (km2)", "Maximum Depth (m)", "Agricultural Landuse (%)", "Urban Landuse %", 
-    "Lake Subwatershed Area (km2)", "Lake Watershed Area (km2)"), 
+    "Lake Subwatershed Area (${km^2}$)", "Lake Watershed Area (${km^2}$)"), 
   digits = c(2, 0, 2, 
              0, 2, 2, 
              2, 1, 2, 2, 
@@ -83,6 +83,7 @@ knitr::kable(res, format = 'pandoc', align = c("lllll"))
 # ---- model_results_table ----
 # table showing model results
 # setwd("scripts/")
+# source("99_utils.R")
 library(dplyr)
 library(kableExtra)
 
@@ -90,8 +91,11 @@ res <- read.csv("../scripts/table_1.csv", stringsAsFactors = FALSE)
 res <- res[, c("parameter", "units", "scale", "conny_type", "d_k", "splits", "n_low", "n_high")]
 model_signif <- read.csv("../scripts/model_signif.csv", 
                          stringsAsFactors = FALSE)
-model_signif$scale[model_signif$scale == "iws"] <- "lws"
+model_signif$scale[model_signif$scale == "iws"] <- "SWS"
+model_signif$scale[model_signif$scale == "nws"] <- "WS"
 model_signif$scale[is.na(model_signif$scale)] <- "focal"
+res$scale[res$scale == "lws"] <- "SWS"
+res$scale[res$scale == "nws"] <- "WS"
 
 key2 <- data.frame(conny_type = unique(as.character(res$conny_type)), 
                    conny_full = c("Longitudinal", "Lateral", "-"))

@@ -645,6 +645,13 @@ THE ABSTRACT\vskip12pt}\let\go\relax\fi
 
 %% \interlinepenalty=10000
 
+\makeatletter
+\newcommand{\customlabel}[2]{%
+   \protected@write \@auxout {}{\string \newlabel {#1}{{#2}{\thepage}{#2}{#1}{}} }%
+   \hypertarget{#1}{#2}
+}
+\makeatother
+
 \endinput
 
 %%% END pnasresearcharticle
