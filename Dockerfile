@@ -21,8 +21,10 @@ RUN Rscript -e "source('https://cdn.rawgit.com/road2stat/liftrlib/aa132a2d/insta
 RUN Rscript -e "source('https://cdn.rawgit.com/road2stat/liftrlib/aa132a2d/install_remotes.R');install_remotes(c('jsta/nhdR','jsta/spnetwork','jsta/streamnet','jsta/rgrass7sf','mjskay/tidybayes@v0.12.1.9000','drsimonj/corrr@v0.2.1','jsta/LAGOSNEgis'))"
 
 RUN useradd -ms /bin/bash jose
+RUN usermod -u 1000 jose
+# RUN adduser jose root
 USER jose
-WORKDIR /home/jose
+WORKDIR /home/jose/nes_connectivity_p
 
 RUN Rscript -e "dir.create(rappdirs::user_data_dir(), recursive = TRUE)"
 
