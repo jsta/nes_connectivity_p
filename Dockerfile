@@ -27,3 +27,5 @@ RUN Rscript -e "streamnet:::install_grass_extensions()"
 RUN Rscript -e "LAGOSNE::lagosne_get('1.087.1')"
 
 RUN Rscript -e "nlaR::nla_get(2012, use_rappdirs = TRUE)"
+
+RUN useradd -ms /bin/bash jose
