@@ -42,3 +42,6 @@ manuscript/*cover-letter.md
 manuscript/*.log
 manuscript/manuscript.tex
 manuscript/grayscale_figures.tex
+manuscript/manuscript_cache/
+manuscript/manuscript_files/
+manuscript/03_lno_submission.pdf
