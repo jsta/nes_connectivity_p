@@ -21,15 +21,15 @@ Run the following commands with Git and Docker installed:
 ```
 git pull https://github.com/jsta/nes_connectivity_p.git
 cd nes_connectivity_p
-docker run -e PASSWORD=<PASSWORD> --rm -v /home/jose/test/nes_connectivity_p/:/home/rstudio/nes_connectivity_p jsta/stachelek_soranno_2019
+docker run -e PASSWORD=<PASSWORD> --rm -v /home/jose/test/nes_connectivity_p/:/home/rstudio/nes_connectivity_p -v ~/.local/share/LAGOS-GIS:/home/rstudio/.local/share/LAGOS-GIS jsta/stachelek_soranno_2019
 docker ps
 docker exec -ti --user root <NAME> /bin/bash
 setwd("nes_connectivity_p")
 
+# test metrics calculations
+make test
+
 # build all
 make -B all
-
-# or test metrics creation
-Rscript -e 'dir.create(file.path(rappdirs::user_data_dir(), "test"), recursive = TRUE); example("calc_metrics", package = "streamnet", run.dontrun = TRUE)'
 ```
 
