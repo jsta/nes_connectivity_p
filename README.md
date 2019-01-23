@@ -22,10 +22,11 @@ Run the following commands with Git and Docker installed:
 git pull https://github.com/jsta/nes_connectivity_p.git
 cd nes_connectivity_p
 docker pull jsta/stachelek_soranno_2019
-docker run -e PASSWORD=<PASSWORD> --rm -v /home/jose/test/nes_connectivity_p/:/home/jose/nes_connectivity_p -v ~/.local/share/LAGOS-GIS:/home/jose/.local/share/LAGOS-GIS -v ~/Documents/Science/Data/lagos_gis/:/home/jose/Documents/Science/Data/lagos_gis/ jsta/stachelek_soranno_2019
+docker run -e PASSWORD=<PASSWORD> --rm --user root -v ~/.local/share/LAGOS-GIS:/home/jose/.local/share/LAGOS-GIS jsta/stachelek_soranno_2019
 docker ps
-docker exec -ti --user root <NAME> /bin/bash
-setwd("nes_connectivity_p")
+docker exec -ti <NAME> /bin/bash
+su - jose
+cd nes_connectivity_p
 
 # test metrics calculations
 make test
