@@ -8,8 +8,10 @@ data:
 Dockerfile: manuscript/manuscript.Rmd
 	Rscript -e "liftr::lift('$<', output_dir = '.')"
 
-manuscript/manuscript.pdf: manuscript/manuscript.Rmd
+manuscript/manuscript.pdf: manuscript/manuscript.Rmd manuscript/pinp.cls manuscript/appendix.pdf
 	Rscript -e "rmarkdown::render('$<')"
+	pdftk manuscript/manuscript.pdf manuscript/appendix.pdf cat output manuscript/manuscript2.pdf
+	mv manuscript/manuscript2.pdf manuscript/manuscript.pdf
 
 figures: manuscript/figures.pdf manuscript/appendix.pdf manuscript/grayscale_figures.pdf
 
