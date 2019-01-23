@@ -643,6 +643,8 @@ THE ABSTRACT\vskip12pt}\let\go\relax\fi
 %% doi command or bibliography with thanks to Achim Zeileis for the hint
 \newcommand{\doi}[1]{\href{http://dx.doi.org/#1}{\normalfont\texttt{doi:\discretionary{}{}{}#1}}}
 
+%% \interlinepenalty=10000
+
 \endinput
 
 %%% END pnasresearcharticle
