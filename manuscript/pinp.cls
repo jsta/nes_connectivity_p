@@ -158,7 +158,7 @@
 % from below
 %\definecolor{pnasbluetext}{RGB}{0,101,165} %
 %\definecolor{pnasblueback}{RGB}{205,217,235} %
-\RequirePackage[colorlinks=true, allcolors=pnasbluetext, draft]{hyperref}
+\RequirePackage[colorlinks=true, allcolors=pnasbluetext]{hyperref}
 
 %% Set up main title page fonts 
 \newcommand{\headerfont}{\normalfont\sffamily\fontsize{7}{9} \selectfont}
