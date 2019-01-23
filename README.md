@@ -6,10 +6,6 @@ Code and data for:
 
 ### Products
 
-Figures: [manuscript/figures.pdf](manuscript/figures.pdf)
-
-Appendix: [manuscript/appendix.pdf](manuscript/appendix.pdf)
-
 Pre-print Manuscript: [manuscript/manuscript.pdf](manuscript/manuscript.pdf)
 
 ### Reproducibility
@@ -19,19 +15,6 @@ The full system and R environment required to reproduce the paper and analyses i
 Run the following commands with Git and Docker installed:
 
 ```
-git pull https://github.com/jsta/nes_connectivity_p.git
-cd nes_connectivity_p
-docker pull jsta/stachelek_soranno_2019
-docker run -e PASSWORD=<PASSWORD> --rm --user root -v ~/.local/share/LAGOS-GIS:/home/jose/.local/share/LAGOS-GIS jsta/stachelek_soranno_2019
-docker ps
-docker exec -ti <NAME> /bin/bash
-su - jose
-cd nes_connectivity_p
 
-# test metrics calculations
-make test
-
-# build all
-make -B all
 ```
 
