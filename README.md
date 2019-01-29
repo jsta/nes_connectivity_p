@@ -17,4 +17,3 @@ Run the following commands with Git and Docker installed:
 ```
 
 ```
-
