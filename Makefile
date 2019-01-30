@@ -13,7 +13,7 @@ manuscript/manuscript.pdf: manuscript/manuscript.Rmd manuscript/pinp.cls manuscr
 	pdftk manuscript/manuscript.pdf manuscript/appendix.pdf cat output manuscript/manuscript2.pdf
 	mv manuscript/manuscript2.pdf manuscript/manuscript.pdf
 
-figures: manuscript/figures.pdf manuscript/appendix.pdf manuscript/grayscale_figures.pdf
+figures: manuscript/figures.pdf manuscript/appendix.pdf
 
 manuscript/appendix.pdf: manuscript/appendix.Rmd
 	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
