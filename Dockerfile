@@ -11,7 +11,8 @@ RUN apt-get update \
     curl \
     libmagick++-dev \
     imagemagick \
-    pdftk
+    pdftk \
+    gnupg2
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 
