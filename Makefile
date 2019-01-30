@@ -3,7 +3,7 @@
 all: manuscript/manuscript.pdf figures tables scripts/table_1.csv
 
 data: 
-	cd data && make all
+	$(MAKE) -C data all
 
 Dockerfile: manuscript/manuscript.Rmd
 	Rscript -e "liftr::lift('$<', output_dir = '.')"

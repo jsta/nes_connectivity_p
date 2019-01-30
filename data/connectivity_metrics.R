@@ -48,7 +48,7 @@ pull_iws <- function(lagoslakeid, maxsteps = 15){
   
   lg        <- lagosne_load("1.087.1")
   wb_coords <- as.numeric(
-    lake_info(lg, lagoslakeid = lagoslakeid)[,c("nhd_long", "nhd_lat")])
+    lake_info(dt = lg, lagoslakeid = lagoslakeid)[,c("nhd_long", "nhd_lat")])
 
   names(lines) <- tolower(names(lines))
   extract_network(wb_coords[1], wb_coords[2], lines = lines, maxsteps = maxsteps)
@@ -58,7 +58,7 @@ pull_nws <- function(lagoslakeid, map = FALSE, maxsteps = 15, buffer_dist = 0.01
     print(lagoslakeid)
     lg        <- lagosne_load("1.087.1")
     wb_coords <- as.numeric(
-      LAGOSNE::lake_info(lg, lagoslakeid = lagoslakeid)[,c("nhd_long", "nhd_lat")])
+      LAGOSNE::lake_info(dt = lg, lagoslakeid = lagoslakeid)[,c("nhd_long", "nhd_lat")])
     
     extract_network(wb_coords[1], wb_coords[2], maxsteps = maxsteps, 
                     buffer_dist = buffer_dist, approve_all_dl = TRUE)
@@ -179,6 +179,7 @@ if(length(cmdargs) > 0){
 }
   
 res   <- lapply(nes_x_lagos$lagoslakeid, function(x) {
+  # x <- 6979
   # add a test to exclude coastal lakes?
   tryCatch({
     lines <- pull_nws(x, maxsteps = Inf)
