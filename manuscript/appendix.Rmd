@@ -199,21 +199,21 @@ ggplot() +
 # , message=FALSE, warning=FALSE
 nla <- nla_load(2012)
 
-tp <- select(nla$waterchem_wide, PTL_RESULT, UID) %>%
+tp <- dplyr::select(nla$waterchem_wide, PTL_RESULT, UID) %>%
       left_join(select(nla$wide_siteinfo, AREA_HA, SITE_ID, UID)) %>%
       group_by(SITE_ID) %>%
       summarize(tp = median(PTL_RESULT), area = median(AREA_HA) / 100)
 
-chl  <- select(nla$chla_wide, CHLX_RESULT, UID)  %>%
+chl  <- dplyr::select(nla$chla_wide, CHLX_RESULT, UID)  %>%
         left_join(select(nla$wide_siteinfo, SITE_ID, UID)) %>%
         group_by(SITE_ID) %>%
         summarize(chl = median(CHLX_RESULT))
 
-secchi  <- select(nla$secchi, SECCHI, SITE_ID)  %>%
+secchi  <- dplyr::select(nla$secchi, SECCHI, SITE_ID)  %>%
            group_by(SITE_ID) %>%
            summarize(secchi = median(SECCHI))
 
-depth <- select(nla$wide_phab, DEPTH_AT_STATION, SITE_ID)  %>%
+depth <- dplyr::select(nla$wide_phab, DEPTH_AT_STATION, SITE_ID)  %>%
            group_by(SITE_ID) %>%
            summarize(depth = median(DEPTH_AT_STATION))
 
@@ -222,7 +222,7 @@ nla <- reduce(list(tp, chl, secchi, depth), left_join)
 nla <- gather(select(nla, -SITE_ID), variable, value)
 nla$id <- "nla"
 
-nes <- select(nes_iws, tp, area = surface_area, chl, secchi, depth = maxdepth)
+nes <- dplyr::select(nes_iws, tp, area = surface_area, chl, secchi, depth = maxdepth)
 nes$tp <- 1000 * nes$tp # mg to ug
 nes <- gather(nes, variable, value)
 nes$id <- "nes"
