@@ -10,7 +10,8 @@ RUN apt-get update \
     p7zip-full \
     curl \
     libmagick++-dev \
-    imagemagick
+    imagemagick \
+    pdftk
 
 RUN Rscript -e "install.packages(c('devtools','knitr','rmarkdown','shiny','RCurl'), repos = 'https://cran.rstudio.com')"
 
