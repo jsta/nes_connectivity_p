@@ -71,6 +71,7 @@ figures/08_maps-1.pdf: figures/08_maps.Rmd
 	rm figures/08_maps.pdf
 
 tables: manuscript/tables.pdf
+	$(MAKE) -C tables png
 
 manuscript/tables.pdf: tables/01_lake_characteristics_table.pdf tables/02_model_results_table.pdf
 	pdftk $^ cat output manuscript/tables.pdf
@@ -84,5 +85,5 @@ tables/02_model_results_table.pdf: tables/02_model_results_table.Rmd scripts/tab
 scripts/table_1.csv: scripts/table_1.R
 	Rscript scripts/table_1.R
 
-test: 
+test_calc_metrics: 
 	Rscript -e 'dir.create(rappdirs::user_data_dir(), recursive = TRUE); example("calc_metrics", package = "streamnet", run.dontrun = TRUE)'
