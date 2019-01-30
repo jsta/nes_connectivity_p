@@ -26,7 +26,7 @@ manuscript/figures.pdf: manuscript/figures.Rmd figures/01_conceptual_p-cycle_pt2
 	-mv manuscript/figures2.pdf manuscript/figures.pdf
 	
 manuscript/grayscale_figures.pdf: manuscript/grayscale_figures.Rmd manuscript/figures.pdf
-	Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
+	-Rscript -e "rmarkdown::render('$<', output_format = 'pdf_document')"
 	-pdftk manuscript/grayscale_figures.pdf cat 2-end output manuscript/figures2.pdf
 	-mv manuscript/figures2.pdf manuscript/grayscale_figures.pdf
 
