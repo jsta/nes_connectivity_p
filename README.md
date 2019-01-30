@@ -15,5 +15,14 @@ The full system and R environment required to reproduce the paper and analyses i
 Run the following commands with Git and Docker installed:
 
 ```
+docker run --rm -e PASSWORD=<PASSWORD> jsta/stachelek_soranno_2019
+docker ps # note container "code name"
+docker exec -ti <NAME> /bin/bash
+cd nes_connectivity_p
 
+# build analysis from precomputed connectivity metrics
+make -B all
+
+# test connectivity metric calculations
+make test_calc_metrics
 ```
