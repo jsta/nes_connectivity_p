@@ -74,7 +74,8 @@ if(!file.exists(milstead_path)){
              sf::st_covers(states, nhd_plus),
              function(x) length(x)) > 0),]
  
-  nhd <- nhdR::nhd_load(state.abb[tolower(state.name) %in% states$ID], "NHDWaterbody")
+  nhd <- nhdR::nhd_load(state.abb[tolower(state.name) %in% states$ID], "NHDWaterbody", 
+                        approve_all_dl = TRUE)
   nhd$GNIS_ID <- sapply(as.character(nhd$GNIS_ID), function(x) substring(x, 3, nchar(x)))
   nhd <- nhd[!is.na(nhd$ReachCode),]
   st_geometry(nhd) <- NULL
@@ -192,12 +193,10 @@ nes_nws$percent_ag <- nes_iws$iws_nlcd1992_pct_81 + nes_iws$iws_nlcd1992_pct_82
 ggplot() + 
   geom_point(data = nes_nws, aes(x = percent_ag, y = p_percent_retention)) +
   xlab("Percent Agriculture") + ylab("P Retention")
-
 ```
 
 ```{r nes_vs_nla, fig.cap="\\label{fig:fig3}Comparison of selected lake characteristics among the stratified random sampling design of the National Lakes Assessment (nla) and the haphazard sampling of the National Eutrophication Survey (nes) lakes analyzed in the present study.", fig.height=4, warning=FALSE, message=FALSE}
-# , message=FALSE, warning=FALSE
-nla <- nla_load(2012)
+nla <- nlaR::nla_load(2012)
 
 tp <- dplyr::select(nla$waterchem_wide, PTL_RESULT, UID) %>%
       left_join(select(nla$wide_siteinfo, AREA_HA, SITE_ID, UID)) %>%
