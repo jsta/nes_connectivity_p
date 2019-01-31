@@ -1,4 +1,4 @@
-[![Paper DOI](https://img.shields.io/badge/Paper-10.1002/lno.11137-blue.svg)](https://doi.org/10.1002/lno.11137) [![Docker Build](https://img.shields.io/docker/build/jsta/stachelek_soranno_2019.svg)](https://cloud.docker.com/repository/docker/jsta/stachelek_soranno_2019)
+[![Paper DOI](https://img.shields.io/badge/Paper-10.1002/lno.11137-blue.svg)](https://doi.org/10.1002/lno.11137) [![Code DOI](https://zenodo.org/badge/123951266.svg)](https://zenodo.org/badge/latestdoi/123951266) [![Docker Build](https://img.shields.io/badge/Docker%20Image-jsta/stachelek--soranno--2019-green.svg)](https://cloud.docker.com/repository/docker/jsta/stachelek_soranno_2019)
 
 Code and data for:
 
