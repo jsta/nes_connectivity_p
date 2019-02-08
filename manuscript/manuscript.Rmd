@@ -21,7 +21,7 @@ date_subtitle: >
 lead_author_surname: Stachelek and Soranno
 
 # Place eg a DOI URL or CRAN Package URL here
-doi_footer: "https://doi.org/ZenodoDOI"
+doi_footer: "https://doi.org/10.5281/zenodo.2554212"
 
 # Abstract
 abstract: |
@@ -161,7 +161,7 @@ To examine the importance of spatial extent relative to our connectivity metrics
 
 All connectivity metrics were calculated using the high-resolution National Hydrography Dataset (NHD) as a primary input \citep{usgsNationalHydrographyDataset2018}. Average link length was calculated as the total stream length in a given watershed divided by the number of stream reaches after dissolving (removing) any network points that do not occur at a stream junction. Stream density was calculated as the length of all streams in the watershed (minus artificial lines through lakes) expressed in units of meters per hectare. Upstream lake area was calculated as the sum of the lake area in the upstream watershed expressed in square meters. Stream order ratio was defined as the number of headwater (first-order) streams in the upstream watershed of the focal lake divided by the total number of higher order (> 1) streams \citep{labarberaFractalDimensionStream1989}. Closest distance to an upstream lake was defined as the shortest path-distance (rather than the straight-line distance) to a lake upstream from the focal lake. 
 
-We calculated all connectivity metrics and lake watershed extents using the `streamnet` and `nhdR` R packages respectively \citep{R-streamnet, R-nhdR}. The algorithms in the `streamnet` package use the `sf` R package \citep{pebesma2018} as well as the `v.net` and `v.stream.order` modules \citep{jasiewiczNewGRASSGIS2011} included in GRASS GIS \citep{GRASS_GIS_software}. All processed connectivity data and code are available at [Zenodo DOI].
+We calculated all connectivity metrics and lake watershed extents using the `streamnet` and `nhdR` R packages respectively \citep{R-streamnet, R-nhdR}. The algorithms in the `streamnet` package use the `sf` R package \citep{pebesma2018} as well as the `v.net` and `v.stream.order` modules \citep{jasiewiczNewGRASSGIS2011} included in GRASS GIS \citep{GRASS_GIS_software}. All processed connectivity data and code are available at https://doi.org/10.5281/zenodo.2554212.
 
 ### Modelling lake P retention
 
