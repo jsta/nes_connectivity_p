@@ -169,7 +169,7 @@ We modelled lake total phosphorus retention (hereafter, P retention) using the V
 shown to have good performance in multiple cross-sectional studies \citep{brett2008, cheng2010}:
 
 \begin{align}
-  Ri = 1 - \frac{1}{1 + kt^{x}_{i}} \label{eq1}
+  R_{i} = 1 - \frac{1}{1 + k\tau^{x}_{i}} \label{eq1}
 \end{align}
 
 where $R_i$ is P retention as a fraction of P inputs, $\tau$ is water residence time, $k$ is a unitless parameter representing in-lake P decay, and $x$ is a unitless parameter representing P export via hydrologic flushing. Here, higher values of $k$ are associated with greater integrated P losses from sedimentation and biological uptake resulting in greater P retention. Note that Eq \ref{eq1} does not include a recycling term. Therefore, our results represent net P retention (as opposed to gross P retention) under a steady state assumption where lakes are at equilibrium with respect to recycling \citep{vollenweiderInputoutputModels1975}. Note that although some forms of the Vollenweider equation use P loading as a predictor variable, it does not appear in Eq \ref{eq1}. The reason for this is two-fold. First, estimates of P loading are more difficult to obtain than estimates of water residence time and our aim was to develop a model than can be widely applied to lakes for which we lack detailed data on P loading. Second, loading based model forms have been shown to be mathematically equivalent to water residence time based model forms \citep{brett2008}.
@@ -177,7 +177,7 @@ where $R_i$ is P retention as a fraction of P inputs, $\tau$ is water residence 
 We used the model described by Eq 1 to compare lake P retention in lakes with different connectivity by fitting the model in two ways. First, we modelled the overall relationship between P retention and water residence time for all lakes in our dataset (global model). Second, we fit hierarchical versions of Eq. 1 where $k$ was modelled separately ($k_{j}$) as a function of a binary sub-population indicator $g_{i}$ denoting membership in one of two lake classes formed on the basis of specific connectivity metrics (or lake depth) and specific spatial extents:
 
 \begin{align}
-  Ri = 1 - \frac{1}{1 + k_{j}t^{x}_{i}} \label{eq2} \\
+  R_{i} = 1 - \frac{1}{1 + k_{j}\tau^{x}_{i}} \label{eq2} \\
   k_{j} = g_{i}
 \end{align}
 
