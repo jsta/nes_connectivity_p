@@ -3,7 +3,7 @@ title: Does freshwater connectivity influence phosphorus retention in lakes?
 
 # Use letters for affiliations
 author:
-  - name: Joseph Stachelek
+  - name: Jemma Stachelek
     affiliation: a
   - name: Patricia A. Soranno
     affiliation: a

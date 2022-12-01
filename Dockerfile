@@ -2,7 +2,7 @@ FROM rocker/geospatial:latest
 ARG DEBIAN_FRONTEND=noninteractive
 ARG LANG=C
 
-MAINTAINER "Joseph Stachelek" stachel2@msu.edu
+MAINTAINER "Jemma Stachelek" stachel2@msu.edu
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
